@@ -6,7 +6,7 @@
 <title>BobdoEduc — Apprends. Progresse. Réussis.</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-/*  VARIABLES (même charte que BobdoQuiz, couleur accent changée)  */
+/* ═══ VARIABLES (même charte que BobdoQuiz, couleur accent changée) ═══ */
 :root {
   --blue:#1A73E8; --blue-l:#4D94FF; --blue-d:#1557B0;
   --gold:#E8B923; --gold-d:#C49A10;
@@ -25,13 +25,13 @@ button{cursor:pointer;border:none;outline:none;font-family:inherit}
 input,select,textarea{font-family:inherit;outline:none;border:none;background:none;color:var(--text)}
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--blue-d);border-radius:2px}
 
-/*  VIEWS & APP  */
+/* ═══ VIEWS & APP ═══ */
 .view{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center}
 .view.on{display:flex}
 #app{display:none;flex-direction:column;min-height:100vh;max-width:480px;margin:0 auto;box-shadow:0 0 80px rgba(0,0,0,.8)}
 #app.on{display:flex}
 
-/*  SPLASH  */
+/* ═══ SPLASH ═══ */
 #splash{background:var(--bg);position:fixed;inset:0;z-index:1000;flex-direction:column;gap:14px}
 .sp-logo{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,9vw,4.5rem);font-weight:800;letter-spacing:-2px}
 .sp-logo span{color:var(--blue)}
@@ -40,7 +40,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .sp-fill{height:100%;background:linear-gradient(90deg,var(--blue-d),var(--blue));animation:sp 2.2s ease forwards}
 @keyframes sp{from{width:0}to{width:100%}}
 
-/*  AUTH  */
+/* ═══ AUTH ═══ */
 .auth-box{width:100%;max-width:420px;padding:24px 20px}
 .a-logo{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;text-align:center;margin-bottom:4px}
 .a-logo span{color:var(--blue)}
@@ -51,7 +51,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .f{display:none;flex-direction:column;gap:13px}
 .f.on{display:flex}
 
-/*  FIELDS  */
+/* ═══ FIELDS ═══ */
 .fg{display:flex;flex-direction:column;gap:5px}
 .fl{font-size:.7rem;font-weight:600;letter-spacing:.5px;color:var(--text2);text-transform:uppercase}
 .fw{position:relative;display:flex;align-items:center}
@@ -61,13 +61,13 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .fi.pfx{padding-left:54px}
 .pfx-l{position:absolute;left:12px;color:var(--blue);font-weight:600;font-size:.86rem;pointer-events:none}
 .fi-eye{position:absolute;right:12px;cursor:pointer;color:var(--text3);user-select:none}
-.otp-row{display:flex;gap:7px}
-.oi{flex:1;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--rs);padding:12px 0;text-align:center;color:var(--text);font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;transition:var(--ease)}
-.oi:focus{border-color:var(--blue)}
+.otp-row{display:flex;gap:6px;width:100%;justify-content:center}
+.oi{width:42px;min-width:42px;max-width:42px;height:52px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--rs);padding:0;text-align:center;color:var(--text);font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;transition:var(--ease);-webkit-appearance:none;flex:none}
+.oi:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px rgba(26,115,232,.2)}
 .otp-hint{text-align:center;font-size:.74rem;color:var(--text3);margin-top:3px}
 .otp-hint span{color:var(--blue);cursor:pointer;font-weight:600}
 
-/*  BUTTONS  */
+/* ═══ BUTTONS ═══ */
 .btn{padding:12px 18px;border-radius:var(--rs);font-size:.9rem;font-weight:700;font-family:'Syne',sans-serif;transition:var(--ease);display:flex;align-items:center;justify-content:center;gap:6px;position:relative;overflow:hidden}
 .btn::after{content:'';position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .12s}
 .btn:active::after{opacity:.09}
@@ -83,14 +83,14 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .btn-w{width:100%}
 .btn-sm{padding:7px 12px;font-size:.76rem}
 
-/*  STEPS  */
+/* ═══ STEPS ═══ */
 .sdots{display:flex;gap:6px;margin-bottom:14px}
 .sd{flex:1;height:4px;background:var(--bg4);border-radius:2px;transition:var(--ease)}
 .sd.done{background:var(--blue)}.sd.curr{background:var(--blue-l)}
 .fs{display:none;flex-direction:column;gap:13px}
 .fs.on{display:flex}
 
-/*  TOP BAR  */
+/* ═══ TOP BAR ═══ */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--bg2);border-bottom:1px solid var(--border2);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
 .tb-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:-.5px}
 .tb-logo span{color:var(--blue)}
@@ -100,7 +100,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .ndot{position:absolute;top:3px;right:3px;width:7px;height:7px;background:var(--blue);border-radius:50%;border:1.5px solid var(--bg2);display:none}
 .av{width:32px;height:32px;background:linear-gradient(135deg,var(--blue-d),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.76rem;cursor:pointer}
 
-/*  MAIN + NAV  */
+/* ═══ MAIN + NAV ═══ */
 .main{flex:1;overflow-y:auto;padding-bottom:74px}
 .bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--bg2);border-top:1px solid var(--border2);display:flex;padding:7px 0 max(7px,env(safe-area-inset-bottom));z-index:100}
 .ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;cursor:pointer;transition:var(--ease)}
@@ -109,11 +109,11 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .ni.on .ni-ic{transform:translateY(-2px)}
 .ni.on .ni-lb{color:var(--blue);font-weight:700}
 
-/*  SCREENS  */
+/* ═══ SCREENS ═══ */
 .sc{display:none}
 .sc.on{display:block}
 
-/*  HOME  */
+/* ═══ HOME ═══ */
 .h-hero{background:linear-gradient(160deg,var(--bg2),var(--bg));padding:20px 16px 16px;border-bottom:1px solid var(--border2)}
 .h-greet{color:var(--text2);font-size:.82rem}
 .h-name{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800}
@@ -166,7 +166,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .cycle-a{background:linear-gradient(135deg,#14082A,#0D0519);border-color:rgba(124,58,237,.25)}
 .cycle-a .cc-icon{background:rgba(124,58,237,.15)}
 
-/*  QUIZ OVERLAY  */
+/* ═══ QUIZ OVERLAY ═══ */
 .qov{display:none;position:fixed;inset:0;z-index:500;background:var(--bg);flex-direction:column;max-width:480px;margin:0 auto}
 .qov.on{display:flex}
 .qhead{padding:13px 16px;border-bottom:1px solid var(--border2);background:var(--bg2);display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -195,7 +195,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .qexpl{margin-top:12px;background:rgba(26,115,232,.07);border-left:3px solid var(--blue);border-radius:0 var(--rs) var(--rs) 0;padding:11px;font-size:.82rem;color:var(--text2);display:none}
 .qexpl.on{display:block}
 
-/*  RESULT FLASH  */
+/* ═══ RESULT FLASH ═══ */
 .rf{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.5);background:var(--bg2);border-radius:var(--r);padding:24px 28px;text-align:center;z-index:700;border:2px solid var(--border2);opacity:0;transition:all .28s cubic-bezier(.175,.885,.32,1.275);pointer-events:none;min-width:170px}
 .rf.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .rf.ok{border-color:var(--green)}.rf.ko{border-color:var(--red)}
@@ -203,7 +203,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .rf-tx{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem}
 .rf-pt{font-size:.8rem;color:var(--text2);margin-top:2px}
 
-/*  QUIZ SUMMARY  */
+/* ═══ QUIZ SUMMARY ═══ */
 .qsum{display:none;position:fixed;inset:0;z-index:600;background:var(--bg);flex-direction:column;overflow-y:auto;max-width:480px;margin:0 auto}
 .qsum.on{display:flex}
 .qsh{padding:34px 20px 18px;text-align:center}
@@ -223,7 +223,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .ci-item.ok .ci-st{color:var(--green)}.ci-item.ko .ci-st{color:var(--red)}
 .ci-an{font-size:.79rem;color:var(--text2)}
 
-/*  PREMIUM WALL — Version B (paiement manuel)  */
+/* ═══ PREMIUM WALL — Version B (paiement manuel) ═══ */
 .paywall{display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);align-items:flex-end;justify-content:center;padding:0}
 .paywall.on{display:flex}
 .pw-box{background:var(--bg2);border-radius:20px 20px 0 0;padding:24px 20px 32px;width:100%;max-width:480px;border-top:3px solid var(--purple);max-height:92vh;overflow-y:auto;animation:su .35s cubic-bezier(.4,0,.2,1)}
@@ -260,8 +260,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .pw-pending .big-ic{font-size:2.2rem;margin-bottom:8px}
 .pw-pending h4{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px}
 .pw-pending p{font-size:.82rem;color:var(--text2)}
-
-/*  REVISION  */
+  /* ═══ REVISION ═══ */
 .ri{background:var(--bg3);border-radius:var(--r);padding:13px;margin-bottom:9px;border:1px solid var(--border2)}
 .ri-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
 .ri-dt{font-size:.7rem;color:var(--text3)}
@@ -270,7 +269,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .ri-q{font-weight:500;font-size:.88rem;margin-bottom:4px}
 .ri-a{font-size:.78rem;color:var(--green)}
 
-/*  LEADERBOARD  */
+/* ═══ LEADERBOARD ═══ */
 .lbp{display:flex;align-items:flex-end;justify-content:center;gap:9px;margin-bottom:22px}
 .lbpi{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;max-width:98px}
 .lbav{border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;color:#fff}
@@ -285,7 +284,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .lbrn{flex:1;font-weight:500;font-size:.86rem}
 .lbrp{font-family:'Syne',sans-serif;font-weight:800;color:var(--blue);font-size:.86rem}
 
-/*  PROFILE  */
+/* ═══ PROFILE ═══ */
 .prhd{display:flex;align-items:center;gap:13px;background:var(--bg3);border-radius:var(--r);padding:16px;margin-bottom:16px;border:1px solid var(--border2)}
 .prav{width:58px;height:58px;background:linear-gradient(135deg,var(--blue-d),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;flex-shrink:0}
 .prn{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem}
@@ -301,7 +300,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .mi-t{font-size:.88rem;font-weight:500}
 .marr{color:var(--text3);font-size:.76rem}
 
-/*  MODAL + TOAST + LOADING  */
+/* ═══ MODAL + TOAST + LOADING ═══ */
 .mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:800;backdrop-filter:blur(4px);align-items:flex-end;justify-content:center}
 .mbg.on{display:flex}
 .msh{background:var(--bg2);border-radius:20px 20px 0 0;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;animation:su .3s cubic-bezier(.4,0,.2,1)}
@@ -344,7 +343,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 
     <!-- État 1: Formulaire -->
     <div id="pw-form-state">
-      <div class="pw-title"> Passer en Premium</div>
+      <div class="pw-title">⭐ Passer en Premium</div>
       <div class="pw-sub" id="pw-sub">Effectuez un dépôt Mobile Money, puis remplissez ce formulaire. L'admin activera votre compte dans les 24h.</div>
 
       <!-- Numéro de dépôt de l'admin -->
@@ -358,14 +357,14 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
       <div class="fl" style="margin-bottom:9px">1. Choisir votre plan</div>
       <div class="plan-cards" style="margin-bottom:16px">
         <div class="plan-card" id="pc-m" onclick="selPlan('premium_monthly',this)">
-          <div class="plan-icon"></div>
+          <div class="plan-icon">📅</div>
           <div class="plan-name">Mensuel</div>
           <div class="plan-price">3 000<span> FCFA/mois</span></div>
           <div class="plan-desc">Accès 1 mois</div>
         </div>
         <div class="plan-card best" id="pc-y" onclick="selPlan('premium_yearly',this)">
-          <div class="plan-badge"> MEILLEUR</div>
-          <div class="plan-icon"></div>
+          <div class="plan-badge">⭐ MEILLEUR</div>
+          <div class="plan-icon">🏆</div>
           <div class="plan-name">Annuel</div>
           <div class="plan-price">15 000<span> FCFA/an</span></div>
           <div class="plan-desc">~1 250 FCFA/mois</div>
@@ -375,10 +374,18 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
       <!-- Opérateur utilisé -->
       <div class="fl" style="margin-bottom:9px">2. Opérateur utilisé pour le dépôt</div>
       <div class="pw-op-grid" style="margin-bottom:16px">
-        <div class="pw-op" onclick="selOp('orange',this)"><div class="ico"></div><div class="lb">Orange</div></div>
-        <div class="pw-op" onclick="selOp('moov',this)"><div class="ico"></div><div class="lb">Moov</div></div>
-        <div class="pw-op" onclick="selOp('wave',this)"><div class="ico"></div><div class="lb">Wave</div></div>
-        <div class="pw-op" onclick="selOp('telecel',this)"><div class="ico"></div><div class="lb">Telecel</div></div>
+        <div class="pw-op" onclick="selOp('orange',this)"><div class="ico">🟠</div><div class="lb">Orange</div></div>
+        <div class="pw-op" onclick="selOp('moov',this)"><div class="ico">🔵</div><div class="lb">Moov</div></div>
+        <div class="pw-op" onclick="selOp('wave',this)"><div class="ico">🟢</div><div class="lb">Wave</div></div>
+        <div class="pw-op" onclick="selOp('telecel',this)"><div class="ico">🔴</div><div class="lb">Telecel</div></div>
+      </div>
+
+      <!-- Formulaire preuve --><div class="fl" style="margin-bottom:9px">2. Opérateur utilisé pour le dépôt</div>
+      <div class="pw-op-grid" style="margin-bottom:16px">
+        <div class="pw-op" onclick="selOp('orange',this)"><div class="ico">🟠</div><div class="lb">Orange</div></div>
+        <div class="pw-op" onclick="selOp('moov',this)"><div class="ico">🔵</div><div class="lb">Moov</div></div>
+        <div class="pw-op" onclick="selOp('wave',this)"><div class="ico">🟢</div><div class="lb">Wave</div></div>
+        <div class="pw-op" onclick="selOp('telecel',this)"><div class="ico">🔴</div><div class="lb">Telecel</div></div>
       </div>
 
       <!-- Formulaire preuve -->
@@ -399,7 +406,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
       </div>
 
       <button class="btn btn-purple btn-w" style="margin-bottom:10px" onclick="submitPaymentProof()">
-         Soumettre la preuve de paiement 
+        📤 Soumettre la preuve de paiement →
       </button>
       <button class="btn btn-ghost btn-w btn-sm" onclick="closePaywall()">Fermer</button>
     </div>
@@ -407,12 +414,12 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
     <!-- État 2: Demande envoyée (confirmation) -->
     <div id="pw-sent-state" style="display:none">
       <div class="pw-pending">
-        <div class="big-ic"></div>
+        <div class="big-ic">📬</div>
         <h4>Demande envoyée !</h4>
         <p>Votre demande a été transmise à l'admin. Votre compte sera activé dans les <strong>24 heures</strong> après vérification du paiement.</p>
       </div>
       <div style="margin-top:16px;background:var(--bg3);border-radius:var(--r);padding:14px;font-size:.82rem;color:var(--text2)">
-        <div style="margin-bottom:6px"> <strong>Récapitulatif :</strong></div>
+        <div style="margin-bottom:6px">📋 <strong>Récapitulatif :</strong></div>
         <div id="pw-recap"></div>
       </div>
       <button class="btn btn-blue btn-w" style="margin-top:14px" onclick="closePaywall()">Fermer</button>
@@ -421,56 +428,73 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
   </div>
 </div>
 
-<!--  SPLASH  -->
+<!-- ═══════════ SPLASH ═══════════ -->
 <div class="view on" id="splash">
   <div class="sp-logo">Bobdo<span>Educ</span></div>
   <div class="sp-tag">Apprends · Progresse · Réussis</div>
   <div class="sp-bar"><div class="sp-fill"></div></div>
 </div>
 
-<!--  AUTH  -->
+<!-- ═══════════ AUTH ═══════════ -->
 <div class="view" id="auth-v" style="background:var(--bg);padding:20px">
   <div class="auth-box">
     <div class="a-logo">Bobdo<span>Educ</span></div>
-    <div class="a-sub">La plateforme de quiz éducatif au Burkina Faso <br>Quiz Cycle C, B et A — 20 gratuits, illimité en Premium</div>
+    <div class="a-sub">La plateforme de quiz éducatif au Burkina Faso 🇧🇫<br>Quiz Cycle C, B et A — 20 gratuits, illimité en Premium</div>
     <div class="tabs">
       <div class="tab on" onclick="stab('login')">Connexion</div>
       <div class="tab" onclick="stab('register')">Créer un compte</div>
     </div>
     <div class="f on" id="f-login">
-      <div class="fg"><div class="fl">Numéro de téléphone</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="lp" type="tel" placeholder="XX XX XX XX" maxlength="10" inputmode="numeric"></div></div>
-      <div class="fg"><div class="fl">Mot de passe</div><div class="fw"><input class="fi" id="lpw" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('lpw',this)"></span></div></div>
-      <button class="btn btn-blue btn-w" onclick="doLogin()">Se connecter </button>
+      <div style="display:flex;gap:8px;margin-bottom:4px">
+        <button id="btn-login-phone" class="btn btn-blue" style="flex:1;font-size:.78rem" onclick="switchLoginContact('phone')">📱 Téléphone</button>
+        <button id="btn-login-email" class="btn btn-ghost" style="flex:1;font-size:.78rem" onclick="switchLoginContact('email')">📧 Email</button>
+      </div>
+      <div id="login-phone-wrap">
+        <div class="fg"><div class="fl">Numéro de téléphone</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="lp" type="tel" placeholder="XX XX XX XX" maxlength="10" inputmode="numeric"></div></div>
+      </div>
+      <div id="login-email-wrap" style="display:none">
+        <div class="fg"><div class="fl">Email</div><input class="fi" id="le" type="email" placeholder="exemple@gmail.com"></div>
+      </div>
+      <div class="fg"><div class="fl">Mot de passe</div><div class="fw"><input class="fi" id="lpw" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('lpw',this)">👁</span></div></div>
+      <button class="btn btn-blue btn-w" onclick="doLogin()">Se connecter →</button>
       <div style="text-align:center;font-size:.76rem;color:var(--text3)">Mot de passe oublié ? <span onclick="openModal('forgot')" style="color:var(--blue);cursor:pointer;font-weight:600">Récupérer</span></div>
     </div>
     <div class="f" id="f-reg">
       <div class="sdots"><div class="sd curr" id="rd0"></div><div class="sd" id="rd1"></div><div class="sd" id="rd2"></div></div>
       <div class="fs on" id="rs1">
-        <div class="fg"><div class="fl">Votre numéro</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="rp" type="tel" placeholder="XX XX XX XX" maxlength="10" inputmode="numeric"></div></div>
-        <p style="font-size:.74rem;color:var(--text3)"> Un code OTP sera envoyé par SMS.</p>
-        <button class="btn btn-blue btn-w" onclick="sendOtp()">Envoyer le code OTP </button>
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <button id="btn-use-email" class="btn btn-ghost" style="flex:1;font-size:.78rem" onclick="switchContact('email')">📧 Email</button>
+          <button id="btn-use-phone" class="btn btn-blue" style="flex:1;font-size:.78rem" onclick="switchContact('phone')">📱 Téléphone</button>
+        </div>
+        <div id="input-phone-wrap">
+          <div class="fg"><div class="fl">Votre numéro</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="rp" type="tel" placeholder="XX XX XX XX" maxlength="10" inputmode="numeric"></div></div>
+          <p style="font-size:.74rem;color:var(--text3)">📱 Un code OTP sera envoyé par SMS.</p>
+        </div>
+        <div id="input-email-wrap" style="display:none">
+          <div class="fg"><div class="fl">Votre email</div><input class="fi" id="re" type="email" placeholder="exemple@gmail.com"></div>
+          <p style="font-size:.74rem;color:var(--text3)">📧 Un code OTP sera envoyé par email.</p>
+        </div>
+        <button class="btn btn-blue btn-w" onclick="sendOtp()">Envoyer le code OTP →</button>
       </div>
       <div class="fs" id="rs2">
         <div class="fg"><div class="fl">Code OTP reçu</div><div class="otp-row" id="otp-row"></div><div class="otp-hint">Expire dans <span id="otp-t">02:00</span> · <span onclick="sendOtp()">Renvoyer</span></div></div>
-        <button class="btn btn-blue btn-w" onclick="verifyOtp()">Vérifier </button>
+        <button class="btn btn-blue btn-w" onclick="verifyOtp()">Vérifier →</button>
       </div>
       <div class="fs" id="rs3">
         <div class="fg"><div class="fl">Pseudo (2 à 30 caractères)</div><input class="fi" id="rps" type="text" placeholder="Ex: Koné_BF"></div>
-        <div class="fg"><div class="fl">Mot de passe (8 min.)</div><div class="fw"><input class="fi" id="rpw" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('rpw',this)"></span></div></div>
-        <div class="fg"><div class="fl">Confirmer</div><div class="fw"><input class="fi" id="rpw2" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('rpw2',this)"></span></div></div>
-        <button class="btn btn-blue btn-w" onclick="doRegister()">Créer mon compte </button>
+        <div class="fg"><div class="fl">Mot de passe (8 min.)</div><div class="fw"><input class="fi" id="rpw" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('rpw',this)">👁</span></div></div>
+        <div class="fg"><div class="fl">Confirmer</div><div class="fw"><input class="fi" id="rpw2" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('rpw2',this)">👁</span></div></div>
+        <button class="btn btn-blue btn-w" onclick="doRegister()">Créer mon compte 🎉</button>
       </div>
     </div>
   </div>
-</div>
-
-<!--  APP  -->
+  </div><!-- ═══════════ APP ═══════════ -->
 <div id="app">
   <div class="topbar">
     <div class="tb-logo">Bobdo<span>Educ</span></div>
     <div class="tb-r">
-      <div class="prem-badge" id="prem-badge" style="display:none"> PREMIUM</div>
-      <div class="nb" onclick="openNotif ? openNotif() : null"><div class="ndot" id="ndot"></div></div>
+      <div class="prem-badge" id="prem-badge" style="display:none">⭐ PREMIUM</div>
+      <div class="nb" onclick="openNotif ? openNotif() : null">🔔<div class="ndot" id="ndot"></div></div>
       <div class="av" id="topav" onclick="gsc('profile')">BE</div>
     </div>
   </div>
@@ -480,7 +504,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
     <!-- HOME -->
     <div class="sc on" id="sc-home">
       <div class="h-hero">
-        <div class="h-greet">Bon retour </div>
+        <div class="h-greet">Bon retour 👋</div>
         <div class="h-name" id="h-name">Apprenant</div>
         <!-- Quota gratuit ou statut premium -->
         <div id="quota-card" class="quota-card">
@@ -491,12 +515,12 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
           <div class="qbar-bg"><div class="qbar-fill" id="qbar" style="width:0%"></div></div>
           <div class="qc-bottom">
             <div class="qc-msg" id="qc-msg">0 quiz restants</div>
-            <div class="qc-btn" onclick="showPaywall()">Passer Premium </div>
+            <div class="qc-btn" onclick="showPaywall()">Passer Premium →</div>
           </div>
         </div>
         <div id="prem-card" class="prem-card" style="display:none">
           <div class="pc-top">
-            <div class="pc-icon"></div>
+            <div class="pc-icon">⭐</div>
             <div><div class="pc-title">Abonnement Premium actif</div><div class="pc-end" id="pc-end">Expire le —</div></div>
           </div>
           <div class="pc-progress"><div class="pc-prog-fill" id="pc-prog" style="width:50%"></div></div>
@@ -511,40 +535,40 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
       <div class="cycles-grid">
         <div class="cycle-card cycle-c" onclick="startCycle('cycle_c')">
           <div class="cc-left">
-            <div class="cc-icon"></div>
+            <div class="cc-icon">🏫</div>
             <div>
               <div class="cc-title">Cycle C — Primaire</div>
-              <div class="cc-sub" style="color:rgba(0,168,84,.7)">CE1  CM2 · Lecture, Calcul, Sciences, Histoire...</div>
+              <div class="cc-sub" style="color:rgba(0,168,84,.7)">CE1 → CM2 · Lecture, Calcul, Sciences, Histoire...</div>
             </div>
           </div>
           <div class="cc-right">
-            <div class="cc-badge free"> Gratuit</div>
+            <div class="cc-badge free">✅ Gratuit</div>
             <div class="cc-arrow">›</div>
           </div>
         </div>
         <div class="cycle-card cycle-b" onclick="startCycle('cycle_b')">
           <div class="cc-left">
-            <div class="cc-icon"></div>
+            <div class="cc-icon">📚</div>
             <div>
               <div class="cc-title">Cycle B — 1er Cycle</div>
-              <div class="cc-sub" style="color:rgba(26,115,232,.7)">6ème  3ème · Maths, SVT, Histoire-Géo, Anglais...</div>
+              <div class="cc-sub" style="color:rgba(26,115,232,.7)">6ème → 3ème · Maths, SVT, Histoire-Géo, Anglais...</div>
             </div>
           </div>
           <div class="cc-right">
-            <div class="cc-badge premium" id="cb-badge"> Premium</div>
+            <div class="cc-badge premium" id="cb-badge">⭐ Premium</div>
             <div class="cc-arrow">›</div>
           </div>
         </div>
         <div class="cycle-card cycle-a" onclick="startCycle('cycle_a')">
           <div class="cc-left">
-            <div class="cc-icon"></div>
+            <div class="cc-icon">🎓</div>
             <div>
               <div class="cc-title">Cycle A — 2nd Cycle</div>
-              <div class="cc-sub" style="color:rgba(124,58,237,.7)">2nde  Terminale · Philo, Éco, Physique-Chimie...</div>
+              <div class="cc-sub" style="color:rgba(124,58,237,.7)">2nde → Terminale · Philo, Éco, Physique-Chimie...</div>
             </div>
           </div>
           <div class="cc-right">
-            <div class="cc-badge premium" id="ca-badge"> Premium</div>
+            <div class="cc-badge premium" id="ca-badge">⭐ Premium</div>
             <div class="cc-arrow">›</div>
           </div>
         </div>
@@ -554,7 +578,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
     <!-- REVISION -->
     <div class="sc" id="sc-revision">
       <div class="pp">
-        <div class="ph"> Mes Révisions</div>
+        <div class="ph">📖 Mes Révisions</div>
         <div class="psub">Corrections sauvegardées — ces questions ne reviennent jamais.</div>
         <div id="rev-list"><div style="color:var(--text3);text-align:center;padding:40px 0;font-size:.83rem">Chargement...</div></div>
       </div>
@@ -563,7 +587,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
     <!-- LEADERBOARD -->
     <div class="sc" id="sc-leaderboard">
       <div class="pp">
-        <div class="ph"> Classement</div>
+        <div class="ph">🏆 Classement</div>
         <div class="lbp" id="lbp"></div>
         <div id="lbl"></div>
       </div>
@@ -572,39 +596,39 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
     <!-- ABONNEMENT -->
     <div class="sc" id="sc-subscription">
       <div class="pp">
-        <div class="ph"> Mon Abonnement</div>
+        <div class="ph">⭐ Mon Abonnement</div>
         <div id="sub-content"><div style="color:var(--text2);text-align:center;padding:40px 0">Chargement...</div></div>
       </div>
     </div>
-
     <!-- PROFIL -->
     <div class="sc" id="sc-profile">
       <div class="pp">
         <div class="prhd">
           <div class="prav" id="pr-av">BE</div>
-          <div><div class="prn" id="pr-n">—</div><div class="prp" id="pr-ph">—</div><div class="prl free" id="pr-l"> Gratuit</div></div>
+          <div><div class="prn" id="pr-n">—</div><div class="prp" id="pr-ph">—</div><div class="prl free" id="pr-l">🎓 Gratuit</div></div>
         </div>
         <div class="msec-t">Compte</div>
-        <div class="mrow" onclick="openModal('editPseudo')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Modifier le pseudo</div></div><div class="marr">›</div></div>
-        <div class="mrow" onclick="openModal('changePwd')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Changer le mot de passe</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="openModal('editPseudo')"><div class="ml"><div class="mi-ic">👤</div><div class="mi-t">Modifier le pseudo</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="openModal('changePwd')"><div class="ml"><div class="mi-ic">🔑</div><div class="mi-t">Changer le mot de passe</div></div><div class="marr">›</div></div>
         <div class="msec-t">Apprentissage</div>
-        <div class="mrow" onclick="gsc('revision')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Mes révisions</div></div><div class="marr">›</div></div>
-        <div class="mrow" onclick="gsc('leaderboard')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Classement</div></div><div class="marr">›</div></div>
-        <div class="mrow" onclick="gsc('subscription')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Gérer l'abonnement</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="gsc('revision')"><div class="ml"><div class="mi-ic">📖</div><div class="mi-t">Mes révisions</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="gsc('leaderboard')"><div class="ml"><div class="mi-ic">🏆</div><div class="mi-t">Classement</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="gsc('subscription')"><div class="ml"><div class="mi-ic">⭐</div><div class="mi-t">Gérer l'abonnement</div></div><div class="marr">›</div></div>
         <div class="msec-t">Aide</div>
-        <div class="mrow" onclick="openModal('rules')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Fonctionnement</div></div><div class="marr">›</div></div>
-        <div class="mrow" onclick="doLogout()"><div class="ml"><div class="mi-ic"></div><div class="mi-t" style="color:var(--red)">Se déconnecter</div></div></div>
+        <div class="mrow" onclick="openModal('rules')"><div class="ml"><div class="mi-ic">📋</div><div class="mi-t">Fonctionnement</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="openAdmin()" style="display:none" id="btn-admin-menu"><div class="ml"><div class="mi-ic">🔐</div><div class="mi-t" style="color:var(--gold)">Panel Admin</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="doLogout()"><div class="ml"><div class="mi-ic">🚪</div><div class="mi-t" style="color:var(--red)">Se déconnecter</div></div></div>
       </div>
     </div>
 
   </div><!-- /main -->
 
   <nav class="bnav">
-    <div class="ni on" id="ni-home"        onclick="gsc('home')">        <div class="ni-ic"></div><div class="ni-lb">Accueil</div></div>
-    <div class="ni"    id="ni-revision"     onclick="gsc('revision')">    <div class="ni-ic"></div><div class="ni-lb">Révision</div></div>
-    <div class="ni"    id="ni-leaderboard"  onclick="gsc('leaderboard')"> <div class="ni-ic"></div><div class="ni-lb">Classement</div></div>
-    <div class="ni"    id="ni-subscription" onclick="gsc('subscription')"><div class="ni-ic"></div><div class="ni-lb">Premium</div></div>
-    <div class="ni"    id="ni-profile"      onclick="gsc('profile')">     <div class="ni-ic"></div><div class="ni-lb">Profil</div></div>
+    <div class="ni on" id="ni-home"        onclick="gsc('home')">        <div class="ni-ic">🏠</div><div class="ni-lb">Accueil</div></div>
+    <div class="ni"    id="ni-revision"     onclick="gsc('revision')">    <div class="ni-ic">📖</div><div class="ni-lb">Révision</div></div>
+    <div class="ni"    id="ni-leaderboard"  onclick="gsc('leaderboard')"> <div class="ni-ic">🏆</div><div class="ni-lb">Classement</div></div>
+    <div class="ni"    id="ni-subscription" onclick="gsc('subscription')"><div class="ni-ic">⭐</div><div class="ni-lb">Premium</div></div>
+    <div class="ni"    id="ni-profile"      onclick="gsc('profile')">     <div class="ni-ic">👤</div><div class="ni-lb">Profil</div></div>
   </nav>
 </div>
 
@@ -628,7 +652,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 <!-- QUIZ SUMMARY -->
 <div class="qsum" id="qsum">
   <div class="qsh">
-    <div class="qs-ic" id="qs-ic"></div>
+    <div class="qs-ic" id="qs-ic">🎓</div>
     <div class="qs-ti" id="qs-ti">Résultat</div>
     <div class="qs-su" id="qs-su">—</div>
   </div>
@@ -638,82 +662,190 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
     <div><div class="scv" id="qs-ko" style="color:var(--red)">0</div><div class="scl">Mauvaises</div></div>
   </div>
   <div class="qsa" style="margin-bottom:16px">
-    <button class="btn btn-blue btn-w" onclick="closeSummary()"> Retour à l'accueil</button>
-    <button class="btn btn-ghost btn-w" onclick="gsc('revision');closeSummary()"> Voir les corrections</button>
-    <button class="btn btn-ghost btn-w btn-sm" onclick="replayQuiz()"> Rejouer ce cycle</button>
+    <button class="btn btn-blue btn-w" onclick="closeSummary()">🏠 Retour à l'accueil</button>
+    <button class="btn btn-ghost btn-w" onclick="gsc('revision');closeSummary()">📖 Voir les corrections</button>
+    <button class="btn btn-ghost btn-w btn-sm" onclick="replayQuiz()">🔄 Rejouer ce cycle</button>
   </div>
   <div class="qsc-c" id="qsc-corr"></div>
 </div>
 
 <script>
 "use strict";
-// 
+// ──────────────────────────────────────────────────────────────
 // CONFIG — Modifier avant déploiement
-// 
-const CFG = {
-  API:   'http://localhost:4000',  //  REMPLACER par votre URL backend
+// ────────const CFG = {
+  API:   'https://bobdoeduc-backend.onrender.com',d
   FREE:  20,                        // Doit correspondre à FREE_QUIZ_LIMIT dans .env
-  DEBUG: true
+  DEBUG: false
 };
 
-//  API LAYER 
+// ── API LAYER ─────────────────────────────────────────────────
 const API = {
   async call(method, path, body, token) {
-    const r = await fetch(CFG.API+path, {
-      method,
-      headers:{'Content-Type':'application/json',...(token?{Authorization:`Bearer ${token}`}:{})},
-      ...(body?{body:JSON.stringify(body)}:{})
-    });
-    const d = await r.json();
-    if(CFG.DEBUG) console.log(`[API] ${method} ${path}`, d);
-    return d;
+    try {
+      const r = await fetch(CFG.API+path, {
+        method,
+        headers:{'Content-Type':'application/json',...(token?{Authorization:`Bearer ${token}`}:{})},
+        ...(body?{body:JSON.stringify(body)}:{})
+      });
+      const d = await r.json();
+      if(CFG.DEBUG) console.log(`[API] ${method} ${path}`, d);
+      // Auto-refresh token si expiré
+      if(d.code==='TOKEN_EXPIRED' && S.rt && path!=='/api/auth/refresh'){
+        const ref=await API.post('/api/auth/refresh',{refresh_token:S.rt}).catch(()=>null);
+        if(ref?.access_token){saveT(ref.access_token,ref.refresh_token);return await API.call(method,path,body,ref.access_token);}
+        clearT();sv('auth');return {error:'Session expirée. Reconnectez-vous.'};
+      }
+      return d;
+    } catch(e) {
+      console.error('[API]',e.message);
+      return {error:'Erreur réseau. Vérifiez votre connexion.'};
+    }
   },
   get:   (p,t)   => API.call('GET',p,null,t),
   post:  (p,b,t) => API.call('POST',p,b,t),
   patch: (p,b,t) => API.call('PATCH',p,b,t),
 };
 
-//  STATE 
+// ── STATE ─────────────────────────────────────────────────────
 const S = {
   user:null, at:null, rt:null, notifs:[],
   qz:{sid:null,qs:[],curr:0,score:0,ok:0,ko:0,cycle:null,corrs:[],tmr:null,tsec:20,answered:false},
-  _cycle:null, _plan:'premium_monthly', _op:null, _vtoken:null, _otpItv:null
+  _cycle:null, _plan:'premium_monthly', _op:null, _vtoken:null, _otpItv:null, _contactType:'phone', _contact:null
 };
 function saveT(a,r){S.at=a;S.rt=r;try{localStorage.setItem('be_at',a||'');localStorage.setItem('be_rt',r||'');}catch(e){}}
 function loadT(){try{S.at=localStorage.getItem('be_at')||null;S.rt=localStorage.getItem('be_rt')||null;}catch(e){}}
 function clearT(){S.at=S.rt=null;try{localStorage.removeItem('be_at');localStorage.removeItem('be_rt');}catch(e){}}
 
-//  UTILS 
-function toast(msg,type='ok'){const icons={ok:'',err:'',warn:'',info:''};const el=document.createElement('div');el.className=`toast ${type}`;el.innerHTML=`<span>${icons[type]}</span><span>${msg}</span>`;document.getElementById('tbox').appendChild(el);setTimeout(()=>{el.style.opacity='0';el.style.transform='translateY(-10px)';setTimeout(()=>el.remove(),300)},3500);}
+// ── UTILS ─────────────────────────────────────────────────────
+function toast(msg,type='ok'){const icons={ok:'✅',err:'❌',warn:'⚠️',info:'ℹ️'};const el=document.createElement('div');el.className=`toast ${type}`;el.innerHTML=`<span>${icons[type]}</span><span>${msg}</span>`;document.getElementById('tbox').appendChild(el);setTimeout(()=>{el.style.opacity='0';el.style.transform='translateY(-10px)';setTimeout(()=>el.remove(),300)},3500);}
 function ld(m='Chargement...'){document.getElementById('ld-msg').textContent=m;document.getElementById('ld').classList.add('on');}
 function uld(){document.getElementById('ld').classList.remove('on');}
 function addNotif(t){S.notifs.unshift({t,time:new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),read:false});document.getElementById('ndot').style.display='block';}
 function sv(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));document.getElementById('app').classList.remove('on');if(id==='app')document.getElementById('app').classList.add('on');else document.getElementById(id+'-v').classList.add('on');}
 function gsc(name){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));document.getElementById('sc-'+name)?.classList.add('on');document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));document.getElementById('ni-'+name)?.classList.add('on');if(name==='revision')loadRev();if(name==='leaderboard')loadLb();if(name==='subscription')loadSub();if(name==='profile')renderProfile();}
 
-//  INIT 
+// ── INIT ──────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded',()=>{
   const row=document.getElementById('otp-row');
-  for(let i=0;i<6;i++){const inp=document.createElement('input');inp.className='oi';inp.maxLength=1;inp.inputMode='numeric';inp.id='oi'+i;inp.addEventListener('input',()=>{if(inp.value&&i<5)document.getElementById('oi'+(i+1)).focus();});row.appendChild(inp);}
+  for(let i=0;i<6;i++){
+    const inp=document.createElement('input');
+    inp.className='oi';inp.maxLength=1;inp.type='tel';
+    inp.inputMode='numeric';inp.pattern='[0-9]*';inp.id='oi'+i;
+    inp.addEventListener('input',e=>{
+      inp.value=inp.value.replace(/[^0-9]/g,'');
+      if(inp.value&&i<5)document.getElementById('oi'+(i+1)).focus();
+    });
+    inp.addEventListener('keydown',e=>{
+      if(e.key==='Backspace'&&!inp.value&&i>0)document.getElementById('oi'+(i-1)).focus();
+    });
+    inp.addEventListener('paste',e=>{
+      e.preventDefault();
+      const paste=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'');
+      for(let j=0;j<6&&j<paste.length;j++){
+        const el=document.getElementById('oi'+j);
+        if(el)el.value=paste[j];
+      }
+      const last=Math.min(paste.length,5);
+      const el=document.getElementById('oi'+last);
+      if(el)el.focus();
+    });
+    row.appendChild(inp);
+  }row.appendChild(inp);}
   loadT();
   setTimeout(async()=>{
     const sp=document.getElementById('splash');sp.style.transition='opacity .5s';sp.style.opacity='0';
     setTimeout(async()=>{sp.classList.remove('on');if(S.at){ld('Reconnexion...');const res=await API.get('/api/users/me',S.at).catch(()=>null);uld();if(res?.user){S.user=res.user;enterApp();return;}clearT();}sv('auth');},500);
   },2300);
 });
-function enterApp(){sv('app');updateUI();addNotif(' Connexion réussie');}
+function enterApp(){sv('app');updateUI();addNotif('✅ Connexion réussie');}
 
-//  AUTH 
+// ── AUTH ──────────────────────────────────────────────────────
 function stab(t){document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',(i===0&&t==='login')||(i===1&&t==='register')));document.getElementById('f-login').classList.toggle('on',t==='login');document.getElementById('f-reg').classList.toggle('on',t==='register');}
-function tpw(id,btn){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password';btn.textContent=i.type==='text'?'':'';}
-async function doLogin(){const phone='+226'+document.getElementById('lp').value.trim();const password=document.getElementById('lpw').value;if(phone.length<12||!password){toast('Remplissez tous les champs','err');return;}ld('Connexion...');const res=await API.post('/api/auth/login',{phone,password}).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur réseau','err');return;}S.user=res.user;saveT(res.access_token,res.refresh_token);enterApp();}
-async function sendOtp(){const phone='+226'+document.getElementById('rp').value.trim();if(phone.length<12){toast('Numéro invalide','err');return;}ld('Envoi OTP...');const res=await API.post('/api/auth/send-otp',{phone,purpose:'register'}).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}document.getElementById('rs1').classList.remove('on');document.getElementById('rs2').classList.add('on');document.getElementById('rd0').className='sd done';document.getElementById('rd1').className='sd curr';startOtpTimer();toast(' Code OTP envoyé !','ok');}
+function tpw(id,btn){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password';btn.textContent=i.type==='text'?'🙈':'👁';}
+async function doLogin(){
+  const password=document.getElementById('lpw').value;
+  const loginBody={password};
+  const useEmail=document.getElementById('login-email-wrap').style.display!=='none';
+  if(useEmail){
+    const email=document.getElementById('le').value.trim();
+    if(!email||!password){toast('Remplissez tous les champs','err');return;}
+    loginBody.email=email;
+  } else {
+    const phone='+226'+document.getElementById('lp').value.trim();
+    if(phone.length<12||!password){toast('Remplissez tous les champs','err');return;}
+    loginBody.phone=phone;
+  }
+  ld('Connexion...');const res=await API.post('/api/auth/login',loginBody).catch(()=>null);uld();
+  if(!res||res.error){toast(res?.error||'Erreur réseau','err');return;}
+  S.user=res.user;saveT(res.access_token,res.refresh_token);enterApp();
+}
+function switchLoginContact(type){
+  document.getElementById('login-phone-wrap').style.display=type==='phone'?'block':'none';
+  document.getElementById('login-email-wrap').style.display=type==='email'?'block':'none';
+  document.getElementById('btn-login-phone').className='btn '+(type==='phone'?'btn-blue':'btn-ghost');
+  document.getElementById('btn-login-email').className='btn '+(type==='email'?'btn-blue':'btn-ghost');
+}
+function switchContact(type){
+  document.getElementById('input-phone-wrap').style.display=type==='phone'?'block':'none';
+  document.getElementById('input-email-wrap').style.display=type==='email'?'block':'none';
+  document.getElementById('btn-use-phone').className='btn '+(type==='phone'?'btn-blue':'btn-ghost');
+  document.getElementById('btn-use-email').className='btn '+(type==='email'?'btn-blue':'btn-ghost');
+  S._contactType=type;
+}
+async function sendOtp(){
+  const useEmail=S._contactType==='email';
+  const otpBody={purpose:'register'};
+  if(useEmail){
+    const email=document.getElementById('re').value.trim();
+    if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){toast('Email invalide','err');return;}
+    otpBody.email=email; S._contact=email;
+  } else {
+    const phone='+226'+document.getElementById('rp').value.trim();
+    if(phone.length<12){toast('Numéro invalide','err');return;}
+    otpBody.phone=phone; S._contact=phone;
+  }ld('Envoi OTP...');const res=await API.post('/api/auth/send-otp',otpBody).catch(()=>null);uld();
+  if(!res||res.error){toast(res?.error||'Erreur','err');return;}
+  // OTP envoyé - pas d'affichage en production
+  document.getElementById('rs1').classList.remove('on');
+  document.getElementById('rs2').classList.add('on');
+  document.getElementById('rd0').className='sd done';
+  document.getElementById('rd1').className='sd curr';
+  startOtpTimer();
+  toast(useEmail?'📧 Code OTP envoyé par email !':'📱 Code OTP envoyé par SMS !','ok');
+}
 let _os=120;function startOtpTimer(){_os=120;clearInterval(S._otpItv);S._otpItv=setInterval(()=>{_os--;document.getElementById('otp-t').textContent=`${String(Math.floor(_os/60)).padStart(2,'0')}:${String(_os%60).padStart(2,'0')}`;if(_os<=0)clearInterval(S._otpItv);},1000);}
-async function verifyOtp(){const phone='+226'+document.getElementById('rp').value.trim();const otp=[0,1,2,3,4,5].map(i=>document.getElementById('oi'+i).value).join('');if(otp.length<6){toast('6 chiffres requis','err');return;}ld('Vérification...');const res=await API.post('/api/auth/verify-otp',{phone,otp,purpose:'register'}).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Code incorrect','err');return;}S._vtoken=res.verify_token;document.getElementById('rs2').classList.remove('on');document.getElementById('rs3').classList.add('on');document.getElementById('rd1').className='sd done';document.getElementById('rd2').className='sd curr';clearInterval(S._otpItv);toast(' Numéro vérifié !','ok');}
-async function doRegister(){const phone='+226'+document.getElementById('rp').value.trim();const pseudo=document.getElementById('rps').value.trim();const pwd=document.getElementById('rpw').value;const pwd2=document.getElementById('rpw2').value;if(!pseudo||pwd.length<8||pwd!==pwd2||!S._vtoken){toast('Vérifiez les champs','err');return;}ld('Création...');const res=await API.post('/api/auth/register',{phone,password:pwd,pseudo,verify_token:S._vtoken}).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}S.user=res.user;saveT(res.access_token,res.refresh_token);toast(' Compte créé !','ok');enterApp();}
+async function verifyOtp(){
+  const otp=[0,1,2,3,4,5].map(i=>document.getElementById('oi'+i).value).join('');
+  if(otp.length<6){toast('6 chiffres requis','err');return;}
+  const useEmail=S._contactType==='email';
+  const body={otp,purpose:'register'};
+  if(useEmail) body.email=S._contact; else body.phone=S._contact;
+  ld('Vérification...');const res=await API.post('/api/auth/verify-otp',body).catch(()=>null);uld();
+  if(!res||res.error){toast(res?.error||'Code incorrect','err');return;}
+  S._vtoken=res.verify_token;
+  document.getElementById('rs2').classList.remove('on');
+  document.getElementById('rs3').classList.add('on');
+  document.getElementById('rd1').className='sd done';
+  document.getElementById('rd2').className='sd curr';
+  clearInterval(S._otpItv);
+  toast(useEmail?'✅ Email vérifié !':'✅ Numéro vérifié !','ok');
+}
+async function doRegister(){
+  const pseudo=document.getElementById('rps').value.trim();
+  const pwd=document.getElementById('rpw').value;
+  const pwd2=document.getElementById('rpw2').value;
+  if(!pseudo||pwd.length<8||pwd!==pwd2||!S._vtoken){toast('Vérifiez les champs','err');return;}
+  const useEmail=S._contactType==='email';
+  const body={password:pwd,pseudo,verify_token:S._vtoken};
+  if(useEmail) body.email=S._contact; else body.phone=S._contact;
+  ld('Création...');const res=await API.post('/api/auth/register',body).catch(()=>null);uld();
+  if(!res||res.error){toast(res?.error||'Erreur','err');return;}
+  S.user=res.user;saveT(res.access_token,res.refresh_token);toast('🎉 Compte créé !','ok');enterApp();
+}
 async function doLogout(){ld('...');await API.post('/api/auth/logout',{refresh_token:S.rt},S.at).catch(()=>{});uld();clearT();S.user=null;sv('auth');}
 
-//  UI UPDATE 
+// ── UI UPDATE ─────────────────────────────────────────────────
 function updateUI(){
   if(!S.user)return;
   const u=S.user;
@@ -729,6 +861,9 @@ function updateUI(){
   const rem=Math.max(0,CFG.FREE-used);
   const pct=Math.min(100,(used/CFG.FREE)*100);
   document.getElementById('qc-count').textContent=`${used} / ${CFG.FREE}`;
+  // Afficher bouton admin si clé admin stockée
+  const adminBtn = document.getElementById('btn-admin-menu');
+  if (adminBtn && sessionStorage.getItem('be_admin_key')) adminBtn.style.display='flex';
   document.getElementById('qbar').style.width=pct+'%';
   document.getElementById('qc-msg').textContent=rem>0?`${rem} quiz gratuit${rem>1?'s':''} restant${rem>1?'s':''}`:'Quota gratuit épuisé';
   document.getElementById('quota-card').style.display=isPrem?'none':'block';
@@ -743,8 +878,8 @@ function updateUI(){
     document.getElementById('pc-prog').style.width=prog+'%';
   }
   // Badges cycles
-  document.getElementById('cb-badge').textContent=isPrem?' Inclus':' Premium';
-  document.getElementById('ca-badge').textContent=isPrem?' Inclus':' Premium';
+  document.getElementById('cb-badge').textContent=isPrem?'✅ Inclus':'⭐ Premium';
+  document.getElementById('ca-badge').textContent=isPrem?'✅ Inclus':'⭐ Premium';
   renderProfile();
 }
 function renderProfile(){
@@ -753,14 +888,12 @@ function renderProfile(){
   const init=(u.pseudo||'BE').substring(0,2).toUpperCase();
   document.getElementById('pr-av').textContent=init;
   document.getElementById('pr-n').textContent=u.pseudo||'—';
-  document.getElementById('pr-ph').textContent=u.phone||'—';
+  document.getElementById('pr-ph').textContent=u.pseudo?('Compte '+u.plan):'—';
   const lEl=document.getElementById('pr-l');
-  if(isPrem){lEl.textContent=' Abonné Premium';lEl.className='prl prem';}
-  else{lEl.textContent=' Gratuit ('+Math.max(0,CFG.FREE-(u.quiz_free_used||0))+' restants)';lEl.className='prl free';}
+  if(isPrem){lEl.textContent='⭐ Abonné Premium';lEl.className='prl prem';}
+  else{lEl.textContent='🎓 Gratuit ('+Math.max(0,CFG.FREE-(u.quiz_free_used||0))+' restants)';lEl.className='prl free';}
 }
-async function refreshUser(){const res=await API.get('/api/users/me',S.at).catch(()=>null);if(res?.user){S.user=res.user;updateUI();}}
-
-//  CYCLE / QUIZ START 
+async function refreshUser(){const res=await API.get('/api/users/me',S.at).catch(()=>null);if(res?.user){S.user=res.user;updateUI();}}// ── CYCLE / QUIZ START ────────────────────────────────────────
 const cycleLabels={cycle_c:'Cycle C — Primaire',cycle_b:'Cycle B — 1er Cycle',cycle_a:'Cycle A — 2nd Cycle'};
 const diffLabels=['','Facile','Moyen','Difficile'];
 const diffClass=['','d1','d2','d3'];
@@ -826,36 +959,36 @@ async function submitAns(idx,btn,q){
   qz.score=res.score;if(res.is_correct)qz.ok++;else qz.ko++;
   document.querySelectorAll('.ab').forEach(b=>{if(b.querySelector('span').textContent===res.correct_option_text)b.classList.add('ok');});
   if(btn&&!res.is_correct)btn.classList.add('ko');
-  if(res.explanation){const ex=document.getElementById('qexpl');ex.textContent=' '+res.explanation;ex.classList.add('on');}
-  flashResult(res.is_correct,res.is_correct?'+1 point':'1 point');
+  if(res.explanation){const ex=document.getElementById('qexpl');ex.textContent='💡 '+res.explanation;ex.classList.add('on');}
+  flashResult(res.is_correct,res.is_correct?'+1 point':'−1 point');
   qz.corrs.push({q:q.text,correct:res.is_correct,correctAnswer:res.correct_option_text,expl:res.explanation});
   if(res.session_over)setTimeout(endQuiz,1600);
   else setTimeout(()=>{qz.curr++;renderQ();},1900);
 }
-function flashResult(ok,pt){const el=document.getElementById('rf');el.className='rf '+(ok?'ok':'ko')+' on';document.getElementById('rf-ic').textContent=ok?'':'';document.getElementById('rf-tx').textContent=ok?'Bonne réponse !':'Mauvaise réponse';document.getElementById('rf-pt').textContent=pt;setTimeout(()=>el.classList.remove('on'),950);}
+function flashResult(ok,pt){const el=document.getElementById('rf');el.className='rf '+(ok?'ok':'ko')+' on';document.getElementById('rf-ic').textContent=ok?'🎉':'😞';document.getElementById('rf-tx').textContent=ok?'Bonne réponse !':'Mauvaise réponse';document.getElementById('rf-pt').textContent=pt;setTimeout(()=>el.classList.remove('on'),950);}
 async function confirmQuit(){if(!confirm('Quitter ?'))return;clearInterval(S.qz.tmr);await API.post('/api/quiz/quit',{session_id:S.qz.sid},S.at).catch(()=>{});document.getElementById('qov').classList.remove('on');refreshUser();gsc('home');}
 
 function endQuiz(){
   clearInterval(S.qz.tmr);document.getElementById('qov').classList.remove('on');
   const qz=S.qz;const pct=Math.round((qz.ok/qz.qs.length)*100);
-  document.getElementById('qs-ic').textContent=pct>=80?'':pct>=50?'':'';
+  document.getElementById('qs-ic').textContent=pct>=80?'🏆':pct>=50?'😊':'📚';
   document.getElementById('qs-ti').textContent=pct>=80?'Excellent !':pct>=50?'Bien joué !':'Continue d\'apprendre !';
   document.getElementById('qs-su').textContent=`${qz.ok} bonnes sur ${qz.qs.length} · ${pct}% de réussite`;
   const sc=document.getElementById('qs-sc');sc.textContent=(qz.score>=0?'+':'')+qz.score;sc.style.color=qz.score>0?'var(--green)':qz.score<0?'var(--red)':'var(--blue)';
   document.getElementById('qs-ok').textContent=qz.ok;document.getElementById('qs-ko').textContent=qz.ko;
-  const cEl=document.getElementById('qsc-corr');cEl.innerHTML='<h4> Corrections</h4>';
-  qz.corrs.forEach((c,i)=>{cEl.innerHTML+=`<div class="ci-item ${c.correct?'ok':'ko'}"><div class="ci-q">Q${i+1}: ${c.q}</div><div class="ci-st">${c.correct?' Correct':' Incorrect'}</div><div class="ci-an"> <b>${c.correctAnswer}</b>${c.expl?`<br><span style="color:var(--text3);font-size:.74rem"> ${c.expl}</span>`:''}</div></div>`;});
+  const cEl=document.getElementById('qsc-corr');cEl.innerHTML='<h4>📖 Corrections</h4>';
+  qz.corrs.forEach((c,i)=>{cEl.innerHTML+=`<div class="ci-item ${c.correct?'ok':'ko'}"><div class="ci-q">Q${i+1}: ${c.q}</div><div class="ci-st">${c.correct?'✅ Correct':'❌ Incorrect'}</div><div class="ci-an">✓ <b>${c.correctAnswer}</b>${c.expl?`<br><span style="color:var(--text3);font-size:.74rem">💡 ${c.expl}</span>`:''}</div></div>`;});
   document.getElementById('qsum').classList.add('on');
-  refreshUser();addNotif(` Quiz ${cycleLabels[qz.cycle]}: ${qz.ok}/${qz.qs.length} correctes`);
+  refreshUser();addNotif(`📚 Quiz ${cycleLabels[qz.cycle]}: ${qz.ok}/${qz.qs.length} correctes`);
 }
 function closeSummary(){document.getElementById('qsum').classList.remove('on');gsc('home');}
 
-//  ABONNEMENT VERSION B — Preuve de paiement manuel 
+// ── ABONNEMENT VERSION B — Preuve de paiement manuel ─────────
 let _selPlan='premium_monthly', _selOp=null;
 
 // Numéro de dépôt admin (configurable — à changer ici avec votre vrai numéro)
 const DEPOSIT_CONFIG = {
-  number: process?.env?.ADMIN_DEPOSIT_NUMBER || '+226 56853247', //  REMPLACER
+  number: '+226 56 85 32 47', // ⚠️ REMPLACER
   label:  'Orange Money / Moov Money / Wave / Telecel'
 };
 
@@ -911,18 +1044,17 @@ async function submitPaymentProof() {
     <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border2)"><span>Opérateur</span><b>${_selOp}</b></div>
     <div style="display:flex;justify-content:space-between;padding:5px 0"><span>N° utilisé</span><b>+226 ${payphone}</b></div>`;
 
-  toast(' Demande envoyée ! Activation dans les 24h.', 'ok');
-  addNotif(' Demande abonnement envoyée — en attente de validation admin');
-}
-
-async function loadSub(){
+  toast('📬 Demande envoyée ! Activation dans les 24h.', 'ok');
+  addNotif('📬 Demande abonnement envoyée — en attente de validation admin');
+  }
+  async function loadSub(){
   const res=await API.get('/api/subscription/status',S.at).catch(()=>null);
   const el=document.getElementById('sub-content');
   if(!res){el.innerHTML='<div style="color:var(--red);text-align:center;padding:20px">Erreur chargement</div>';return;}
   const isPrem=res.is_premium;
   el.innerHTML=`
     <div style="background:${isPrem?'linear-gradient(135deg,#14082A,#0D0519)':'var(--bg3)'};border:1px solid ${isPrem?'rgba(124,58,237,.3)':'var(--border2)'};border-radius:var(--r);padding:18px;margin-bottom:18px">
-      <div style="font-size:2rem;margin-bottom:8px">${isPrem?'':''}</div>
+      <div style="font-size:2rem;margin-bottom:8px">${isPrem?'⭐':'🎓'}</div>
       <div style="font-family:Syne,sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:4px">${isPrem?'Premium Actif':'Compte Gratuit'}</div>
       ${isPrem?`<div style="font-size:.8rem;color:var(--text2)">Expire le <b>${new Date(res.subscription_end).toLocaleDateString('fr-FR')}</b></div><div style="font-size:.78rem;color:var(--purple);margin-top:4px">${res.days_left} jours restants</div>`:`<div style="font-size:.8rem;color:var(--text2)">Quiz utilisés: <b>${res.quiz_free_used}/${res.free_limit}</b></div>`}
     </div>
@@ -930,7 +1062,7 @@ async function loadSub(){
     <div style="font-family:Syne,sans-serif;font-weight:700;margin-bottom:12px;font-size:.95rem">Passer Premium</div>
     ${res.latest_request?.status==='pending' ? `
     <div style="background:rgba(232,185,35,.08);border:1px solid rgba(232,185,35,.25);border-radius:var(--r);padding:14px;margin-bottom:14px">
-      <div style="font-size:.82rem;font-weight:700;color:var(--gold);margin-bottom:4px"> Demande en attente</div>
+      <div style="font-size:.82rem;font-weight:700;color:var(--gold);margin-bottom:4px">⏳ Demande en attente</div>
       <div style="font-size:.78rem;color:var(--text2)">
         Votre demande <strong>${res.latest_request.plan==='premium_yearly'?'Annuel':'Mensuel'}</strong> de
         <strong>${(res.latest_request.declared_amount||0).toLocaleString('fr-FR')} FCFA</strong>
@@ -938,15 +1070,15 @@ async function loadSub(){
       </div>
     </div>` : ''}
     <div class="plan-cards" style="margin-bottom:16px">
-      <div class="plan-card" onclick="selPlan('premium_monthly',this)"><div class="plan-icon"></div><div class="plan-name">Mensuel</div><div class="plan-price">3 000<span> FCFA/mois</span></div><div class="plan-desc">1 mois d'accès</div></div>
-      <div class="plan-card best" onclick="selPlan('premium_yearly',this)"><div class="plan-badge"> MEILLEUR</div><div class="plan-icon"></div><div class="plan-name">Annuel</div><div class="plan-price">15 000<span> FCFA/an</span></div><div class="plan-desc">~1 250 FCFA/mois</div></div>
+      <div class="plan-card" onclick="selPlan('premium_monthly',this)"><div class="plan-icon">📅</div><div class="plan-name">Mensuel</div><div class="plan-price">3 000<span> FCFA/mois</span></div><div class="plan-desc">1 mois d'accès</div></div>
+      <div class="plan-card best" onclick="selPlan('premium_yearly',this)"><div class="plan-badge">⭐ MEILLEUR</div><div class="plan-icon">🏆</div><div class="plan-name">Annuel</div><div class="plan-price">15 000<span> FCFA/an</span></div><div class="plan-desc">~1 250 FCFA/mois</div></div>
     </div>
     <div style="font-size:.78rem;color:var(--text2);background:var(--bg3);border-radius:var(--rs);padding:10px 12px;margin-bottom:12px">
-       Déposez le montant sur <strong id="sub-deposit-num">+226 XX XX XX XX</strong> puis soumettez votre preuve de paiement.
+      📱 Déposez le montant sur <strong id="sub-deposit-num">+226 56 85 32 47</strong> puis soumettez votre preuve de paiement.
     </div>
-    <button class="btn btn-purple btn-w" onclick="showPaywall()"> Soumettre une preuve de paiement </button>
+    <button class="btn btn-purple btn-w" onclick="showPaywall()">📤 Soumettre une preuve de paiement →</button>
     ` : `<button class="btn btn-ghost btn-w btn-sm" onclick="cancelSub()">Annuler le renouvellement</button>`}
-    ${res.history?.length?`<div style="font-family:Syne,sans-serif;font-weight:700;margin:18px 0 10px;font-size:.9rem">Historique</div>${res.history.map(h=>`<div class="tx-item" style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border2)"><div><div style="font-size:.86rem;font-weight:500">${h.plan}</div><div style="font-size:.72rem;color:var(--text3)">${new Date(h.created_at).toLocaleDateString('fr-FR')}</div></div><div style="font-family:Syne,sans-serif;font-weight:700;font-size:.86rem;color:var(--blue)">${h.amount} F — ${h.status}</div></div>`).join('')}`:''}`;
+    ${res.history?.length?`<div style="font-family:Syne,sans-serif;font-weight:700;margin:18px 0 10px;font-size:.9rem">Historique</div>${res.history.map(h=>`<div class="tx-item" style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border2)"><div><div style="font-size:.86rem;font-weight:500">${h.plan}</div><div style="font-size:.72rem;color:var(--text3)">${h.expires_at?new Date(h.expires_at).toLocaleDateString('fr-FR'):''}</div></div><div style="font-family:Syne,sans-serif;font-weight:700;font-size:.86rem;color:var(--blue)">${h.amount} F — ${h.status}</div></div>`).join('')}`:''}`;
 }
 
 async function cancelSub(){
@@ -956,14 +1088,14 @@ async function cancelSub(){
   toast(res.message,'warn');loadSub();
 }
 
-//  REVISION + LEADERBOARD 
+// ── REVISION + LEADERBOARD ────────────────────────────────────
 async function loadRev(){
   document.getElementById('rev-list').innerHTML='<div style="color:var(--text2);text-align:center;padding:20px;font-size:.82rem">Chargement...</div>';
   const res=await API.get('/api/quiz/revisions?limit=40',S.at).catch(()=>null);
   const el=document.getElementById('rev-list');
   if(!res?.revisions?.length){el.innerHTML='<div style="color:var(--text3);text-align:center;padding:40px 0;font-size:.82rem">Aucune révision.<br>Faites un quiz d\'abord !</div>';return;}
   el.innerHTML='';
-  res.revisions.forEach(r=>{el.innerHTML+=`<div class="ri"><div class="ri-hd"><div class="ri-dt">${r.category||''} · ${new Date(r.saved_at).toLocaleDateString('fr-FR')}</div><div class="ri-st ${r.was_correct?'c':'w'}">${r.was_correct?' Correct':' Incorrect'}</div></div><div class="ri-q">${r.question}</div><div class="ri-a"> ${r.correct_answer}</div>${r.explanation?`<div style="font-size:.75rem;color:var(--text3);margin-top:3px"> ${r.explanation}</div>`:''}</div>`;});
+  res.revisions.forEach(r=>{el.innerHTML+=`<div class="ri"><div class="ri-hd"><div class="ri-dt">${r.category||''} · ${new Date(r.saved_at).toLocaleDateString('fr-FR')}</div><div class="ri-st ${r.was_correct?'c':'w'}">${r.was_correct?'✅ Correct':'❌ Incorrect'}</div></div><div class="ri-q">${r.question}</div><div class="ri-a">✓ ${r.correct_answer}</div>${r.explanation?`<div style="font-size:.75rem;color:var(--text3);margin-top:3px">💡 ${r.explanation}</div>`:''}</div>`;});
 }
 
 async function loadLb(){
@@ -972,23 +1104,318 @@ async function loadLb(){
   const lb=res.leaderboard;const top3=lb.slice(0,3),rest=lb.slice(3);
   const cols=['#9E9E9E','#E8B923','#CD7F32'],hs=[60,80,50],avS=[44,52,40];
   const pod=[top3[1],top3[0],top3[2]];
-  document.getElementById('lbp').innerHTML=pod.map((p,i)=>p?`<div class="lbpi"><div class="lbav" style="width:${avS[i]}px;height:${avS[i]}px;background:${cols[i]};font-size:${avS[i]*.32}px">${(p.pseudo||'?').substring(0,2).toUpperCase()}</div><div class="lbpn">${p.pseudo}</div><div class="lbpp">${p.points} pts</div><div class="lbb" style="background:${cols[i]};height:${hs[i]}px">${i===1?'':i===0?'':''}</div></div>`:''  ).join('');
-  document.getElementById('lbl').innerHTML=rest.map((p,i)=>`<div class="lb-row ${p.id===S.user?.id?'me':''} ${p.is_premium?'prem':''}"><div class="lbr">${i+4}</div><div class="lbra" ${p.id===S.user?.id?'style="background:rgba(26,115,232,.15);color:var(--blue)"':''}>${(p.pseudo||'?').substring(0,2).toUpperCase()}</div><div class="lbrn">${p.pseudo}${p.is_premium?' <span style="font-size:.65rem;color:var(--gold)"></span>':''}${p.id===S.user?.id?' <span style="color:var(--blue);font-size:.7rem">(Moi)</span>':''}</div><div class="lbrp">${p.points} pts</div></div>`).join('');
+  document.getElementById('lbp').innerHTML=pod.map((p,i)=>p?`<div class="lbpi"><div class="lbav" style="width:${avS[i]}px;height:${avS[i]}px;background:${cols[i]};font-size:${avS[i]*.32}px">${(p.pseudo||'?').substring(0,2).toUpperCase()}</div><div class="lbpn">${p.pseudo}</div><div class="lbpp">${p.points} pts</div><div class="lbb" style="background:${cols[i]};height:${hs[i]}px">${i===1?'🥇':i===0?'🥈':'🥉'}</div></div>`:''  ).join('');
+  document.getElementById('lbl').innerHTML=rest.map((p,i)=>`<div class="lb-row ${p.id===S.user?.id?'me':''} ${p.is_premium?'prem':''}"><div class="lbr">${i+4}</div><div class="lbra" ${p.id===S.user?.id?'style="background:rgba(26,115,232,.15);color:var(--blue)"':''}>${(p.pseudo||'?').substring(0,2).toUpperCase()}</div><div class="lbrn">${p.pseudo}${p.is_premium?' <span style="font-size:.65rem;color:var(--gold)">⭐</span>':''}${p.id===S.user?.id?' <span style="color:var(--blue);font-size:.7rem">(Moi)</span>':''}</div><div class="lbrp">${p.points} pts</div></div>`).join('');
 }
 
-//  MODALS 
+// ── MODALS ────────────────────────────────────────────────────
 function openModal(type){
   const body=document.getElementById('mbody');
-  if(type==='rules'){body.innerHTML=`<div class="mt"> Fonctionnement</div><div style="display:flex;flex-direction:column;gap:9px;font-size:.82rem;color:var(--text2)">${[[' Quiz gratuits',`${CFG.FREE} quiz offerts à la création du compte. Valables pour tous les cycles.`],[' Premium',`3 000 FCFA/mois ou 15 000 FCFA/an. Accès illimité à tous les cycles.`],[' Questions uniques','Chaque question ne revient jamais pour vous. Les corrections sont sauvegardées.'],[' Temps','20 secondes par question. Temps dépassé = mauvaise réponse.'],[' Score','Bonne réponse = +1 pt. Mauvaise = 1 pt. Mérite de progression.'],[' Cycles','Cycle C (Primaire), B (1er Cycle), A (2nd Cycle). Gratuit dans le quota.']].map(([t,d])=>`<div style="background:var(--bg3);border-radius:var(--rs);padding:10px 12px"><b style="color:var(--blue)">${t}</b><br>${d}</div>`).join('')}<button class="btn btn-blue btn-w" onclick="closeModal()" style="margin-top:4px">Compris </button></div>`;}
-  else if(type==='editPseudo'){body.innerHTML=`<div class="mt"> Modifier le pseudo</div><div style="display:flex;flex-direction:column;gap:12px"><div class="fg"><div class="fl">Nouveau pseudo</div><input class="fi" id="ep-ps" type="text" value="${S.user?.pseudo||''}" placeholder="2 à 30 caractères"></div><button class="btn btn-blue btn-w" onclick="savePseudo()">Sauvegarder </button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
-  else if(type==='changePwd'){body.innerHTML=`<div class="mt"> Changer le mot de passe</div><div style="display:flex;flex-direction:column;gap:12px"><div class="fg"><div class="fl">Ancien mot de passe</div><input class="fi" id="op-pw" type="password" placeholder="••••••••"></div><div class="fg"><div class="fl">Nouveau (8 min.)</div><input class="fi" id="np-pw" type="password" placeholder="••••••••"></div><button class="btn btn-blue btn-w" onclick="changePwd()">Changer </button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
-  else if(type==='forgot'){body.innerHTML=`<div class="mt"> Réinitialiser le mot de passe</div><div style="display:flex;flex-direction:column;gap:12px"><div class="fg"><div class="fl">Numéro</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="fp-ph" type="tel" placeholder="XX XX XX XX" inputmode="numeric"></div></div><button class="btn btn-blue btn-w" onclick="sendForgot()">Recevoir le code </button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
+  if(type==='rules'){body.innerHTML=`<div class="mt">📋 Fonctionnement</div><div style="display:flex;flex-direction:column;gap:9px;font-size:.82rem;color:var(--text2)">${[['🎓 Quiz gratuits',`${CFG.FREE} quiz offerts à la création du compte. Valables pour tous les cycles.`],['⭐ Premium',`3 000 FCFA/mois ou 15 000 FCFA/an. Accès illimité à tous les cycles.`],['🔄 Questions uniques','Chaque question ne revient jamais pour vous. Les corrections sont sauvegardées.'],['⏱ Temps','20 secondes par question. Temps dépassé = mauvaise réponse.'],['✅ Score','Bonne réponse = +1 pt. Mauvaise = −1 pt. Mérite de progression.'],['🏆 Cycles','Cycle C (Primaire), B (1er Cycle), A (2nd Cycle). Gratuit dans le quota.']].map(([t,d])=>`<div style="background:var(--bg3);border-radius:var(--rs);padding:10px 12px"><b style="color:var(--blue)">${t}</b><br>${d}</div>`).join('')}<button class="btn btn-blue btn-w" onclick="closeModal()" style="margin-top:4px">Compris ✓</button></div>`;}
+  else if(type==='editPseudo'){body.innerHTML=`<div class="mt">👤 Modifier le pseudo</div><div style="display:flex;flex-direction:column;gap:12px"><div class="fg"><div class="fl">Nouveau pseudo</div><input class="fi" id="ep-ps" type="text" value="${S.user?.pseudo||''}" placeholder="2 à 30 caractères"></div><button class="btn btn-blue btn-w" onclick="savePseudo()">Sauvegarder ✓</button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
+  else if(type==='changePwd'){body.innerHTML=`<div class="mt">🔑 Changer le mot de passe</div><div style="display:flex;flex-direction:column;gap:12px"><div class="fg"><div class="fl">Ancien mot de passe</div><input class="fi" id="op-pw" type="password" placeholder="••••••••"></div><div class="fg"><div class="fl">Nouveau (8 min.)</div><input class="fi" id="np-pw" type="password" placeholder="••••••••"></div><button class="btn btn-blue btn-w" onclick="changePwd()">Changer ✓</button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
+  else if(type==='forgot'){body.innerHTML=`<div class="mt">🔑 Réinitialiser le mot de passe</div><div style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:8px"><button id="fg-btn-phone" class="btn btn-blue" style="flex:1;font-size:.78rem" onclick="switchForgot('phone')">📱 Téléphone</button><button id="fg-btn-email" class="btn btn-ghost" style="flex:1;font-size:.78rem" onclick="switchForgot('email')">📧 Email</button></div><div id="fg-phone-wrap"><div class="fg"><div class="fl">Numéro</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="fp-ph" type="tel" placeholder="XX XX XX XX" inputmode="numeric"></div></div></div><div id="fg-email-wrap" style="display:none"><div class="fg"><div class="fl">Email</div><input class="fi" id="fp-em" type="email" placeholder="exemple@gmail.com"></div></div><button class="btn btn-blue btn-w" onclick="sendForgot()">Recevoir le code →</button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
   document.getElementById('mbg').classList.add('on');
 }
 function closeModal(){document.getElementById('mbg').classList.remove('on');}
-async function savePseudo(){const pseudo=document.getElementById('ep-ps').value.trim();if(!pseudo||pseudo.length<2){toast('Pseudo invalide','err');return;}ld('...');const res=await API.patch('/api/users/pseudo',{pseudo},S.at).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}if(S.user)S.user.pseudo=pseudo;updateUI();closeModal();toast(' Pseudo mis à jour','ok');}
-async function changePwd(){const op=document.getElementById('op-pw').value;const np=document.getElementById('np-pw').value;if(np.length<8){toast('Minimum 8 caractères','err');return;}ld('...');const res=await API.patch('/api/users/password',{old_password:op,new_password:np},S.at).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}closeModal();toast(' Mot de passe modifié. Reconnectez-vous.','ok');setTimeout(doLogout,1500);}
-async function sendForgot(){const phone='+226'+document.getElementById('fp-ph').value.trim();ld('...');const res=await API.post('/api/auth/forgot-password',{phone}).catch(()=>null);uld();closeModal();toast(res?.message||'Code envoyé si le numéro existe.','warn');}
+async function savePseudo(){const pseudo=document.getElementById('ep-ps').value.trim();if(!pseudo||pseudo.length<2){toast('Pseudo invalide','err');return;}ld('...');const res=await API.patch('/api/users/pseudo',{pseudo},S.at).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}if(S.user)S.user.pseudo=pseudo;updateUI();closeModal();toast('✅ Pseudo mis à jour','ok');}
+async function changePwd(){const op=document.getElementById('op-pw').value;const np=document.getElementById('np-pw').value;if(np.length<8){toast('Minimum 8 caractères','err');return;}ld('...');const res=await API.patch('/api/users/password',{old_password:op,new_password:np},S.at).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}closeModal();toast('✅ Mot de passe modifié. Reconnectez-vous.','ok');setTimeout(doLogout,1500);}
+function switchForgot(type){
+  document.getElementById('fg-phone-wrap').style.display=type==='phone'?'block':'none';
+  document.getElementById('fg-email-wrap').style.display=type==='email'?'block':'none';
+  document.getElementById('fg-btn-phone').className='btn '+(type==='phone'?'btn-blue':'btn-ghost');
+  document.getElementById('fg-btn-email').className='btn '+(type==='email'?'btn-blue':'btn-ghost');
+}
+async function sendForgot(){
+  const useEmail=document.getElementById('fg-email-wrap')&&document.getElementById('fg-email-wrap').style.display!=='none';
+  const body={};
+  if(useEmail){const em=document.getElementById('fp-em')?.value.trim();if(!em){toast('Email requis','err');return;}body.email=em;}
+  else{const ph='+226'+(document.getElementById('fp-ph')?.value.trim()||'');if(ph.length<12){toast('Numéro invalide','err');return;}body.phone=ph;}
+  ld('...');const res=await API.post('/api/auth/forgot-password',body).catch(()=>null);uld();closeModal();
+  toast(res?.message||'Code envoyé si le contact existe.','warn');
+}
 </script>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     ADMIN PANEL — intégré dans l'app principale
+     Accessible via: bouton "Admin" dans le profil (si ADMIN_SECRET_KEY ok)
+     ═══════════════════════════════════════════════════════════ -->
+
+<!-- ADMIN VIEW -->
+<div class="view" id="admin-v" style="align-items:stretch;justify-content:flex-start;padding:0">
+  <!-- ADMIN LOGIN -->
+  <div id="admin-login" style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px">
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:32px;width:100%;max-width:380px;text-align:center">
+      <div style="font-size:2.5rem;margin-bottom:8px">🔐</div>
+      <h2 style="font-family:'Syne',sans-serif;margin-bottom:6px">Panel Admin</h2>
+      <p style="color:var(--text2);font-size:.83rem;margin-bottom:24px">Entrez votre clé admin</p>
+      <input style="width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--rs);padding:12px 16px;color:var(--text);font-size:.95rem;margin-bottom:12px;box-sizing:border-box" type="password" id="admin-key-inp" placeholder="Clé admin..." onkeydown="if(event.key==='Enter')adminLogin()">
+      <button onclick="adminLogin()" style="width:100%;padding:12px;border-radius:var(--rs);background:var(--blue);color:white;font-weight:700;font-size:.95rem;cursor:pointer;border:none">Connexion →</button>
+      <div style="color:var(--red);font-size:.82rem;margin-top:10px;min-height:20px" id="admin-login-err"></div>
+      <div style="margin-top:16px"><span onclick="sv('auth')" style="color:var(--text3);font-size:.78rem;cursor:pointer">← Retour à l'app</span></div>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div id="admin-dash" style="display:none;flex-direction:column;min-height:100vh">
+    <!-- Header -->
+    <div style="background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span onclick="sv('app')" style="cursor:pointer;color:var(--text3);font-size:.9rem">← App</span>
+        <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800">Bobdo<span style="color:var(--blue)">Educ</span></span>
+        <span style="background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:var(--red);font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:20px">🔐 ADMIN</span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="adminLoadStats();adminLoadRequests('pending')" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:6px 12px;border-radius:8px;font-size:.78rem;cursor:pointer">🔄 Actualiser</button>
+        <button onclick="adminLogout()" style="background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:var(--red);padding:6px 12px;border-radius:8px;font-size:.78rem;cursor:pointer">Déconnexion</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div style="padding:18px;max-width:900px;margin:0 auto;width:100%">
+      <!-- Stats -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:22px" id="admin-stats-grid">
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center"><div style="font-size:1.7rem;font-weight:800;color:var(--gold)" id="as-pending">—</div><div style="font-size:.7rem;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">En attente</div></div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center"><div style="font-size:1.7rem;font-weight:800;color:var(--green)" id="as-approved">—</div><div style="font-size:.7rem;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">Approuvées</div></div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center"><div style="font-size:1.7rem;font-weight:800;color:var(--red)" id="as-rejected">—</div><div style="font-size:.7rem;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">Rejetées</div></div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center"><div style="font-size:1.7rem;font-weight:800;color:var(--blue)" id="as-premium">—</div><div style="font-size:.7rem;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">Premium actifs</div></div>
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center"><div style="font-size:1.7rem;font-weight:800" id="as-users">—</div><div style="font-size:.7rem;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">Utilisateurs</div></div>
+      </div>
+
+      <!-- Tabs --><div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+        <button class="admin-tab on" onclick="adminLoadRequests('pending',this)">⏳ En attente</button>
+        <button class="admin-tab" onclick="adminLoadRequests('approved',this)">✅ Approuvées</button>
+        <button class="admin-tab" onclick="adminLoadRequests('rejected',this)">❌ Rejetées</button>
+        <button class="admin-tab" onclick="adminLoadRequests('all',this)">📋 Toutes</button>
+      </div>
+
+      <!-- Table -->
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:.92rem;font-weight:700" id="admin-table-title">Demandes en attente</span>
+          <span style="font-size:.75rem;color:var(--text3)" id="admin-table-count">—</span>
+        </div>
+        <div id="admin-table-body" style="overflow-x:auto">
+          <div style="text-align:center;padding:40px;color:var(--text3)">⏳ Chargement...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN DETAIL MODAL -->
+<div id="admin-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:24px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto">
+    <h3 style="margin-bottom:14px;font-size:1rem" id="admin-modal-title">Détail</h3>
+    <div id="admin-modal-body"></div>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end" id="admin-modal-actions"></div>
+  </div>
+</div>
+
+<style>
+.admin-tab{padding:7px 16px;border-radius:8px;font-size:.82rem;font-weight:600;background:var(--bg3);color:var(--text2);border:1px solid var(--border);cursor:pointer;transition:var(--ease)}
+.admin-tab:hover,.admin-tab.on{background:var(--blue);color:white;border-color:var(--blue)}
+.admin-badge-st{display:inline-block;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase}
+.admin-badge-st.pending{background:rgba(232,185,35,.15);color:var(--gold);border:1px solid rgba(232,185,35,.2)}
+.admin-badge-st.approved{background:rgba(0,168,84,.15);color:var(--green);border:1px solid rgba(0,168,84,.2)}
+.admin-badge-st.rejected{background:rgba(229,57,53,.15);color:var(--red);border:1px solid rgba(229,57,53,.2)}
+</style>
+
+<script>
+// ═══════════════════════════════════════════════
+// ADMIN PANEL JS
+// ═══════════════════════════════════════════════
+let _adminKey = '';
+let _adminFilter = 'pending';
+let _adminReqId = null;
+
+function adminLogin() {
+  const k = document.getElementById('admin-key-inp').value.trim();
+  if (!k) return;
+  ld('Vérification...');
+  const url = (typeof CFG !== 'undefined' ? CFG.API : '') + '/api/admin/stats';
+  fetch(url, { headers: { 'Content-Type':'application/json', 'X-Admin-Key': k } })
+    .then(r => r.json())
+    .then(res => {
+      uld();
+      if (res.error) { document.getElementById('admin-login-err').textContent = '❌ Clé incorrecte'; return; }
+      _adminKey = k;
+      sessionStorage.setItem('be_admin_key', k);
+      document.getElementById('admin-login-err').textContent = '';
+      document.getElementById('admin-login').style.display = 'none';
+      document.getElementById('admin-dash').style.display = 'flex';
+      adminLoadStats();
+      adminLoadRequests('pending');
+    })
+    .catch(() => { uld(); document.getElementById('admin-login-err').textContent = '❌ Erreur réseau'; });
+}
+
+function adminLogout() {
+  _adminKey = '';
+  sessionStorage.removeItem('be_admin_key');
+  document.getElementById('admin-login').style.display = 'flex';
+  document.getElementById('admin-dash').style.display = 'none';
+  document.getElementById('admin-key-inp').value = '';
+}
+
+function adminFetch(path, method='GET', body=null) {
+  const url = (typeof CFG !== 'undefined' ? CFG.API : '') + path;
+  return fetch(url, {
+    method,
+    headers: { 'Content-Type':'application/json', 'X-Admin-Key': _adminKey },
+    ...(body ? { body: JSON.stringify(body) } : {})
+  }).then(r => r.json()).catch(e => ({ error: e.message }));
+}async function adminLoadStats() {
+  const res = await adminFetch('/api/admin/stats');
+  if (res.error) return;
+  document.getElementById('as-pending').textContent  = res.pending  ?? '—';
+  document.getElementById('as-approved').textContent = res.approved ?? '—';
+  document.getElementById('as-rejected').textContent = res.rejected ?? '—';
+  document.getElementById('as-premium').textContent  = res.total_premium ?? '—';
+  document.getElementById('as-users').textContent    = res.total_users ?? '—';
+}
+
+const _adminFilterLabels = { pending:'En attente', approved:'Approuvées', rejected:'Rejetées', all:'Toutes' };
+
+async function adminLoadRequests(filter='pending', tabBtn=null) {
+  _adminFilter = filter;
+  if (tabBtn) { document.querySelectorAll('.admin-tab').forEach(b=>b.classList.remove('on')); tabBtn.classList.add('on'); }
+  document.getElementById('admin-table-title').textContent = 'Demandes — ' + _adminFilterLabels[filter];
+  document.getElementById('admin-table-body').innerHTML = '<div style="text-align:center;padding:40px;color:var(--text3)">⏳ Chargement...</div>';
+
+  const res = await adminFetch(`/api/admin/requests?status=${filter}`);
+  if (res.error) { document.getElementById('admin-table-body').innerHTML = `<div style="text-align:center;padding:40px;color:var(--red)">${res.error}</div>`; return; }
+
+  document.getElementById('admin-table-count').textContent = `${res.total ?? 0} demande(s)`;
+
+  if (!res.requests?.length) {
+    document.getElementById('admin-table-body').innerHTML = '<div style="text-align:center;padding:40px;color:var(--text3)">✅ Aucune demande ici.</div>';
+    return;
+  }
+
+  const rows = res.requests.map(r => `
+    <tr style="border-bottom:1px solid rgba(255,255,255,.04)">
+      <td style="padding:10px 12px;font-size:.75rem;color:var(--text3);font-family:monospace">#${r.id.slice(0,8).toUpperCase()}</td>
+      <td style="padding:10px 12px;font-weight:700">${r.pseudo}</td>
+      <td style="padding:10px 12px;font-size:.82rem">${r.plan==='premium_yearly'?'📅 Annuel':'📆 Mensuel'}</td>
+      <td style="padding:10px 12px;color:var(--gold);font-weight:700">${(r.declared_amount||0).toLocaleString('fr-FR')} FCFA</td>
+      <td style="padding:10px 12px"><span class="admin-badge-st ${r.status}">${r.status}</span></td>
+      <td style="padding:10px 12px;font-size:.75rem;color:var(--text3)">${new Date(r.created_at).toLocaleDateString('fr-FR')}</td>
+      <td style="padding:10px 12px">
+        <button onclick="adminShowDetail('${r.id}')" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:5px 10px;border-radius:7px;font-size:.75rem;cursor:pointer">👁 Voir</button>
+        ${r.status==='pending'?`
+        <button onclick="adminQuickApprove('${r.id}')" style="background:var(--green);color:white;padding:5px 10px;border-radius:7px;font-size:.75rem;cursor:pointer;margin-left:4px">✅</button>
+        <button onclick="adminQuickReject('${r.id}')" style="background:var(--red);color:white;padding:5px 10px;border-radius:7px;font-size:.75rem;cursor:pointer;margin-left:4px">❌</button>
+        `:''}
+      </td>
+    </tr>`).join('');
+
+  document.getElementById('admin-table-body').innerHTML = `
+    <table style="width:100%;border-collapse:collapse">
+      <thead><tr style="border-bottom:1px solid var(--border)">
+        <th style="padding:9px 12px;text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text3)">ID</th>
+        <th style="padding:9px 12px;text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text3)">Utilisateur</th>
+        <th style="padding:9px 12px;text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text3)">Plan</th>
+        <th style="padding:9px 12px;text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text3)">Montant</th>
+        <th style="padding:9px 12px;text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text3)">Statut</th>
+        <th style="padding:9px 12px;text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text3)">Date</th>
+        <th style="padding:9px 12px;text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text3)">Actions</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+async function adminShowDetail(id) {
+  _adminReqId = id;
+  const res = await adminFetch(`/api/admin/requests?status=all`);
+  const req = res.requests?.find(r => r.id === id);
+  if (!req) return;
+
+  document.getElementById('admin-modal-title').textContent = `Demande #${id.slice(0,8).toUpperCase()}`;
+  document.getElementById('admin-modal-body').innerHTML = `
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem"><span style="color:var(--text2)">Utilisateur</span><strong>${req.pseudo}</strong></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem"><span style="color:var(--text2)">Plan</span><strong>${req.plan==='premium_yearly'?'📅 Annuel':'📆 Mensuel'}</strong></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem"><span style="color:var(--text2)">Montant</span><strong style="color:var(--gold)">${(req.declared_amount||0).toLocaleString('fr-FR')} FCFA</strong></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem"><span style="color:var(--text2)">Opérateur</span><strong>${req.payment_operator||'—'}</strong></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem"><span style="color:var(--text2)">N° Mobile Money</span><strong style="color:var(--green)">${req.payment_phone||'—'}</strong></div>
+    ${req.notes?`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem"><span style="color:var(--text2)">Message</span><span>${req.notes}</span></div>`:''}
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem"><span style="color:var(--text2)">Statut</span><span class="admin-badge-st ${req.status}">${req.status}</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:.85rem"><span style="color:var(--text2)">Date</span><span>${new Date(req.created_at).toLocaleString('fr-FR')}</span></div>
+    ${req.status==='pending'?`
+    <div style="margin-top:12px;background:rgba(26,115,232,.08);border-radius:10px;padding:12px;font-size:.8rem;color:var(--text2)">
+      📱 Vérifiez que vous avez reçu <strong>${(req.declared_amount||0).toLocaleString('fr-FR')} FCFA</strong> de <strong>${req.payment_phone}</strong> via <strong>${req.payment_operator}</strong>.
+    </div>
+    <textarea id="admin-reject-reason" style="width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--rs);padding:10px 14px;color:var(--text);font-size:.85rem;resize:vertical;min-height:70px;margin-top:10px;display:none;box-sizing:border-box" placeholder="Raison du rejet (facultatif)..."></textarea>
+    `:''}`;
+
+  document.getElementById('admin-modal-actions').innerHTML = req.status==='pending' ? `
+    <button onclick="adminCloseModal()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:8px 16px;border-radius:8px;font-size:.82rem;cursor:pointer">Fermer</button>
+    <button onclick="document.getElementById('admin-reject-reason').style.display='block'" style="background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:var(--red);padding:8px 16px;border-radius:8px;font-size:.82rem;cursor:pointer">+ Raison</button>
+    <button onclick="adminRejectRequest()" style="background:var(--red);color:white;padding:8px 16px;border-radius:8px;font-size:.82rem;cursor:pointer;font-weight:700">❌ Rejeter</button>
+    <button onclick="adminApproveRequest()" style="background:var(--green);color:white;padding:8px 16px;border-radius:8px;font-size:.82rem;cursor:pointer;font-weight:700">✅ Activer</button>
+  ` : `<button onclick="adminCloseModal()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:8px 16px;border-radius:8px;font-size:.82rem;cursor:pointer">Fermer</button>`;
+
+  document.getElementById('admin-modal').style.display = 'flex';
+}
+
+function adminCloseModal() { document.getElementById('admin-modal').style.display='none'; _adminReqId=null; }
+document.getElementById('admin-modal').addEventListener('click', e => { if(e.target===document.getElementById('admin-modal')) adminCloseModal(); });
+
+async function adminApproveRequest() {
+  if (!_adminReqId) return;
+  if (!confirm("Confirmer l'activation ?")) return;
+  adminCloseModal();
+  const res = await adminFetch(`/api/admin/requests/${_adminReqId}/approve`, 'POST');
+  if (res.error) { toast(res.error,'err'); return; }
+  toast('✅ Abonnement activé !','ok');
+  adminLoadStats(); adminLoadRequests(_adminFilter);
+}
+
+async function adminRejectRequest() {
+  if (!_adminReqId) return;
+  const reason = document.getElementById('admin-reject-reason')?.value || '';
+  adminCloseModal();
+  const res = await adminFetch(`/api/admin/requests/${_adminReqId}/reject`, 'POST', { reason });
+  if (res.error) { toast(res.error,'err'); return; }
+  toast('❌ Demande rejetée','warn');
+  adminLoadStats(); adminLoadRequests(_adminFilter);
+}
+
+async function adminQuickApprove(id) {
+  if (!confirm('Activer cet abonnement ?')) return;
+  const res = await adminFetch(`/api/admin/requests/${id}/approve`, 'POST');
+  if (res.error) { toast(res.error,'err'); return; }
+  toast('✅ Abonnement activé !','ok');
+  adminLoadStats(); adminLoadRequests(_adminFilter);
+}
+
+async function adminQuickReject(id) {
+  const reason = prompt('Raison du rejet (facultatif) :') || '';
+  const res = await adminFetch(`/api/admin/requests/${id}/reject`, 'POST', { reason });
+  if (res.error) { toast(res.error,'err'); return; }
+  toast('❌ Demande rejetée','warn');
+  adminLoadStats(); adminLoadRequests(_adminFilter);
+}
+
+// Auto-restore admin session
+(function(){
+  const k = sessionStorage.getItem('be_admin_key');
+  if (k && window.location.hash === '#admin') {
+    _adminKey = k;
+    sv('admin');
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-dash').style.display = 'flex';
+    adminLoadStats();
+    adminLoadRequests('pending');
+  }
+})();
+
+function openAdmin(){
+  sv('admin');
+}
+</script>
+
 </body>
 </html>
+  
