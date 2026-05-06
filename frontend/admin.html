@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BobdoEduc — Panel Admin</title>
+<style>
+:root {
+  --blue:#1A73E8; --green:#00A854; --red:#E53935;
+  --gold:#E8B923; --bg:#0D1120; --bg2:#131828;
+  --bg3:#1A2035; --border:rgba(255,255,255,.08);
+  --text:#EEF0F8; --text2:#8892B0; --text3:#4A5270;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+button{cursor:pointer;border:none;font-family:inherit}
+
+/* ── LAYOUT ── */
+.header{background:var(--bg2);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-size:1.2rem;font-weight:800;letter-spacing:-.5px}
+.logo span{color:var(--blue)}
+.admin-badge{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:var(--red);font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px}
+.content{max-width:1100px;margin:0 auto;padding:24px 20px}
+
+/* ── LOGIN ── */
+.login-wrap{display:flex;align-items:center;justify-content:center;min-height:80vh}
+.login-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:36px;width:100%;max-width:380px;text-align:center}
+.login-box h2{margin-bottom:6px}
+.login-box p{color:var(--text2);font-size:.85rem;margin-bottom:24px}
+.inp{width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:12px 16px;color:var(--text);font-size:.95rem;margin-bottom:12px}
+.inp:focus{outline:none;border-color:var(--blue)}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:28px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center}
+.stat-v{font-size:1.8rem;font-weight:800;font-family:'Segoe UI',sans-serif}
+.stat-l{font-size:.75rem;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{padding:8px 18px;border-radius:8px;font-size:.85rem;font-weight:600;background:var(--bg3);color:var(--text2);border:1px solid var(--border);transition:.2s}
+.tab-btn:hover,.tab-btn.on{background:var(--blue);color:white;border-color:var(--blue)}
+
+/* ── TABLE ── */
+.table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.table-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.table-head h3{font-size:.97rem;font-weight:700}
+table{width:100%;border-collapse:collapse}
+th{padding:11px 16px;text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);border-bottom:1px solid var(--border);font-weight:600}
+td{padding:13px 16px;font-size:.86rem;border-bottom:1px solid rgba(255,255,255,.04)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(26,115,232,.05)}
+.badge{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.badge.pending{background:rgba(232,185,35,.15);color:var(--gold);border:1px solid rgba(232,185,35,.2)}
+.badge.approved{background:rgba(0,168,84,.15);color:var(--green);border:1px solid rgba(0,168,84,.2)}
+.badge.rejected{background:rgba(229,57,53,.15);color:var(--red);border:1px solid rgba(229,57,53,.2)}
+
+/* ── BUTTONS ── */
+.btn{padding:7px 14px;border-radius:8px;font-size:.8rem;font-weight:700;transition:.2s;display:inline-flex;align-items:center;gap:5px}
+.btn-green{background:var(--green);color:white}.btn-green:hover{background:#007A3D}
+.btn-red{background:var(--red);color:white}.btn-red:hover{background:#B71C1C}
+.btn-blue{background:var(--blue);color:white}.btn-blue:hover{background:#1557B0}
+.btn-ghost{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}.btn-ghost:hover{background:rgba(255,255,255,.08)}
+
+/* ── MODAL ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal-bg.on{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px;width:100%;max-width:500px}
+.modal h3{margin-bottom:16px;font-size:1.05rem}
+.detail-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:.86rem}
+.detail-row:last-child{border-bottom:none}
+.dl{color:var(--text2)}.dv{font-weight:600;color:var(--text)}
+.dv.gold{color:var(--gold)}.dv.green{color:var(--green)}
+textarea{width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;color:var(--text);font-size:.88rem;resize:vertical;min-height:80px;margin-top:12px}
+textarea:focus{outline:none;border-color:var(--blue)}
+.modal-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:48px 20px;color:var(--text3)}
+.empty .ic{font-size:2.5rem;margin-bottom:12px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  th:nth-child(3), td:nth-child(3),
+  th:nth-child(5), td:nth-child(5){display:none}
+  .content{padding:16px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- MODAL DETAIL -->
+<div class="modal-bg" id="detailModal">
+  <div class="modal">
+    <h3 id="modalTitle">Détail de la demande</h3>
+    <div id="modalBody"></div>
+    <div class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="loginSection" style="display:none">
+  <div class="header"><div class="logo">Bobdo<span>Educ</span></div><span class="admin-badge">🔐 ADMIN</span></div>
+  <div class="login-wrap">
+    <div class="login-box">
+      <h2>🔐 Panel Admin</h2>
+      <p>Entrez votre clé admin pour accéder au tableau de bord.</p>
+      <input class="inp" type="password" id="keyInput" placeholder="Clé admin..." onkeydown="if(event.key==='Enter')login()">
+      <button onclick="login()" style="width:100%;padding:12px;border-radius:10px;background:var(--blue);color:white;font-weight:700;font-size:.95rem">Connexion →</button>
+      <div style="color:var(--red);font-size:.82rem;margin-top:10px;min-height:20px" id="loginErr"></div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" style="display:none">
+  <div class="header">
+    <div class="logo">Bobdo<span>Educ</span> <span style="font-size:.75rem;color:var(--text3);font-weight:400">Panel Admin</span></div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="admin-badge">🔐 ADMIN</span>
+      <button class="btn btn-ghost btn-sm" onclick="logout()">Déconnexion</button>
+    </div>
+  </div>
+  <div class="content">
+
+    <!-- STATS -->
+    <div class="stats" id="statsGrid">
+      <div class="stat-card"><div class="stat-v" style="color:var(--gold)" id="s-pending">—</div><div class="stat-l">En attente</div></div>
+      <div class="stat-card"><div class="stat-v" style="color:var(--green)" id="s-approved">—</div><div class="stat-l">Approuvées</div></div>
+      <div class="stat-card"><div class="stat-v" style="color:var(--red)" id="s-rejected">—</div><div class="stat-l">Rejetées</div></div>
+      <div class="stat-card"><div class="stat-v" style="color:var(--blue)" id="s-premium">—</div><div class="stat-l">Premium actifs</div></div>
+      <div class="stat-card"><div class="stat-v" id="s-users">—</div><div class="stat-l">Total utilisateurs</div></div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn on" onclick="loadRequests('pending',this)">⏳ En attente</button>
+      <button class="tab-btn" onclick="loadRequests('approved',this)">✅ Approuvées</button>
+      <button class="tab-btn" onclick="loadRequests('rejected',this)">❌ Rejetées</button>
+      <button class="tab-btn" onclick="loadRequests('all',this)">📋 Toutes</button>
+      <button class="btn btn-blue" style="margin-left:auto" onclick="loadStats();loadRequests(currentFilter)">🔄 Actualiser</button>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <div class="table-head">
+        <h3 id="tableTitle">Demandes en attente</h3>
+        <span style="font-size:.78rem;color:var(--text3)" id="tableCount">—</span>
+      </div>
+      <div id="tableBody">
+        <div class="empty"><div class="ic">⏳</div><p>Chargement...</p></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── CONFIG ────────────────────────────────────────────────────
+// ⚠️ REMPLACER par votre URL backend en production
+const API_URL = window.location.origin.includes('localhost')
+  ? 'http://localhost:4000'
+  : window.location.origin; // Si l'admin est servi par le même serveur
+
+let adminKey = '';
+let currentFilter = 'pending';
+
+// ── AUTH ──────────────────────────────────────────────────────
+function init() {
+  adminKey = sessionStorage.getItem('admin_key') || '';
+  if (adminKey) showDashboard();
+  else showLogin();
+}
+
+function showLogin()     { document.getElementById('loginSection').style.display='block'; document.getElementById('dashboard').style.display='none'; }
+function showDashboard() { document.getElementById('loginSection').style.display='none';  document.getElementById('dashboard').style.display='block'; loadStats(); loadRequests('pending'); }
+
+async function login() {
+  const k = document.getElementById('keyInput').value.trim();
+  if (!k) return;
+  const res = await apiFetch('/api/admin/stats', 'GET', null, k);
+  if (res.error) { document.getElementById('loginErr').textContent = '❌ Clé incorrecte'; return; }
+  adminKey = k;
+  sessionStorage.setItem('admin_key', k);
+  document.getElementById('loginErr').textContent = '';
+  showDashboard();
+}
+
+function logout() {
+  adminKey = '';
+  sessionStorage.removeItem('admin_key');
+  showLogin();
+}
+
+// ── API ───────────────────────────────────────────────────────
+async function apiFetch(path, method='GET', body=null, key=null) {
+  try {
+    const r = await fetch(API_URL + path, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Key': key || adminKey
+      },
+      ...(body ? { body:JSON.stringify(body) } : {})
+    });
+    return await r.json();
+  } catch(e) { return { error: e.message }; }
+}
+
+// ── STATS ─────────────────────────────────────────────────────
+async function loadStats() {
+  const res = await apiFetch('/api/admin/stats');
+  if (res.error) return;
+  document.getElementById('s-pending').textContent  = res.pending;
+  document.getElementById('s-approved').textContent = res.approved;
+  document.getElementById('s-rejected').textContent = res.rejected;
+  document.getElementById('s-premium').textContent  = res.total_premium;
+  document.getElementById('s-users').textContent    = res.total_users;
+}
+
+// ── TABLEAU ───────────────────────────────────────────────────
+const filterLabels = { pending:'En attente', approved:'Approuvées', rejected:'Rejetées', all:'Toutes' };
+
+async function loadRequests(filter='pending', tabBtn=null) {
+  currentFilter = filter;
+  if (tabBtn) { document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on')); tabBtn.classList.add('on'); }
+  document.getElementById('tableTitle').textContent = 'Demandes — '+filterLabels[filter];
+  document.getElementById('tableBody').innerHTML = '<div class="empty"><div class="ic">⏳</div><p>Chargement...</p></div>';
+
+  const res = await apiFetch(`/api/admin/requests?status=${filter}`);
+  if (res.error) {
+    document.getElementById('tableBody').innerHTML = `<div class="empty"><div class="ic">❌</div><p>${res.error}</p></div>`;
+    return;
+  }
+  document.getElementById('tableCount').textContent = `${res.total} demande(s)`;
+
+  if (!res.requests?.length) {
+    document.getElementById('tableBody').innerHTML = '<div class="empty"><div class="ic">✅</div><p>Aucune demande dans cette catégorie.</p></div>';
+    return;
+  }
+
+  const rows = res.requests.map(r => `
+    <tr>
+      <td><span style="font-family:monospace;font-size:.78rem;color:var(--text3)">#${r.id.slice(0,8).toUpperCase()}</span></td>
+      <td><strong>${r.pseudo}</strong></td>
+      <td>${r.plan === 'premium_yearly' ? '📅 Annuel' : '📆 Mensuel'}</td>
+      <td style="color:var(--gold);font-weight:700">${(r.declared_amount||0).toLocaleString('fr-FR')} FCFA</td>
+      <td>${r.payment_operator || '—'} · ${r.payment_phone || '—'}</td>
+      <td><span class="badge ${r.status}">${r.status}</span></td>
+      <td style="font-size:.76rem;color:var(--text3)">${new Date(r.created_at).toLocaleDateString('fr-FR')}</td>
+      <td>
+        <button class="btn btn-ghost" onclick="showDetail('${r.id}')">👁 Voir</button>
+        ${r.status === 'pending' ? `
+        <button class="btn btn-green" onclick="quickApprove('${r.id}')" style="margin-left:4px">✅</button>
+        <button class="btn btn-red"   onclick="quickReject('${r.id}')"  style="margin-left:4px">❌</button>
+        ` : ''}
+      </td>
+    </tr>`).join('');
+
+  document.getElementById('tableBody').innerHTML = `
+    <table>
+      <thead><tr>
+        <th>ID</th><th>Utilisateur</th><th>Plan</th><th>Montant</th>
+        <th>Paiement</th><th>Statut</th><th>Date</th><th>Actions</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+// ── DETAIL MODAL ──────────────────────────────────────────────
+let _currentReqId = null;
+
+async function showDetail(id) {
+  _currentReqId = id;
+  const res = await apiFetch(`/api/admin/requests?status=all`);
+  const req = res.requests?.find(r => r.id === id);
+  if (!req) return;
+
+  document.getElementById('modalTitle').textContent = `Demande #${id.slice(0,8).toUpperCase()}`;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="detail-row"><span class="dl">Utilisateur</span><span class="dv">${req.pseudo}</span></div>
+    <div class="detail-row"><span class="dl">Plan demandé</span><span class="dv">${req.plan === 'premium_yearly' ? '📅 Annuel (1 an)' : '📆 Mensuel (1 mois)'}</span></div>
+    <div class="detail-row"><span class="dl">Montant déclaré</span><span class="dv gold">${(req.declared_amount||0).toLocaleString('fr-FR')} FCFA</span></div>
+    <div class="detail-row"><span class="dl">Opérateur</span><span class="dv">${req.payment_operator || '—'}</span></div>
+    <div class="detail-row"><span class="dl">N° Mobile Money</span><span class="dv green">${req.payment_phone || '—'}</span></div>
+    ${req.notes ? `<div class="detail-row"><span class="dl">Message</span><span class="dv">${req.notes}</span></div>` : ''}
+    <div class="detail-row"><span class="dl">Statut</span><span class="badge ${req.status}">${req.status}</span></div>
+    <div class="detail-row"><span class="dl">Date demande</span><span class="dv">${new Date(req.created_at).toLocaleString('fr-FR')}</span></div>
+    <div class="detail-row"><span class="dl">Expire prévu</span><span class="dv">${req.planned_expires_at ? new Date(req.planned_expires_at).toLocaleDateString('fr-FR') : '—'}</span></div>
+    ${req.status === 'pending' ? `
+    <div style="margin-top:14px;background:rgba(26,115,232,.08);border-radius:10px;padding:12px;font-size:.82rem;color:var(--text2)">
+      📱 <strong>Vérifiez sur votre téléphone ${req.payment_operator}</strong> que vous avez bien reçu
+      <strong>${(req.declared_amount||0).toLocaleString('fr-FR')} FCFA</strong> depuis le numéro <strong>${req.payment_phone}</strong>.
+    </div>
+    <textarea id="rejectReason" placeholder="Raison du rejet (facultatif)..." style="display:none"></textarea>
+    ` : ''}`;
+
+  document.getElementById('modalActions').innerHTML = req.status === 'pending' ? `
+    <button class="btn btn-ghost" onclick="closeModal()">Fermer</button>
+    <button class="btn btn-red"   onclick="document.getElementById('rejectReason').style.display='block';document.getElementById('rejectReason').focus()">❌ Raison rejet</button>
+    <button class="btn btn-red"   onclick="rejectRequest()">❌ Rejeter</button>
+    <button class="btn btn-green" onclick="approveRequest()">✅ Activer</button>
+  ` : `<button class="btn btn-ghost" onclick="closeModal()">Fermer</button>`;
+
+  document.getElementById('detailModal').classList.add('on');
+}
+
+function closeModal() { document.getElementById('detailModal').classList.remove('on'); _currentReqId=null; }
+document.getElementById('detailModal').addEventListener('click', e => { if(e.target===document.getElementById('detailModal')) closeModal(); });
+
+// ── ACTIONS ───────────────────────────────────────────────────
+async function approveRequest() {
+  if (!_currentReqId) return;
+  if (!confirm(`Confirmer l'activation de l'abonnement ?`)) return;
+  closeModal();
+  const res = await apiFetch(`/api/admin/requests/${_currentReqId}/approve`, 'POST');
+  if (res.error) { alert('Erreur: '+res.error); return; }
+  showNotif(`✅ ${res.message}`, '#00A854');
+  loadStats(); loadRequests(currentFilter);
+}
+
+async function rejectRequest() {
+  if (!_currentReqId) return;
+  const reason = document.getElementById('rejectReason')?.value || '';
+  closeModal();
+  const res = await apiFetch(`/api/admin/requests/${_currentReqId}/reject`, 'POST', { reason });
+  if (res.error) { alert('Erreur: '+res.error); return; }
+  showNotif(`❌ ${res.message}`, '#E53935');
+  loadStats(); loadRequests(currentFilter);
+}
+
+async function quickApprove(id) {
+  if (!confirm('Activer cet abonnement ?')) return;
+  const res = await apiFetch(`/api/admin/requests/${id}/approve`, 'POST');
+  if (res.error) { alert('Erreur: '+res.error); return; }
+  showNotif(`✅ ${res.message}`, '#00A854');
+  loadStats(); loadRequests(currentFilter);
+}
+
+async function quickReject(id) {
+  const reason = prompt('Raison du rejet (facultatif) :') || '';
+  const res = await apiFetch(`/api/admin/requests/${id}/reject`, 'POST', { reason });
+  if (res.error) { alert('Erreur: '+res.error); return; }
+  showNotif(`❌ ${res.message}`, '#E53935');
+  loadStats(); loadRequests(currentFilter);
+}
+
+// ── NOTIFICATION ──────────────────────────────────────────────
+function showNotif(msg, color='#00A854') {
+  const el = document.createElement('div');
+  el.style.cssText = `position:fixed;bottom:24px;right:24px;background:${color};color:white;padding:12px 20px;border-radius:10px;font-weight:600;font-size:.88rem;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.4);animation:fadein .3s ease`;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 4000);
+}
+
+// ── START ─────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>BobdoEduc — Apprends. Progresse. Réussis.</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/*  VARIABLES (même charte que BobdoQuiz, couleur accent changée)  */
+:root {
+  --blue:#1A73E8; --blue-l:#4D94FF; --blue-d:#1557B0;
+  --gold:#E8B923; --gold-d:#C49A10;
+  --green:#00A854; --green-d:#007A3D;
+  --red:#E53935;
+  --purple:#7C3AED; --purple-l:#A78BFA;
+  --bg:#080B12; --bg2:#0D1120; --bg3:#131828; --bg4:#1A2035;
+  --border:rgba(26,115,232,.18); --border2:rgba(255,255,255,.07);
+  --text:#EEF0F8; --text2:#8892B0; --text3:#4A5270;
+  --shadow:0 8px 40px rgba(0,0,0,.6);
+  --r:16px; --rs:10px; --ease:.25s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.6}
+button{cursor:pointer;border:none;outline:none;font-family:inherit}
+input,select,textarea{font-family:inherit;outline:none;border:none;background:none;color:var(--text)}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--blue-d);border-radius:2px}
+
+/*  VIEWS & APP  */
+.view{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center}
+.view.on{display:flex}
+#app{display:none;flex-direction:column;min-height:100vh;max-width:480px;margin:0 auto;box-shadow:0 0 80px rgba(0,0,0,.8)}
+#app.on{display:flex}
+
+/*  SPLASH  */
+#splash{background:var(--bg);position:fixed;inset:0;z-index:1000;flex-direction:column;gap:14px}
+.sp-logo{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,9vw,4.5rem);font-weight:800;letter-spacing:-2px}
+.sp-logo span{color:var(--blue)}
+.sp-tag{color:var(--text3);font-size:.8rem;letter-spacing:3px;text-transform:uppercase}
+.sp-bar{width:180px;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:14px}
+.sp-fill{height:100%;background:linear-gradient(90deg,var(--blue-d),var(--blue));animation:sp 2.2s ease forwards}
+@keyframes sp{from{width:0}to{width:100%}}
+
+/*  AUTH  */
+.auth-box{width:100%;max-width:420px;padding:24px 20px}
+.a-logo{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;text-align:center;margin-bottom:4px}
+.a-logo span{color:var(--blue)}
+.a-sub{color:var(--text2);text-align:center;font-size:.82rem;margin-bottom:26px}
+.tabs{display:flex;background:var(--bg3);border-radius:var(--rs);padding:4px;margin-bottom:22px}
+.tab{flex:1;padding:9px;text-align:center;border-radius:8px;font-size:.85rem;font-weight:500;color:var(--text2);cursor:pointer;transition:var(--ease)}
+.tab.on{background:var(--blue);color:#fff;font-weight:700}
+.f{display:none;flex-direction:column;gap:13px}
+.f.on{display:flex}
+
+/*  FIELDS  */
+.fg{display:flex;flex-direction:column;gap:5px}
+.fl{font-size:.7rem;font-weight:600;letter-spacing:.5px;color:var(--text2);text-transform:uppercase}
+.fw{position:relative;display:flex;align-items:center}
+.fi{width:100%;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--rs);padding:12px 15px;color:var(--text);font-size:.95rem;transition:var(--ease)}
+.fi:focus{border-color:var(--blue);background:var(--bg4)}
+.fi::placeholder{color:var(--text3)}
+.fi.pfx{padding-left:54px}
+.pfx-l{position:absolute;left:12px;color:var(--blue);font-weight:600;font-size:.86rem;pointer-events:none}
+.fi-eye{position:absolute;right:12px;cursor:pointer;color:var(--text3);user-select:none}
+.otp-row{display:flex;gap:7px}
+.oi{flex:1;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--rs);padding:12px 0;text-align:center;color:var(--text);font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;transition:var(--ease)}
+.oi:focus{border-color:var(--blue)}
+.otp-hint{text-align:center;font-size:.74rem;color:var(--text3);margin-top:3px}
+.otp-hint span{color:var(--blue);cursor:pointer;font-weight:600}
+
+/*  BUTTONS  */
+.btn{padding:12px 18px;border-radius:var(--rs);font-size:.9rem;font-weight:700;font-family:'Syne',sans-serif;transition:var(--ease);display:flex;align-items:center;justify-content:center;gap:6px;position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .12s}
+.btn:active::after{opacity:.09}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:var(--blue-l);transform:translateY(-1px);box-shadow:0 5px 18px rgba(26,115,232,.35)}
+.btn-gold{background:var(--gold);color:var(--bg)}
+.btn-gold:hover{background:#F5D060;transform:translateY(-1px)}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-purple:hover{background:#6D28D9;transform:translateY(-1px)}
+.btn-green{background:var(--green);color:#fff}
+.btn-ghost{background:var(--bg3);color:var(--text2)}
+.btn-ghost:hover{background:var(--bg4);color:var(--text)}
+.btn-w{width:100%}
+.btn-sm{padding:7px 12px;font-size:.76rem}
+
+/*  STEPS  */
+.sdots{display:flex;gap:6px;margin-bottom:14px}
+.sd{flex:1;height:4px;background:var(--bg4);border-radius:2px;transition:var(--ease)}
+.sd.done{background:var(--blue)}.sd.curr{background:var(--blue-l)}
+.fs{display:none;flex-direction:column;gap:13px}
+.fs.on{display:flex}
+
+/*  TOP BAR  */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--bg2);border-bottom:1px solid var(--border2);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.tb-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;letter-spacing:-.5px}
+.tb-logo span{color:var(--blue)}
+.tb-r{display:flex;align-items:center;gap:9px}
+.prem-badge{background:linear-gradient(135deg,var(--gold-d),var(--gold));color:var(--bg);font-size:.64rem;font-weight:800;padding:3px 8px;border-radius:20px;letter-spacing:.5px}
+.nb{width:32px;height:32px;background:var(--bg3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;cursor:pointer;position:relative;transition:var(--ease)}
+.ndot{position:absolute;top:3px;right:3px;width:7px;height:7px;background:var(--blue);border-radius:50%;border:1.5px solid var(--bg2);display:none}
+.av{width:32px;height:32px;background:linear-gradient(135deg,var(--blue-d),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.76rem;cursor:pointer}
+
+/*  MAIN + NAV  */
+.main{flex:1;overflow-y:auto;padding-bottom:74px}
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--bg2);border-top:1px solid var(--border2);display:flex;padding:7px 0 max(7px,env(safe-area-inset-bottom));z-index:100}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;cursor:pointer;transition:var(--ease)}
+.ni-ic{font-size:1.2rem;line-height:1;transition:var(--ease)}
+.ni-lb{font-size:.62rem;font-weight:500;color:var(--text3);transition:var(--ease)}
+.ni.on .ni-ic{transform:translateY(-2px)}
+.ni.on .ni-lb{color:var(--blue);font-weight:700}
+
+/*  SCREENS  */
+.sc{display:none}
+.sc.on{display:block}
+
+/*  HOME  */
+.h-hero{background:linear-gradient(160deg,var(--bg2),var(--bg));padding:20px 16px 16px;border-bottom:1px solid var(--border2)}
+.h-greet{color:var(--text2);font-size:.82rem}
+.h-name{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800}
+/* Quota bar */
+.quota-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:16px;margin-top:16px}
+.qc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.qc-label{font-size:.78rem;color:var(--text2)}
+.qc-count{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--blue)}
+.qbar-bg{width:100%;height:7px;background:var(--bg4);border-radius:4px;overflow:hidden}
+.qbar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue-d),var(--blue));transition:width .5s ease}
+.qc-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.qc-msg{font-size:.74rem;color:var(--text3)}
+.qc-btn{background:rgba(26,115,232,.15);border:1px solid rgba(26,115,232,.3);color:var(--blue);font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:20px;cursor:pointer;font-family:'Syne',sans-serif;transition:var(--ease)}
+.qc-btn:hover{background:rgba(26,115,232,.25)}
+/* Premium card */
+.prem-card{background:linear-gradient(135deg,#1A1A2E,#16213E);border:1px solid rgba(124,58,237,.3);border-radius:var(--r);padding:16px;margin-top:10px}
+.pc-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.pc-icon{font-size:1.4rem}
+.pc-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem}
+.pc-end{font-size:.74rem;color:var(--text3);margin-top:2px}
+.pc-progress{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-top:10px}
+.pc-prog-fill{height:100%;background:linear-gradient(90deg,var(--purple),var(--blue));border-radius:3px;transition:width .5s}
+/* Quick stats */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:16px}
+.scard{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--rs);padding:11px;text-align:center}
+.sv{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800}
+.sv.b{color:var(--blue)}.sv.g{color:var(--green)}.sv.r{color:var(--red)}
+.sd2{font-size:.68rem;color:var(--text3);margin-top:2px}
+/* Cycle cards */
+.sec-t{font-family:'Syne',sans-serif;font-size:.97rem;font-weight:700;padding:16px 16px 10px}
+.cycles-grid{display:grid;grid-template-columns:1fr;gap:10px;padding:0 16px 16px}
+.cycle-card{border-radius:var(--r);padding:18px;cursor:pointer;transition:var(--ease);display:flex;align-items:center;justify-content:space-between;border:1px solid transparent}
+.cycle-card:hover{transform:translateY(-2px)}
+.cc-left{display:flex;align-items:center;gap:14px}
+.cc-icon{font-size:1.8rem;width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cc-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem}
+.cc-sub{font-size:.76rem;margin-top:2px;opacity:.7}
+.cc-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.cc-badge{font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+.cc-badge.free{background:rgba(0,168,84,.15);color:var(--green);border:1px solid rgba(0,168,84,.2)}
+.cc-badge.premium{background:rgba(232,185,35,.12);color:var(--gold);border:1px solid rgba(232,185,35,.2)}
+.cc-arrow{font-size:1.1rem;opacity:.5}
+/* Cycle C */
+.cycle-c{background:linear-gradient(135deg,#0F1F0F,#071207);border-color:rgba(0,168,84,.25)}
+.cycle-c .cc-icon{background:rgba(0,168,84,.15)}
+/* Cycle B */
+.cycle-b{background:linear-gradient(135deg,#0A1225,#060C1A);border-color:rgba(26,115,232,.25)}
+.cycle-b .cc-icon{background:rgba(26,115,232,.15)}
+/* Cycle A */
+.cycle-a{background:linear-gradient(135deg,#14082A,#0D0519);border-color:rgba(124,58,237,.25)}
+.cycle-a .cc-icon{background:rgba(124,58,237,.15)}
+
+/*  QUIZ OVERLAY  */
+.qov{display:none;position:fixed;inset:0;z-index:500;background:var(--bg);flex-direction:column;max-width:480px;margin:0 auto}
+.qov.on{display:flex}
+.qhead{padding:13px 16px;border-bottom:1px solid var(--border2);background:var(--bg2);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.qi .qn{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem}
+.qi .qsc{font-size:.72rem;color:var(--text2);margin-top:2px}
+.qcyc{background:var(--bg3);border:1px solid var(--border);border-radius:20px;padding:4px 11px;font-size:.74rem;font-weight:700;color:var(--blue)}
+.qbtn{background:rgba(229,57,53,.1);border:1px solid rgba(229,57,53,.2);color:var(--red);border-radius:20px;padding:5px 10px;font-size:.72rem;font-weight:600;cursor:pointer;flex-shrink:0}
+.twrap{padding:0 16px 5px;background:var(--bg2)}
+.tbg{width:100%;height:5px;background:var(--bg4);border-radius:3px;overflow:hidden}
+.tfill{height:100%;border-radius:3px;transition:width 1s linear,background .5s}
+.tlb{font-size:.7rem;color:var(--text3);text-align:right;margin-top:2px}
+.qbody{flex:1;overflow-y:auto;padding:20px 16px}
+.qcat{display:inline-block;background:rgba(26,115,232,.1);border:1px solid rgba(26,115,232,.2);color:var(--blue);font-size:.66rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:20px}
+.qdiff{display:inline-block;font-size:.64rem;font-weight:700;padding:3px 7px;border-radius:20px;margin-left:5px}
+.qdiff.d1{background:rgba(0,168,84,.1);color:var(--green)}
+.qdiff.d2{background:rgba(232,185,35,.1);color:var(--gold)}
+.qdiff.d3{background:rgba(229,57,53,.1);color:var(--red)}
+.qtxt{font-family:'Syne',sans-serif;font-size:1.08rem;font-weight:600;line-height:1.55;margin:12px 0 20px}
+.agrid{display:flex;flex-direction:column;gap:9px}
+.ab{background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);padding:13px;text-align:left;color:var(--text);font-size:.9rem;cursor:pointer;transition:var(--ease);display:flex;align-items:center;gap:10px;width:100%}
+.ab:hover:not(:disabled){border-color:var(--blue);background:rgba(26,115,232,.07)}
+.al{width:26px;height:26px;background:var(--bg4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.74rem;flex-shrink:0;transition:var(--ease)}
+.ab.ok{border-color:var(--green);background:rgba(0,168,84,.1)}.ab.ok .al{background:var(--green);color:#fff}
+.ab.ko{border-color:var(--red);background:rgba(229,57,53,.1)}.ab.ko .al{background:var(--red);color:#fff}
+.ab:disabled{cursor:not-allowed}
+.qexpl{margin-top:12px;background:rgba(26,115,232,.07);border-left:3px solid var(--blue);border-radius:0 var(--rs) var(--rs) 0;padding:11px;font-size:.82rem;color:var(--text2);display:none}
+.qexpl.on{display:block}
+
+/*  RESULT FLASH  */
+.rf{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.5);background:var(--bg2);border-radius:var(--r);padding:24px 28px;text-align:center;z-index:700;border:2px solid var(--border2);opacity:0;transition:all .28s cubic-bezier(.175,.885,.32,1.275);pointer-events:none;min-width:170px}
+.rf.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.rf.ok{border-color:var(--green)}.rf.ko{border-color:var(--red)}
+.rf-ic{font-size:2.2rem;margin-bottom:5px}
+.rf-tx{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem}
+.rf-pt{font-size:.8rem;color:var(--text2);margin-top:2px}
+
+/*  QUIZ SUMMARY  */
+.qsum{display:none;position:fixed;inset:0;z-index:600;background:var(--bg);flex-direction:column;overflow-y:auto;max-width:480px;margin:0 auto}
+.qsum.on{display:flex}
+.qsh{padding:34px 20px 18px;text-align:center}
+.qs-ic{font-size:3rem;margin-bottom:9px}
+.qs-ti{font-family:'Syne',sans-serif;font-size:1.45rem;font-weight:800;margin-bottom:3px}
+.qs-su{color:var(--text2);font-size:.85rem}
+.qs-sc{margin:0 16px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center}
+.scv{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800}
+.scl{font-size:.68rem;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:.4px}
+.qsa{padding:0 16px;display:flex;flex-direction:column;gap:9px}
+.qsc-c{padding:16px}
+.qsc-c h4{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;margin-bottom:10px}
+.ci-item{background:var(--bg3);border-radius:var(--rs);padding:11px;margin-bottom:7px;border-left:3px solid var(--border2)}
+.ci-item.ok{border-left-color:var(--green)}.ci-item.ko{border-left-color:var(--red)}
+.ci-q{font-size:.86rem;font-weight:500;margin-bottom:5px}
+.ci-st{font-size:.7rem;font-weight:700;text-transform:uppercase;margin-bottom:2px}
+.ci-item.ok .ci-st{color:var(--green)}.ci-item.ko .ci-st{color:var(--red)}
+.ci-an{font-size:.79rem;color:var(--text2)}
+
+/*  PREMIUM WALL — Version B (paiement manuel)  */
+.paywall{display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);align-items:flex-end;justify-content:center;padding:0}
+.paywall.on{display:flex}
+.pw-box{background:var(--bg2);border-radius:20px 20px 0 0;padding:24px 20px 32px;width:100%;max-width:480px;border-top:3px solid var(--purple);max-height:92vh;overflow-y:auto;animation:su .35s cubic-bezier(.4,0,.2,1)}
+.pw-handle{width:34px;height:4px;background:var(--bg4);border-radius:2px;margin:0 auto 16px}
+.pw-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:4px}
+.pw-sub{color:var(--text2);font-size:.82rem;margin-bottom:18px}
+/* Numéro de dépôt admin */
+.deposit-box{background:linear-gradient(135deg,#14082A,#0D0519);border:1px solid rgba(232,185,35,.35);border-radius:var(--r);padding:16px;margin-bottom:18px;text-align:center}
+.deposit-label{font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.deposit-num{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--gold);letter-spacing:2px}
+.deposit-op{font-size:.78rem;color:var(--text2);margin-top:4px}
+/* Plan cards */
+.plan-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.plan-card{background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--r);padding:14px;cursor:pointer;transition:var(--ease);text-align:center;position:relative}
+.plan-card:hover{border-color:var(--purple)}
+.plan-card.best{border-color:var(--gold);background:rgba(232,185,35,.05)}
+.plan-badge{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--bg);font-size:.6rem;font-weight:800;padding:2px 9px;border-radius:20px;white-space:nowrap}
+.plan-icon{font-size:1.3rem;margin-bottom:5px}
+.plan-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;margin-bottom:3px}
+.plan-price{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--blue)}
+.plan-price span{font-size:.68rem;font-weight:500;color:var(--text2)}
+.plan-desc{font-size:.68rem;color:var(--text3);margin-top:3px}
+.plan-card.sel{border-color:var(--blue);background:rgba(26,115,232,.08)}
+/* Opérateurs */
+.pw-op-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
+.pw-op{background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--rs);padding:9px 4px;cursor:pointer;transition:var(--ease);display:flex;flex-direction:column;align-items:center;gap:4px}
+.pw-op:hover,.pw-op.on{border-color:var(--blue);background:rgba(26,115,232,.07)}
+.pw-op .ico{font-size:1.2rem}
+.pw-op .lb{font-size:.62rem;font-weight:600;color:var(--text2)}
+/* Formulaire preuve */
+.proof-section{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:14px;margin-bottom:14px}
+.proof-title{font-size:.76rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+.pw-pending{background:rgba(26,115,232,.08);border:1px solid rgba(26,115,232,.25);border-radius:var(--r);padding:14px;text-align:center}
+.pw-pending .big-ic{font-size:2.2rem;margin-bottom:8px}
+.pw-pending h4{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px}
+.pw-pending p{font-size:.82rem;color:var(--text2)}
+
+/*  REVISION  */
+.ri{background:var(--bg3);border-radius:var(--r);padding:13px;margin-bottom:9px;border:1px solid var(--border2)}
+.ri-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.ri-dt{font-size:.7rem;color:var(--text3)}
+.ri-st{font-size:.66rem;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase}
+.ri-st.c{background:rgba(0,168,84,.15);color:var(--green)}.ri-st.w{background:rgba(229,57,53,.15);color:var(--red)}
+.ri-q{font-weight:500;font-size:.88rem;margin-bottom:4px}
+.ri-a{font-size:.78rem;color:var(--green)}
+
+/*  LEADERBOARD  */
+.lbp{display:flex;align-items:flex-end;justify-content:center;gap:9px;margin-bottom:22px}
+.lbpi{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;max-width:98px}
+.lbav{border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;color:#fff}
+.lbb{border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:center;width:100%;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem}
+.lbpn{font-size:.72rem;text-align:center;font-weight:600}
+.lbpp{font-size:.66rem;color:var(--text3)}
+.lb-row{display:flex;align-items:center;gap:9px;background:var(--bg3);border-radius:var(--rs);padding:10px;margin-bottom:6px;border:1px solid var(--border2)}
+.lb-row.me{border-color:var(--blue);background:rgba(26,115,232,.05)}
+.lb-row.prem{border-color:rgba(232,185,35,.2)}
+.lbr{font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;color:var(--text3);width:20px;text-align:center}
+.lbra{width:32px;height:32px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:.76rem}
+.lbrn{flex:1;font-weight:500;font-size:.86rem}
+.lbrp{font-family:'Syne',sans-serif;font-weight:800;color:var(--blue);font-size:.86rem}
+
+/*  PROFILE  */
+.prhd{display:flex;align-items:center;gap:13px;background:var(--bg3);border-radius:var(--r);padding:16px;margin-bottom:16px;border:1px solid var(--border2)}
+.prav{width:58px;height:58px;background:linear-gradient(135deg,var(--blue-d),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;flex-shrink:0}
+.prn{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem}
+.prp{font-size:.78rem;color:var(--text2);margin-top:2px}
+.prl{display:inline-block;border-radius:20px;font-size:.68rem;font-weight:700;padding:3px 9px;margin-top:5px}
+.prl.free{background:rgba(0,168,84,.1);border:1px solid rgba(0,168,84,.2);color:var(--green)}
+.prl.prem{background:linear-gradient(90deg,rgba(232,185,35,.15),rgba(124,58,237,.15));border:1px solid rgba(232,185,35,.3);color:var(--gold)}
+.msec-t{font-size:.67rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px;padding:0 2px 6px;margin-top:12px}
+.mrow{display:flex;align-items:center;justify-content:space-between;padding:12px 13px;background:var(--bg3);border-radius:var(--rs);margin-bottom:2px;cursor:pointer;transition:var(--ease);border:1px solid transparent}
+.mrow:hover{background:var(--bg4);border-color:var(--border2)}
+.ml{display:flex;align-items:center;gap:9px}
+.mi-ic{font-size:.93rem;width:20px;text-align:center}
+.mi-t{font-size:.88rem;font-weight:500}
+.marr{color:var(--text3);font-size:.76rem}
+
+/*  MODAL + TOAST + LOADING  */
+.mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:800;backdrop-filter:blur(4px);align-items:flex-end;justify-content:center}
+.mbg.on{display:flex}
+.msh{background:var(--bg2);border-radius:20px 20px 0 0;padding:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;animation:su .3s cubic-bezier(.4,0,.2,1)}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mh{width:32px;height:4px;background:var(--bg4);border-radius:2px;margin:0 auto 16px}
+.mt{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:16px}
+.tbox{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9000;display:flex;flex-direction:column;gap:6px;pointer-events:none;width:calc(100% - 32px);max-width:440px}
+.toast{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--rs);padding:10px 13px;display:flex;align-items:center;gap:8px;font-size:.82rem;box-shadow:var(--shadow);animation:tin .28s ease}
+.toast.ok{border-color:var(--green)}.toast.err{border-color:var(--red)}.toast.warn{border-color:var(--gold)}.toast.info{border-color:var(--blue)}
+@keyframes tin{from{transform:translateY(-14px);opacity:0}to{transform:translateY(0);opacity:1}}
+.ld{display:none;position:fixed;inset:0;background:rgba(8,11,18,.86);z-index:9500;flex-direction:column;align-items:center;justify-content:center;gap:12px;backdrop-filter:blur(4px)}
+.ld.on{display:flex}
+.spin{width:36px;height:36px;border:3px solid var(--bg4);border-top-color:var(--blue);border-radius:50%;animation:sp2 .8s linear infinite}
+@keyframes sp2{to{transform:rotate(360deg)}}
+.ld p{color:var(--text2);font-size:.84rem}
+.pp{padding:16px}
+.ph{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;margin-bottom:5px}
+.psub{color:var(--text2);font-size:.82rem;margin-bottom:18px}
+
+@media(min-width:600px){
+  #app{border-left:1px solid var(--border2);border-right:1px solid var(--border2)}
+  .qov,.qsum,.paywall .pw-box{max-width:480px}
+}
+</style>
+</head>
+<body>
+<!-- LOADING -->
+<div class="ld" id="ld"><div class="spin"></div><p id="ld-msg">Chargement...</p></div>
+<!-- TOAST -->
+<div class="tbox" id="tbox"></div>
+<!-- RESULT FLASH -->
+<div class="rf" id="rf"><div class="rf-ic" id="rf-ic"></div><div class="rf-tx" id="rf-tx"></div><div class="rf-pt" id="rf-pt"></div></div>
+<!-- MODAL -->
+<div class="mbg" id="mbg" onclick="if(event.target===this)closeModal()"><div class="msh" id="msh"><div class="mh"></div><div id="mbody"></div></div></div>
+<!-- PAYWALL -->
+<!-- PAYWALL VERSION B — Formulaire de preuve de paiement manuel -->
+<div class="paywall" id="paywall" onclick="if(event.target===this)closePaywall()">
+  <div class="pw-box">
+    <div class="pw-handle"></div>
+
+    <!-- État 1: Formulaire -->
+    <div id="pw-form-state">
+      <div class="pw-title"> Passer en Premium</div>
+      <div class="pw-sub" id="pw-sub">Effectuez un dépôt Mobile Money, puis remplissez ce formulaire. L'admin activera votre compte dans les 24h.</div>
+
+      <!-- Numéro de dépôt de l'admin -->
+      <div class="deposit-box">
+        <div class="deposit-label">Déposez sur ce numéro</div>
+        <div class="deposit-num" id="deposit-number">+226 XX XX XX XX</div>
+        <div class="deposit-op" id="deposit-op-label">Orange Money / Moov Money</div>
+      </div>
+
+      <!-- Choisir le plan -->
+      <div class="fl" style="margin-bottom:9px">1. Choisir votre plan</div>
+      <div class="plan-cards" style="margin-bottom:16px">
+        <div class="plan-card" id="pc-m" onclick="selPlan('premium_monthly',this)">
+          <div class="plan-icon"></div>
+          <div class="plan-name">Mensuel</div>
+          <div class="plan-price">3 000<span> FCFA/mois</span></div>
+          <div class="plan-desc">Accès 1 mois</div>
+        </div>
+        <div class="plan-card best" id="pc-y" onclick="selPlan('premium_yearly',this)">
+          <div class="plan-badge"> MEILLEUR</div>
+          <div class="plan-icon"></div>
+          <div class="plan-name">Annuel</div>
+          <div class="plan-price">15 000<span> FCFA/an</span></div>
+          <div class="plan-desc">~1 250 FCFA/mois</div>
+        </div>
+      </div>
+
+      <!-- Opérateur utilisé -->
+      <div class="fl" style="margin-bottom:9px">2. Opérateur utilisé pour le dépôt</div>
+      <div class="pw-op-grid" style="margin-bottom:16px">
+        <div class="pw-op" onclick="selOp('orange',this)"><div class="ico"></div><div class="lb">Orange</div></div>
+        <div class="pw-op" onclick="selOp('moov',this)"><div class="ico"></div><div class="lb">Moov</div></div>
+        <div class="pw-op" onclick="selOp('wave',this)"><div class="ico"></div><div class="lb">Wave</div></div>
+        <div class="pw-op" onclick="selOp('telecel',this)"><div class="ico"></div><div class="lb">Telecel</div></div>
+      </div>
+
+      <!-- Formulaire preuve -->
+      <div class="fl" style="margin-bottom:9px">3. Remplir les informations du paiement</div>
+      <div class="proof-section">
+        <div class="fg" style="margin-bottom:10px">
+          <div class="fl">Votre numéro Mobile Money (celui utilisé)</div>
+          <div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="pw-payphone" type="tel" placeholder="XX XX XX XX" inputmode="numeric"></div>
+        </div>
+        <div class="fg" style="margin-bottom:10px">
+          <div class="fl">Montant exact déposé (FCFA)</div>
+          <input class="fi" id="pw-amount" type="number" placeholder="Ex: 3000" inputmode="numeric">
+        </div>
+        <div class="fg">
+          <div class="fl">Message / Référence (optionnel)</div>
+          <input class="fi" id="pw-notes" type="text" placeholder="Ex: ref 12345, nom expéditeur..." maxlength="200">
+        </div>
+      </div>
+
+      <button class="btn btn-purple btn-w" style="margin-bottom:10px" onclick="submitPaymentProof()">
+         Soumettre la preuve de paiement 
+      </button>
+      <button class="btn btn-ghost btn-w btn-sm" onclick="closePaywall()">Fermer</button>
+    </div>
+
+    <!-- État 2: Demande envoyée (confirmation) -->
+    <div id="pw-sent-state" style="display:none">
+      <div class="pw-pending">
+        <div class="big-ic"></div>
+        <h4>Demande envoyée !</h4>
+        <p>Votre demande a été transmise à l'admin. Votre compte sera activé dans les <strong>24 heures</strong> après vérification du paiement.</p>
+      </div>
+      <div style="margin-top:16px;background:var(--bg3);border-radius:var(--r);padding:14px;font-size:.82rem;color:var(--text2)">
+        <div style="margin-bottom:6px"> <strong>Récapitulatif :</strong></div>
+        <div id="pw-recap"></div>
+      </div>
+      <button class="btn btn-blue btn-w" style="margin-top:14px" onclick="closePaywall()">Fermer</button>
+    </div>
+
+  </div>
+</div>
+
+<!--  SPLASH  -->
+<div class="view on" id="splash">
+  <div class="sp-logo">Bobdo<span>Educ</span></div>
+  <div class="sp-tag">Apprends · Progresse · Réussis</div>
+  <div class="sp-bar"><div class="sp-fill"></div></div>
+</div>
+
+<!--  AUTH  -->
+<div class="view" id="auth-v" style="background:var(--bg);padding:20px">
+  <div class="auth-box">
+    <div class="a-logo">Bobdo<span>Educ</span></div>
+    <div class="a-sub">La plateforme de quiz éducatif au Burkina Faso <br>Quiz Cycle C, B et A — 20 gratuits, illimité en Premium</div>
+    <div class="tabs">
+      <div class="tab on" onclick="stab('login')">Connexion</div>
+      <div class="tab" onclick="stab('register')">Créer un compte</div>
+    </div>
+    <div class="f on" id="f-login">
+      <div class="fg"><div class="fl">Numéro de téléphone</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="lp" type="tel" placeholder="XX XX XX XX" maxlength="10" inputmode="numeric"></div></div>
+      <div class="fg"><div class="fl">Mot de passe</div><div class="fw"><input class="fi" id="lpw" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('lpw',this)"></span></div></div>
+      <button class="btn btn-blue btn-w" onclick="doLogin()">Se connecter </button>
+      <div style="text-align:center;font-size:.76rem;color:var(--text3)">Mot de passe oublié ? <span onclick="openModal('forgot')" style="color:var(--blue);cursor:pointer;font-weight:600">Récupérer</span></div>
+    </div>
+    <div class="f" id="f-reg">
+      <div class="sdots"><div class="sd curr" id="rd0"></div><div class="sd" id="rd1"></div><div class="sd" id="rd2"></div></div>
+      <div class="fs on" id="rs1">
+        <div class="fg"><div class="fl">Votre numéro</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="rp" type="tel" placeholder="XX XX XX XX" maxlength="10" inputmode="numeric"></div></div>
+        <p style="font-size:.74rem;color:var(--text3)"> Un code OTP sera envoyé par SMS.</p>
+        <button class="btn btn-blue btn-w" onclick="sendOtp()">Envoyer le code OTP </button>
+      </div>
+      <div class="fs" id="rs2">
+        <div class="fg"><div class="fl">Code OTP reçu</div><div class="otp-row" id="otp-row"></div><div class="otp-hint">Expire dans <span id="otp-t">02:00</span> · <span onclick="sendOtp()">Renvoyer</span></div></div>
+        <button class="btn btn-blue btn-w" onclick="verifyOtp()">Vérifier </button>
+      </div>
+      <div class="fs" id="rs3">
+        <div class="fg"><div class="fl">Pseudo (2 à 30 caractères)</div><input class="fi" id="rps" type="text" placeholder="Ex: Koné_BF"></div>
+        <div class="fg"><div class="fl">Mot de passe (8 min.)</div><div class="fw"><input class="fi" id="rpw" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('rpw',this)"></span></div></div>
+        <div class="fg"><div class="fl">Confirmer</div><div class="fw"><input class="fi" id="rpw2" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('rpw2',this)"></span></div></div>
+        <button class="btn btn-blue btn-w" onclick="doRegister()">Créer mon compte </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  APP  -->
+<div id="app">
+  <div class="topbar">
+    <div class="tb-logo">Bobdo<span>Educ</span></div>
+    <div class="tb-r">
+      <div class="prem-badge" id="prem-badge" style="display:none"> PREMIUM</div>
+      <div class="nb" onclick="openNotif ? openNotif() : null"><div class="ndot" id="ndot"></div></div>
+      <div class="av" id="topav" onclick="gsc('profile')">BE</div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- HOME -->
+    <div class="sc on" id="sc-home">
+      <div class="h-hero">
+        <div class="h-greet">Bon retour </div>
+        <div class="h-name" id="h-name">Apprenant</div>
+        <!-- Quota gratuit ou statut premium -->
+        <div id="quota-card" class="quota-card">
+          <div class="qc-top">
+            <div class="qc-label">Quiz gratuits utilisés</div>
+            <div class="qc-count" id="qc-count">0 / 20</div>
+          </div>
+          <div class="qbar-bg"><div class="qbar-fill" id="qbar" style="width:0%"></div></div>
+          <div class="qc-bottom">
+            <div class="qc-msg" id="qc-msg">0 quiz restants</div>
+            <div class="qc-btn" onclick="showPaywall()">Passer Premium </div>
+          </div>
+        </div>
+        <div id="prem-card" class="prem-card" style="display:none">
+          <div class="pc-top">
+            <div class="pc-icon"></div>
+            <div><div class="pc-title">Abonnement Premium actif</div><div class="pc-end" id="pc-end">Expire le —</div></div>
+          </div>
+          <div class="pc-progress"><div class="pc-prog-fill" id="pc-prog" style="width:50%"></div></div>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="scard"><div class="sv b" id="st-sc">0</div><div class="sd2">Score total</div></div>
+        <div class="scard"><div class="sv g" id="st-ok">0</div><div class="sd2">Correctes</div></div>
+        <div class="scard"><div class="sv r" id="st-ko">0</div><div class="sd2">Incorrectes</div></div>
+      </div>
+      <div class="sec-t">Choisir un cycle</div>
+      <div class="cycles-grid">
+        <div class="cycle-card cycle-c" onclick="startCycle('cycle_c')">
+          <div class="cc-left">
+            <div class="cc-icon"></div>
+            <div>
+              <div class="cc-title">Cycle C — Primaire</div>
+              <div class="cc-sub" style="color:rgba(0,168,84,.7)">CE1  CM2 · Lecture, Calcul, Sciences, Histoire...</div>
+            </div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-badge free"> Gratuit</div>
+            <div class="cc-arrow">›</div>
+          </div>
+        </div>
+        <div class="cycle-card cycle-b" onclick="startCycle('cycle_b')">
+          <div class="cc-left">
+            <div class="cc-icon"></div>
+            <div>
+              <div class="cc-title">Cycle B — 1er Cycle</div>
+              <div class="cc-sub" style="color:rgba(26,115,232,.7)">6ème  3ème · Maths, SVT, Histoire-Géo, Anglais...</div>
+            </div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-badge premium" id="cb-badge"> Premium</div>
+            <div class="cc-arrow">›</div>
+          </div>
+        </div>
+        <div class="cycle-card cycle-a" onclick="startCycle('cycle_a')">
+          <div class="cc-left">
+            <div class="cc-icon"></div>
+            <div>
+              <div class="cc-title">Cycle A — 2nd Cycle</div>
+              <div class="cc-sub" style="color:rgba(124,58,237,.7)">2nde  Terminale · Philo, Éco, Physique-Chimie...</div>
+            </div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-badge premium" id="ca-badge"> Premium</div>
+            <div class="cc-arrow">›</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVISION -->
+    <div class="sc" id="sc-revision">
+      <div class="pp">
+        <div class="ph"> Mes Révisions</div>
+        <div class="psub">Corrections sauvegardées — ces questions ne reviennent jamais.</div>
+        <div id="rev-list"><div style="color:var(--text3);text-align:center;padding:40px 0;font-size:.83rem">Chargement...</div></div>
+      </div>
+    </div>
+
+    <!-- LEADERBOARD -->
+    <div class="sc" id="sc-leaderboard">
+      <div class="pp">
+        <div class="ph"> Classement</div>
+        <div class="lbp" id="lbp"></div>
+        <div id="lbl"></div>
+      </div>
+    </div>
+
+    <!-- ABONNEMENT -->
+    <div class="sc" id="sc-subscription">
+      <div class="pp">
+        <div class="ph"> Mon Abonnement</div>
+        <div id="sub-content"><div style="color:var(--text2);text-align:center;padding:40px 0">Chargement...</div></div>
+      </div>
+    </div>
+
+    <!-- PROFIL -->
+    <div class="sc" id="sc-profile">
+      <div class="pp">
+        <div class="prhd">
+          <div class="prav" id="pr-av">BE</div>
+          <div><div class="prn" id="pr-n">—</div><div class="prp" id="pr-ph">—</div><div class="prl free" id="pr-l"> Gratuit</div></div>
+        </div>
+        <div class="msec-t">Compte</div>
+        <div class="mrow" onclick="openModal('editPseudo')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Modifier le pseudo</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="openModal('changePwd')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Changer le mot de passe</div></div><div class="marr">›</div></div>
+        <div class="msec-t">Apprentissage</div>
+        <div class="mrow" onclick="gsc('revision')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Mes révisions</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="gsc('leaderboard')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Classement</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="gsc('subscription')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Gérer l'abonnement</div></div><div class="marr">›</div></div>
+        <div class="msec-t">Aide</div>
+        <div class="mrow" onclick="openModal('rules')"><div class="ml"><div class="mi-ic"></div><div class="mi-t">Fonctionnement</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="doLogout()"><div class="ml"><div class="mi-ic"></div><div class="mi-t" style="color:var(--red)">Se déconnecter</div></div></div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+
+  <nav class="bnav">
+    <div class="ni on" id="ni-home"        onclick="gsc('home')">        <div class="ni-ic"></div><div class="ni-lb">Accueil</div></div>
+    <div class="ni"    id="ni-revision"     onclick="gsc('revision')">    <div class="ni-ic"></div><div class="ni-lb">Révision</div></div>
+    <div class="ni"    id="ni-leaderboard"  onclick="gsc('leaderboard')"> <div class="ni-ic"></div><div class="ni-lb">Classement</div></div>
+    <div class="ni"    id="ni-subscription" onclick="gsc('subscription')"><div class="ni-ic"></div><div class="ni-lb">Premium</div></div>
+    <div class="ni"    id="ni-profile"      onclick="gsc('profile')">     <div class="ni-ic"></div><div class="ni-lb">Profil</div></div>
+  </nav>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qov" id="qov">
+  <div class="qhead">
+    <div class="qi"><div class="qn" id="qn">Q1/10</div><div class="qsc" id="qsc2">Score: 0</div></div>
+    <div class="qcyc" id="qcyc">Cycle C</div>
+    <div class="qbtn" onclick="confirmQuit()">Quitter</div>
+  </div>
+  <div class="twrap"><div class="tbg"><div class="tfill" id="tfill"></div></div><div class="tlb" id="tlb">20s</div></div>
+  <div class="qbody">
+    <span class="qcat" id="qcat">—</span>
+    <span class="qdiff" id="qdiff">—</span>
+    <div class="qtxt" id="qtxt">Chargement...</div>
+    <div class="agrid" id="agrid"></div>
+    <div class="qexpl" id="qexpl"></div>
+  </div>
+</div>
+
+<!-- QUIZ SUMMARY -->
+<div class="qsum" id="qsum">
+  <div class="qsh">
+    <div class="qs-ic" id="qs-ic"></div>
+    <div class="qs-ti" id="qs-ti">Résultat</div>
+    <div class="qs-su" id="qs-su">—</div>
+  </div>
+  <div class="qs-sc">
+    <div><div class="scv" id="qs-sc" style="color:var(--blue)">0</div><div class="scl">Score</div></div>
+    <div><div class="scv" id="qs-ok" style="color:var(--green)">0</div><div class="scl">Bonnes</div></div>
+    <div><div class="scv" id="qs-ko" style="color:var(--red)">0</div><div class="scl">Mauvaises</div></div>
+  </div>
+  <div class="qsa" style="margin-bottom:16px">
+    <button class="btn btn-blue btn-w" onclick="closeSummary()"> Retour à l'accueil</button>
+    <button class="btn btn-ghost btn-w" onclick="gsc('revision');closeSummary()"> Voir les corrections</button>
+    <button class="btn btn-ghost btn-w btn-sm" onclick="replayQuiz()"> Rejouer ce cycle</button>
+  </div>
+  <div class="qsc-c" id="qsc-corr"></div>
+</div>
+
+<script>
+"use strict";
+// 
+// CONFIG — Modifier avant déploiement
+// 
+const CFG = {
+  API:   'http://localhost:4000',  //  REMPLACER par votre URL backend
+  FREE:  20,                        // Doit correspondre à FREE_QUIZ_LIMIT dans .env
+  DEBUG: true
+};
+
+//  API LAYER 
+const API = {
+  async call(method, path, body, token) {
+    const r = await fetch(CFG.API+path, {
+      method,
+      headers:{'Content-Type':'application/json',...(token?{Authorization:`Bearer ${token}`}:{})},
+      ...(body?{body:JSON.stringify(body)}:{})
+    });
+    const d = await r.json();
+    if(CFG.DEBUG) console.log(`[API] ${method} ${path}`, d);
+    return d;
+  },
+  get:   (p,t)   => API.call('GET',p,null,t),
+  post:  (p,b,t) => API.call('POST',p,b,t),
+  patch: (p,b,t) => API.call('PATCH',p,b,t),
+};
+
+//  STATE 
+const S = {
+  user:null, at:null, rt:null, notifs:[],
+  qz:{sid:null,qs:[],curr:0,score:0,ok:0,ko:0,cycle:null,corrs:[],tmr:null,tsec:20,answered:false},
+  _cycle:null, _plan:'premium_monthly', _op:null, _vtoken:null, _otpItv:null
+};
+function saveT(a,r){S.at=a;S.rt=r;try{localStorage.setItem('be_at',a||'');localStorage.setItem('be_rt',r||'');}catch(e){}}
+function loadT(){try{S.at=localStorage.getItem('be_at')||null;S.rt=localStorage.getItem('be_rt')||null;}catch(e){}}
+function clearT(){S.at=S.rt=null;try{localStorage.removeItem('be_at');localStorage.removeItem('be_rt');}catch(e){}}
+
+//  UTILS 
+function toast(msg,type='ok'){const icons={ok:'',err:'',warn:'',info:''};const el=document.createElement('div');el.className=`toast ${type}`;el.innerHTML=`<span>${icons[type]}</span><span>${msg}</span>`;document.getElementById('tbox').appendChild(el);setTimeout(()=>{el.style.opacity='0';el.style.transform='translateY(-10px)';setTimeout(()=>el.remove(),300)},3500);}
+function ld(m='Chargement...'){document.getElementById('ld-msg').textContent=m;document.getElementById('ld').classList.add('on');}
+function uld(){document.getElementById('ld').classList.remove('on');}
+function addNotif(t){S.notifs.unshift({t,time:new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),read:false});document.getElementById('ndot').style.display='block';}
+function sv(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));document.getElementById('app').classList.remove('on');if(id==='app')document.getElementById('app').classList.add('on');else document.getElementById(id+'-v').classList.add('on');}
+function gsc(name){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));document.getElementById('sc-'+name)?.classList.add('on');document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));document.getElementById('ni-'+name)?.classList.add('on');if(name==='revision')loadRev();if(name==='leaderboard')loadLb();if(name==='subscription')loadSub();if(name==='profile')renderProfile();}
+
+//  INIT 
+window.addEventListener('DOMContentLoaded',()=>{
+  const row=document.getElementById('otp-row');
+  for(let i=0;i<6;i++){const inp=document.createElement('input');inp.className='oi';inp.maxLength=1;inp.inputMode='numeric';inp.id='oi'+i;inp.addEventListener('input',()=>{if(inp.value&&i<5)document.getElementById('oi'+(i+1)).focus();});row.appendChild(inp);}
+  loadT();
+  setTimeout(async()=>{
+    const sp=document.getElementById('splash');sp.style.transition='opacity .5s';sp.style.opacity='0';
+    setTimeout(async()=>{sp.classList.remove('on');if(S.at){ld('Reconnexion...');const res=await API.get('/api/users/me',S.at).catch(()=>null);uld();if(res?.user){S.user=res.user;enterApp();return;}clearT();}sv('auth');},500);
+  },2300);
+});
+function enterApp(){sv('app');updateUI();addNotif(' Connexion réussie');}
+
+//  AUTH 
+function stab(t){document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',(i===0&&t==='login')||(i===1&&t==='register')));document.getElementById('f-login').classList.toggle('on',t==='login');document.getElementById('f-reg').classList.toggle('on',t==='register');}
+function tpw(id,btn){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password';btn.textContent=i.type==='text'?'':'';}
+async function doLogin(){const phone='+226'+document.getElementById('lp').value.trim();const password=document.getElementById('lpw').value;if(phone.length<12||!password){toast('Remplissez tous les champs','err');return;}ld('Connexion...');const res=await API.post('/api/auth/login',{phone,password}).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur réseau','err');return;}S.user=res.user;saveT(res.access_token,res.refresh_token);enterApp();}
+async function sendOtp(){const phone='+226'+document.getElementById('rp').value.trim();if(phone.length<12){toast('Numéro invalide','err');return;}ld('Envoi OTP...');const res=await API.post('/api/auth/send-otp',{phone,purpose:'register'}).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}document.getElementById('rs1').classList.remove('on');document.getElementById('rs2').classList.add('on');document.getElementById('rd0').className='sd done';document.getElementById('rd1').className='sd curr';startOtpTimer();toast(' Code OTP envoyé !','ok');}
+let _os=120;function startOtpTimer(){_os=120;clearInterval(S._otpItv);S._otpItv=setInterval(()=>{_os--;document.getElementById('otp-t').textContent=`${String(Math.floor(_os/60)).padStart(2,'0')}:${String(_os%60).padStart(2,'0')}`;if(_os<=0)clearInterval(S._otpItv);},1000);}
+async function verifyOtp(){const phone='+226'+document.getElementById('rp').value.trim();const otp=[0,1,2,3,4,5].map(i=>document.getElementById('oi'+i).value).join('');if(otp.length<6){toast('6 chiffres requis','err');return;}ld('Vérification...');const res=await API.post('/api/auth/verify-otp',{phone,otp,purpose:'register'}).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Code incorrect','err');return;}S._vtoken=res.verify_token;document.getElementById('rs2').classList.remove('on');document.getElementById('rs3').classList.add('on');document.getElementById('rd1').className='sd done';document.getElementById('rd2').className='sd curr';clearInterval(S._otpItv);toast(' Numéro vérifié !','ok');}
+async function doRegister(){const phone='+226'+document.getElementById('rp').value.trim();const pseudo=document.getElementById('rps').value.trim();const pwd=document.getElementById('rpw').value;const pwd2=document.getElementById('rpw2').value;if(!pseudo||pwd.length<8||pwd!==pwd2||!S._vtoken){toast('Vérifiez les champs','err');return;}ld('Création...');const res=await API.post('/api/auth/register',{phone,password:pwd,pseudo,verify_token:S._vtoken}).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}S.user=res.user;saveT(res.access_token,res.refresh_token);toast(' Compte créé !','ok');enterApp();}
+async function doLogout(){ld('...');await API.post('/api/auth/logout',{refresh_token:S.rt},S.at).catch(()=>{});uld();clearT();S.user=null;sv('auth');}
+
+//  UI UPDATE 
+function updateUI(){
+  if(!S.user)return;
+  const u=S.user;
+  const isPrem=u.is_premium||false;
+  const init=(u.pseudo||'BE').substring(0,2).toUpperCase();
+  document.getElementById('h-name').textContent=u.pseudo||'Apprenant';
+  document.getElementById('topav').textContent=init;
+  document.getElementById('st-sc').textContent=u.total_score||0;
+  document.getElementById('st-ok').textContent=u.total_correct||0;
+  document.getElementById('st-ko').textContent=u.total_wrong||0;
+  // Quota / Premium
+  const used=u.quiz_free_used||0;
+  const rem=Math.max(0,CFG.FREE-used);
+  const pct=Math.min(100,(used/CFG.FREE)*100);
+  document.getElementById('qc-count').textContent=`${used} / ${CFG.FREE}`;
+  document.getElementById('qbar').style.width=pct+'%';
+  document.getElementById('qc-msg').textContent=rem>0?`${rem} quiz gratuit${rem>1?'s':''} restant${rem>1?'s':''}`:'Quota gratuit épuisé';
+  document.getElementById('quota-card').style.display=isPrem?'none':'block';
+  document.getElementById('prem-card').style.display=isPrem?'block':'none';
+  document.getElementById('prem-badge').style.display=isPrem?'flex':'none';
+  if(isPrem&&u.subscription_end){
+    const end=new Date(u.subscription_end);
+    const start=u.subscription_start?new Date(u.subscription_start):new Date(end.getTime()-30*86400000);
+    const total=end-start, elapsed=Date.now()-start;
+    const prog=Math.max(0,Math.min(100,(1-(elapsed/total))*100));
+    document.getElementById('pc-end').textContent=`Expire le ${end.toLocaleDateString('fr-FR')}`;
+    document.getElementById('pc-prog').style.width=prog+'%';
+  }
+  // Badges cycles
+  document.getElementById('cb-badge').textContent=isPrem?' Inclus':' Premium';
+  document.getElementById('ca-badge').textContent=isPrem?' Inclus':' Premium';
+  renderProfile();
+}
+function renderProfile(){
+  if(!S.user)return;
+  const u=S.user,isPrem=u.is_premium||false;
+  const init=(u.pseudo||'BE').substring(0,2).toUpperCase();
+  document.getElementById('pr-av').textContent=init;
+  document.getElementById('pr-n').textContent=u.pseudo||'—';
+  document.getElementById('pr-ph').textContent=u.phone||'—';
+  const lEl=document.getElementById('pr-l');
+  if(isPrem){lEl.textContent=' Abonné Premium';lEl.className='prl prem';}
+  else{lEl.textContent=' Gratuit ('+Math.max(0,CFG.FREE-(u.quiz_free_used||0))+' restants)';lEl.className='prl free';}
+}
+async function refreshUser(){const res=await API.get('/api/users/me',S.at).catch(()=>null);if(res?.user){S.user=res.user;updateUI();}}
+
+//  CYCLE / QUIZ START 
+const cycleLabels={cycle_c:'Cycle C — Primaire',cycle_b:'Cycle B — 1er Cycle',cycle_a:'Cycle A — 2nd Cycle'};
+const diffLabels=['','Facile','Moyen','Difficile'];
+const diffClass=['','d1','d2','d3'];
+
+function startCycle(cycle){
+  const u=S.user||{};
+  const isPrem=u.is_premium||false;
+  const used=u.quiz_free_used||0;
+  // Cycle C: accessible en gratuit dans le quota
+  // Cycles B et A: premium seulement (ou dans le quota gratuit)
+  if(!isPrem&&used>=CFG.FREE){showPaywall();return;}
+  S._cycle=cycle;
+  doStartQuiz(cycle);
+}
+
+async function doStartQuiz(cycle){
+  ld('Préparation du quiz...');
+  const res=await API.post('/api/quiz/start',{cycle},S.at).catch(()=>null);
+  uld();
+  if(!res||res.error){
+    if(res?.code==='PREMIUM_REQUIRED'){showPaywall(res.message);return;}
+    toast(res?.error||'Erreur démarrage','err');return;
+  }
+  if(S.user){S.user.quiz_free_used=(S.user.quiz_free_used||0)+(res.is_premium?0:1);}
+  S.qz={sid:res.session_id,qs:res.questions,curr:0,score:0,ok:0,ko:0,cycle,corrs:[],tmr:null,tsec:20,answered:false};
+  document.getElementById('qov').classList.add('on');
+  document.getElementById('qcyc').textContent=cycleLabels[cycle]||cycle;
+  renderQ();updateUI();
+}
+function replayQuiz(){document.getElementById('qsum').classList.remove('on');if(S._cycle)doStartQuiz(S._cycle);}
+
+function renderQ(){
+  const qz=S.qz;
+  if(qz.curr>=qz.qs.length){endQuiz();return;}
+  const q=qz.qs[qz.curr];
+  qz.answered=false;clearInterval(qz.tmr);qz.tsec=20;
+  document.getElementById('qn').textContent=`Q${qz.curr+1}/${qz.qs.length}`;
+  document.getElementById('qsc2').textContent=`Score: ${qz.score>=0?'+':''}${qz.score}`;
+  document.getElementById('qcat').textContent=q.category||'—';
+  const dd=document.getElementById('qdiff');dd.textContent=diffLabels[q.difficulty||1];dd.className='qdiff '+(diffClass[q.difficulty||1]);
+  document.getElementById('qtxt').textContent=q.text;
+  document.getElementById('qexpl').className='qexpl';
+  const grid=document.getElementById('agrid');grid.innerHTML='';
+  const letters=['A','B','C','D'];
+  (q.options||[]).forEach((opt,idx)=>{
+    const btn=document.createElement('button');btn.className='ab';
+    btn.innerHTML=`<div class="al">${letters[idx]}</div><span>${opt}</span>`;
+    btn.onclick=()=>submitAns(idx,btn,q);grid.appendChild(btn);
+  });
+  updateTimer(20,20);
+  qz.tmr=setInterval(()=>{qz.tsec--;updateTimer(qz.tsec,20);if(qz.tsec<=0){clearInterval(qz.tmr);submitAns(null,null,q);}},1000);
+}
+function updateTimer(s,t){const p=(s/t)*100;const b=document.getElementById('tfill');b.style.width=p+'%';b.style.background=p>50?'var(--green)':p>25?'var(--gold)':'var(--red)';document.getElementById('tlb').textContent=s+'s';}
+
+async function submitAns(idx,btn,q){
+  const qz=S.qz;if(qz.answered)return;qz.answered=true;clearInterval(qz.tmr);
+  const ms=(20-qz.tsec)*1000;
+  document.querySelectorAll('.ab').forEach(b=>b.disabled=true);
+  ld('Vérification...');
+  const res=await API.post('/api/quiz/answer',{session_id:qz.sid,question_id:q.id,answer_index:idx,time_taken_ms:ms},S.at).catch(()=>null);
+  uld();
+  if(!res||res.error){toast(res?.error||'Erreur réseau','err');return;}
+  qz.score=res.score;if(res.is_correct)qz.ok++;else qz.ko++;
+  document.querySelectorAll('.ab').forEach(b=>{if(b.querySelector('span').textContent===res.correct_option_text)b.classList.add('ok');});
+  if(btn&&!res.is_correct)btn.classList.add('ko');
+  if(res.explanation){const ex=document.getElementById('qexpl');ex.textContent=' '+res.explanation;ex.classList.add('on');}
+  flashResult(res.is_correct,res.is_correct?'+1 point':'1 point');
+  qz.corrs.push({q:q.text,correct:res.is_correct,correctAnswer:res.correct_option_text,expl:res.explanation});
+  if(res.session_over)setTimeout(endQuiz,1600);
+  else setTimeout(()=>{qz.curr++;renderQ();},1900);
+}
+function flashResult(ok,pt){const el=document.getElementById('rf');el.className='rf '+(ok?'ok':'ko')+' on';document.getElementById('rf-ic').textContent=ok?'':'';document.getElementById('rf-tx').textContent=ok?'Bonne réponse !':'Mauvaise réponse';document.getElementById('rf-pt').textContent=pt;setTimeout(()=>el.classList.remove('on'),950);}
+async function confirmQuit(){if(!confirm('Quitter ?'))return;clearInterval(S.qz.tmr);await API.post('/api/quiz/quit',{session_id:S.qz.sid},S.at).catch(()=>{});document.getElementById('qov').classList.remove('on');refreshUser();gsc('home');}
+
+function endQuiz(){
+  clearInterval(S.qz.tmr);document.getElementById('qov').classList.remove('on');
+  const qz=S.qz;const pct=Math.round((qz.ok/qz.qs.length)*100);
+  document.getElementById('qs-ic').textContent=pct>=80?'':pct>=50?'':'';
+  document.getElementById('qs-ti').textContent=pct>=80?'Excellent !':pct>=50?'Bien joué !':'Continue d\'apprendre !';
+  document.getElementById('qs-su').textContent=`${qz.ok} bonnes sur ${qz.qs.length} · ${pct}% de réussite`;
+  const sc=document.getElementById('qs-sc');sc.textContent=(qz.score>=0?'+':'')+qz.score;sc.style.color=qz.score>0?'var(--green)':qz.score<0?'var(--red)':'var(--blue)';
+  document.getElementById('qs-ok').textContent=qz.ok;document.getElementById('qs-ko').textContent=qz.ko;
+  const cEl=document.getElementById('qsc-corr');cEl.innerHTML='<h4> Corrections</h4>';
+  qz.corrs.forEach((c,i)=>{cEl.innerHTML+=`<div class="ci-item ${c.correct?'ok':'ko'}"><div class="ci-q">Q${i+1}: ${c.q}</div><div class="ci-st">${c.correct?' Correct':' Incorrect'}</div><div class="ci-an"> <b>${c.correctAnswer}</b>${c.expl?`<br><span style="color:var(--text3);font-size:.74rem"> ${c.expl}</span>`:''}</div></div>`;});
+  document.getElementById('qsum').classList.add('on');
+  refreshUser();addNotif(` Quiz ${cycleLabels[qz.cycle]}: ${qz.ok}/${qz.qs.length} correctes`);
+}
+function closeSummary(){document.getElementById('qsum').classList.remove('on');gsc('home');}
+
+//  ABONNEMENT VERSION B — Preuve de paiement manuel 
+let _selPlan='premium_monthly', _selOp=null;
+
+// Numéro de dépôt admin (configurable — à changer ici avec votre vrai numéro)
+const DEPOSIT_CONFIG = {
+  number: process?.env?.ADMIN_DEPOSIT_NUMBER || '+226 56853247', //  REMPLACER
+  label:  'Orange Money / Moov Money / Wave / Telecel'
+};
+
+function showPaywall(msg) {
+  // Afficher le numéro de dépôt admin
+  document.getElementById('deposit-number').textContent = DEPOSIT_CONFIG.number;
+  document.getElementById('deposit-op-label').textContent = DEPOSIT_CONFIG.label;
+  if (msg) document.getElementById('pw-sub').textContent = msg;
+  // Reset form
+  document.getElementById('pw-form-state').style.display='block';
+  document.getElementById('pw-sent-state').style.display='none';
+  document.getElementById('paywall').classList.add('on');
+}
+function closePaywall() { document.getElementById('paywall').classList.remove('on'); }
+function selPlan(p,el) { _selPlan=p; document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('sel')); el.classList.add('sel'); }
+function selOp(op,el)  { _selOp=op;  document.querySelectorAll('.pw-op').forEach(o=>o.classList.remove('on'));   el.classList.add('on'); }
+
+async function submitPaymentProof() {
+  const payphone  = document.getElementById('pw-payphone').value.trim();
+  const amount    = parseInt(document.getElementById('pw-amount').value)||0;
+  const notes     = document.getElementById('pw-notes').value.trim();
+
+  if (!_selPlan) { toast('Choisissez un plan','warn'); return; }
+  if (!_selOp)   { toast('Choisissez l\'opérateur utilisé','warn'); return; }
+  if (!payphone || payphone.replace(/\D/g,'').length < 8) { toast('Numéro Mobile Money invalide','err'); return; }
+  if (!amount || amount < 1) { toast('Entrez le montant déposé','err'); return; }
+
+  const minAmount = _selPlan === 'premium_yearly' ? 15000 : 3000;
+  if (amount < minAmount) { toast(`Montant minimum pour ce plan: ${minAmount} FCFA`,'warn'); return; }
+
+  ld('Envoi de la demande...');
+  const res = await API.post('/api/subscription/request', {
+    plan: _selPlan,
+    declared_amount:  amount,
+    payment_phone:    '+226' + payphone.replace(/\D/g,'').slice(-8),
+    payment_operator: _selOp,
+    notes: notes || null
+  }, S.at).catch(()=>null);
+  uld();
+
+  if (!res || res.error) {
+    toast(res?.error || 'Erreur envoi de la demande', 'err');
+    return;
+  }
+
+  // Afficher la confirmation
+  document.getElementById('pw-form-state').style.display = 'none';
+  document.getElementById('pw-sent-state').style.display  = 'block';
+  const planLabel = _selPlan === 'premium_yearly' ? 'Annuel (15 000 FCFA/an)' : 'Mensuel (3 000 FCFA/mois)';
+  document.getElementById('pw-recap').innerHTML = `
+    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border2)"><span>Plan</span><b>${planLabel}</b></div>
+    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border2)"><span>Montant déclaré</span><b style="color:var(--gold)">${amount.toLocaleString('fr-FR')} FCFA</b></div>
+    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border2)"><span>Opérateur</span><b>${_selOp}</b></div>
+    <div style="display:flex;justify-content:space-between;padding:5px 0"><span>N° utilisé</span><b>+226 ${payphone}</b></div>`;
+
+  toast(' Demande envoyée ! Activation dans les 24h.', 'ok');
+  addNotif(' Demande abonnement envoyée — en attente de validation admin');
+}
+
+async function loadSub(){
+  const res=await API.get('/api/subscription/status',S.at).catch(()=>null);
+  const el=document.getElementById('sub-content');
+  if(!res){el.innerHTML='<div style="color:var(--red);text-align:center;padding:20px">Erreur chargement</div>';return;}
+  const isPrem=res.is_premium;
+  el.innerHTML=`
+    <div style="background:${isPrem?'linear-gradient(135deg,#14082A,#0D0519)':'var(--bg3)'};border:1px solid ${isPrem?'rgba(124,58,237,.3)':'var(--border2)'};border-radius:var(--r);padding:18px;margin-bottom:18px">
+      <div style="font-size:2rem;margin-bottom:8px">${isPrem?'':''}</div>
+      <div style="font-family:Syne,sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:4px">${isPrem?'Premium Actif':'Compte Gratuit'}</div>
+      ${isPrem?`<div style="font-size:.8rem;color:var(--text2)">Expire le <b>${new Date(res.subscription_end).toLocaleDateString('fr-FR')}</b></div><div style="font-size:.78rem;color:var(--purple);margin-top:4px">${res.days_left} jours restants</div>`:`<div style="font-size:.8rem;color:var(--text2)">Quiz utilisés: <b>${res.quiz_free_used}/${res.free_limit}</b></div>`}
+    </div>
+    ${!isPrem ? `
+    <div style="font-family:Syne,sans-serif;font-weight:700;margin-bottom:12px;font-size:.95rem">Passer Premium</div>
+    ${res.latest_request?.status==='pending' ? `
+    <div style="background:rgba(232,185,35,.08);border:1px solid rgba(232,185,35,.25);border-radius:var(--r);padding:14px;margin-bottom:14px">
+      <div style="font-size:.82rem;font-weight:700;color:var(--gold);margin-bottom:4px"> Demande en attente</div>
+      <div style="font-size:.78rem;color:var(--text2)">
+        Votre demande <strong>${res.latest_request.plan==='premium_yearly'?'Annuel':'Mensuel'}</strong> de
+        <strong>${(res.latest_request.declared_amount||0).toLocaleString('fr-FR')} FCFA</strong>
+        est en cours de validation. L'admin activera votre compte dans les 24h.
+      </div>
+    </div>` : ''}
+    <div class="plan-cards" style="margin-bottom:16px">
+      <div class="plan-card" onclick="selPlan('premium_monthly',this)"><div class="plan-icon"></div><div class="plan-name">Mensuel</div><div class="plan-price">3 000<span> FCFA/mois</span></div><div class="plan-desc">1 mois d'accès</div></div>
+      <div class="plan-card best" onclick="selPlan('premium_yearly',this)"><div class="plan-badge"> MEILLEUR</div><div class="plan-icon"></div><div class="plan-name">Annuel</div><div class="plan-price">15 000<span> FCFA/an</span></div><div class="plan-desc">~1 250 FCFA/mois</div></div>
+    </div>
+    <div style="font-size:.78rem;color:var(--text2);background:var(--bg3);border-radius:var(--rs);padding:10px 12px;margin-bottom:12px">
+       Déposez le montant sur <strong id="sub-deposit-num">+226 XX XX XX XX</strong> puis soumettez votre preuve de paiement.
+    </div>
+    <button class="btn btn-purple btn-w" onclick="showPaywall()"> Soumettre une preuve de paiement </button>
+    ` : `<button class="btn btn-ghost btn-w btn-sm" onclick="cancelSub()">Annuler le renouvellement</button>`}
+    ${res.history?.length?`<div style="font-family:Syne,sans-serif;font-weight:700;margin:18px 0 10px;font-size:.9rem">Historique</div>${res.history.map(h=>`<div class="tx-item" style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border2)"><div><div style="font-size:.86rem;font-weight:500">${h.plan}</div><div style="font-size:.72rem;color:var(--text3)">${new Date(h.created_at).toLocaleDateString('fr-FR')}</div></div><div style="font-family:Syne,sans-serif;font-weight:700;font-size:.86rem;color:var(--blue)">${h.amount} F — ${h.status}</div></div>`).join('')}`:''}`;
+}
+
+async function cancelSub(){
+  if(!confirm('Annuler le renouvellement ? Vous garderez l\'accès jusqu\'à la fin de la période.'))return;
+  ld('Annulation...');const res=await API.post('/api/subscription/cancel',{reason:'user_request'},S.at).catch(()=>null);uld();
+  if(!res||res.error){toast(res?.error||'Erreur','err');return;}
+  toast(res.message,'warn');loadSub();
+}
+
+//  REVISION + LEADERBOARD 
+async function loadRev(){
+  document.getElementById('rev-list').innerHTML='<div style="color:var(--text2);text-align:center;padding:20px;font-size:.82rem">Chargement...</div>';
+  const res=await API.get('/api/quiz/revisions?limit=40',S.at).catch(()=>null);
+  const el=document.getElementById('rev-list');
+  if(!res?.revisions?.length){el.innerHTML='<div style="color:var(--text3);text-align:center;padding:40px 0;font-size:.82rem">Aucune révision.<br>Faites un quiz d\'abord !</div>';return;}
+  el.innerHTML='';
+  res.revisions.forEach(r=>{el.innerHTML+=`<div class="ri"><div class="ri-hd"><div class="ri-dt">${r.category||''} · ${new Date(r.saved_at).toLocaleDateString('fr-FR')}</div><div class="ri-st ${r.was_correct?'c':'w'}">${r.was_correct?' Correct':' Incorrect'}</div></div><div class="ri-q">${r.question}</div><div class="ri-a"> ${r.correct_answer}</div>${r.explanation?`<div style="font-size:.75rem;color:var(--text3);margin-top:3px"> ${r.explanation}</div>`:''}</div>`;});
+}
+
+async function loadLb(){
+  const res=await API.get('/api/quiz/leaderboard',S.at).catch(()=>null);
+  if(!res?.leaderboard)return;
+  const lb=res.leaderboard;const top3=lb.slice(0,3),rest=lb.slice(3);
+  const cols=['#9E9E9E','#E8B923','#CD7F32'],hs=[60,80,50],avS=[44,52,40];
+  const pod=[top3[1],top3[0],top3[2]];
+  document.getElementById('lbp').innerHTML=pod.map((p,i)=>p?`<div class="lbpi"><div class="lbav" style="width:${avS[i]}px;height:${avS[i]}px;background:${cols[i]};font-size:${avS[i]*.32}px">${(p.pseudo||'?').substring(0,2).toUpperCase()}</div><div class="lbpn">${p.pseudo}</div><div class="lbpp">${p.points} pts</div><div class="lbb" style="background:${cols[i]};height:${hs[i]}px">${i===1?'':i===0?'':''}</div></div>`:''  ).join('');
+  document.getElementById('lbl').innerHTML=rest.map((p,i)=>`<div class="lb-row ${p.id===S.user?.id?'me':''} ${p.is_premium?'prem':''}"><div class="lbr">${i+4}</div><div class="lbra" ${p.id===S.user?.id?'style="background:rgba(26,115,232,.15);color:var(--blue)"':''}>${(p.pseudo||'?').substring(0,2).toUpperCase()}</div><div class="lbrn">${p.pseudo}${p.is_premium?' <span style="font-size:.65rem;color:var(--gold)"></span>':''}${p.id===S.user?.id?' <span style="color:var(--blue);font-size:.7rem">(Moi)</span>':''}</div><div class="lbrp">${p.points} pts</div></div>`).join('');
+}
+
+//  MODALS 
+function openModal(type){
+  const body=document.getElementById('mbody');
+  if(type==='rules'){body.innerHTML=`<div class="mt"> Fonctionnement</div><div style="display:flex;flex-direction:column;gap:9px;font-size:.82rem;color:var(--text2)">${[[' Quiz gratuits',`${CFG.FREE} quiz offerts à la création du compte. Valables pour tous les cycles.`],[' Premium',`3 000 FCFA/mois ou 15 000 FCFA/an. Accès illimité à tous les cycles.`],[' Questions uniques','Chaque question ne revient jamais pour vous. Les corrections sont sauvegardées.'],[' Temps','20 secondes par question. Temps dépassé = mauvaise réponse.'],[' Score','Bonne réponse = +1 pt. Mauvaise = 1 pt. Mérite de progression.'],[' Cycles','Cycle C (Primaire), B (1er Cycle), A (2nd Cycle). Gratuit dans le quota.']].map(([t,d])=>`<div style="background:var(--bg3);border-radius:var(--rs);padding:10px 12px"><b style="color:var(--blue)">${t}</b><br>${d}</div>`).join('')}<button class="btn btn-blue btn-w" onclick="closeModal()" style="margin-top:4px">Compris </button></div>`;}
+  else if(type==='editPseudo'){body.innerHTML=`<div class="mt"> Modifier le pseudo</div><div style="display:flex;flex-direction:column;gap:12px"><div class="fg"><div class="fl">Nouveau pseudo</div><input class="fi" id="ep-ps" type="text" value="${S.user?.pseudo||''}" placeholder="2 à 30 caractères"></div><button class="btn btn-blue btn-w" onclick="savePseudo()">Sauvegarder </button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
+  else if(type==='changePwd'){body.innerHTML=`<div class="mt"> Changer le mot de passe</div><div style="display:flex;flex-direction:column;gap:12px"><div class="fg"><div class="fl">Ancien mot de passe</div><input class="fi" id="op-pw" type="password" placeholder="••••••••"></div><div class="fg"><div class="fl">Nouveau (8 min.)</div><input class="fi" id="np-pw" type="password" placeholder="••••••••"></div><button class="btn btn-blue btn-w" onclick="changePwd()">Changer </button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
+  else if(type==='forgot'){body.innerHTML=`<div class="mt"> Réinitialiser le mot de passe</div><div style="display:flex;flex-direction:column;gap:12px"><div class="fg"><div class="fl">Numéro</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="fp-ph" type="tel" placeholder="XX XX XX XX" inputmode="numeric"></div></div><button class="btn btn-blue btn-w" onclick="sendForgot()">Recevoir le code </button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
+  document.getElementById('mbg').classList.add('on');
+}
+function closeModal(){document.getElementById('mbg').classList.remove('on');}
+async function savePseudo(){const pseudo=document.getElementById('ep-ps').value.trim();if(!pseudo||pseudo.length<2){toast('Pseudo invalide','err');return;}ld('...');const res=await API.patch('/api/users/pseudo',{pseudo},S.at).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}if(S.user)S.user.pseudo=pseudo;updateUI();closeModal();toast(' Pseudo mis à jour','ok');}
+async function changePwd(){const op=document.getElementById('op-pw').value;const np=document.getElementById('np-pw').value;if(np.length<8){toast('Minimum 8 caractères','err');return;}ld('...');const res=await API.patch('/api/users/password',{old_password:op,new_password:np},S.at).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}closeModal();toast(' Mot de passe modifié. Reconnectez-vous.','ok');setTimeout(doLogout,1500);}
+async function sendForgot(){const phone='+226'+document.getElementById('fp-ph').value.trim();ld('...');const res=await API.post('/api/auth/forgot-password',{phone}).catch(()=>null);uld();closeModal();toast(res?.message||'Code envoyé si le numéro existe.','warn');}
+</script>
+</body>
+</html>
