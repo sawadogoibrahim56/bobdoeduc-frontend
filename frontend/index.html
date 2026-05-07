@@ -61,9 +61,9 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .fi.pfx{padding-left:54px}
 .pfx-l{position:absolute;left:12px;color:var(--blue);font-weight:600;font-size:.86rem;pointer-events:none}
 .fi-eye{position:absolute;right:12px;cursor:pointer;color:var(--text3);user-select:none}
-.otp-row{display:flex;gap:6px;width:100%;justify-content:center}
-.oi{width:42px;min-width:42px;max-width:42px;height:52px;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--rs);padding:0;text-align:center;color:var(--text);font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;transition:var(--ease);-webkit-appearance:none;flex:none}
-.oi:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px rgba(26,115,232,.2)}
+.otp-row{display:flex;gap:7px}
+.oi{flex:1;background:var(--bg3);border:1.5px solid var(--border2);border-radius:var(--rs);padding:12px 0;text-align:center;color:var(--text);font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;transition:var(--ease)}
+.oi:focus{border-color:var(--blue)}
 .otp-hint{text-align:center;font-size:.74rem;color:var(--text3);margin-top:3px}
 .otp-hint span{color:var(--blue);cursor:pointer;font-weight:600}
 
@@ -260,7 +260,204 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .pw-pending .big-ic{font-size:2.2rem;margin-bottom:8px}
 .pw-pending h4{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px}
 .pw-pending p{font-size:.82rem;color:var(--text2)}
-  /* ═══ REVISION ═══ */
+  <!-- ═══════════ AUTH ═══════════ -->
+<div class="view" id="auth-v" style="background:var(--bg);padding:20px">
+  <div class="auth-box">
+    <div class="a-logo">Bobdo<span>Educ</span></div>
+    <div class="a-sub">La plateforme de quiz éducatif au Burkina Faso 🇧🇫<br>Quiz Cycle C, B et A — 20 gratuits, illimité en Premium</div>
+    <div class="tabs">
+      <div class="tab on" onclick="stab('login')">Connexion</div>
+      <div class="tab" onclick="stab('register')">Créer un compte</div>
+    </div>
+    <div class="f on" id="f-login">
+      <div style="display:flex;gap:8px;margin-bottom:4px">
+        <button id="btn-login-phone" class="btn btn-blue" style="flex:1;font-size:.78rem" onclick="switchLoginContact('phone')">📱 Téléphone</button>
+        <button id="btn-login-email" class="btn btn-ghost" style="flex:1;font-size:.78rem" onclick="switchLoginContact('email')">📧 Email</button>
+      </div>
+      <div id="login-phone-wrap">
+        <div class="fg"><div class="fl">Numéro de téléphone</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="lp" type="tel" placeholder="XX XX XX XX" maxlength="10" inputmode="numeric"></div></div>
+      </div>
+      <div id="login-email-wrap" style="display:none">
+        <div class="fg"><div class="fl">Email</div><input class="fi" id="le" type="email" placeholder="exemple@gmail.com"></div>
+      </div>
+      <div class="fg"><div class="fl">Mot de passe</div><div class="fw"><input class="fi" id="lpw" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('lpw',this)">👁</span></div></div>
+      <button class="btn btn-blue btn-w" onclick="doLogin()">Se connecter →</button>
+      <div style="text-align:center;font-size:.76rem;color:var(--text3)">Mot de passe oublié ? <span onclick="openModal('forgot')" style="color:var(--blue);cursor:pointer;font-weight:600">Récupérer</span></div>
+    </div>
+    <div class="f" id="f-reg">
+      <div class="sdots"><div class="sd curr" id="rd0"></div><div class="sd" id="rd1"></div><div class="sd" id="rd2"></div></div>
+      <div class="fs on" id="rs1">
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <button id="btn-use-email" class="btn btn-ghost" style="flex:1;font-size:.78rem" onclick="switchContact('email')">📧 Email</button>
+          <button id="btn-use-phone" class="btn btn-blue" style="flex:1;font-size:.78rem" onclick="switchContact('phone')">📱 Téléphone</button>
+        </div>
+        <div id="input-phone-wrap">
+          <div class="fg"><div class="fl">Votre numéro</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="rp" type="tel" placeholder="XX XX XX XX" maxlength="10" inputmode="numeric"></div></div>
+          <p style="font-size:.74rem;color:var(--text3)">📱 Un code OTP sera envoyé par SMS.</p>
+        </div>
+        <div id="input-email-wrap" style="display:none">
+          <div class="fg"><div class="fl">Votre email</div><input class="fi" id="re" type="email" placeholder="exemple@gmail.com"></div>
+          <p style="font-size:.74rem;color:var(--text3)">📧 Un code OTP sera envoyé par email.</p>
+        </div>
+        <button class="btn btn-blue btn-w" onclick="sendOtp()">Envoyer le code OTP →</button>
+      </div>
+      <div class="fs" id="rs2">
+        <div class="fg"><div class="fl">Code OTP reçu</div><div class="otp-row" id="otp-row"></div><div class="otp-hint">Expire dans <span id="otp-t">02:00</span> · <span onclick="sendOtp()">Renvoyer</span></div></div>
+        <button class="btn btn-blue btn-w" onclick="verifyOtp()">Vérifier →</button>
+      </div>
+      <div class="fs" id="rs3">
+        <div class="fg"><div class="fl">Pseudo (2 à 30 caractères)</div><input class="fi" id="rps" type="text" placeholder="Ex: Koné_BF"></div>
+        <div class="fg"><div class="fl">Mot de passe (8 min.)</div><div class="fw"><input class="fi" id="rpw" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('rpw',this)">👁</span></div></div>
+        <div class="fg"><div class="fl">Confirmer</div><div class="fw"><input class="fi" id="rpw2" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('rpw2',this)">👁</span></div></div>
+        <button class="btn btn-blue btn-w" onclick="doRegister()">Créer mon compte 🎉</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ APP ═══════════ -->
+<div id="app">
+  <div class="topbar">
+    <div class="tb-logo">Bobdo<span>Educ</span></div>
+    <div class="tb-r">
+      <div class="prem-badge" id="prem-badge" style="display:none">⭐ PREMIUM</div>
+      <div class="nb" onclick="openNotif ? openNotif() : null">🔔<div class="ndot" id="ndot"></div></div>
+      <div class="av" id="topav" onclick="gsc('profile')">BE</div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- HOME -->
+    <div class="sc on" id="sc-home">
+      <div class="h-hero">
+        <div class="h-greet">Bon retour 👋</div>
+        <div class="h-name" id="h-name">Apprenant</div>
+        <!-- Quota gratuit ou statut premium -->
+        <div id="quota-card" class="quota-card">
+          <div class="qc-top">
+            <div class="qc-label">Quiz gratuits utilisés</div>
+            <div class="qc-count" id="qc-count">0 / 20</div>
+          </div>
+          <div class="qbar-bg"><div class="qbar-fill" id="qbar" style="width:0%"></div></div>
+          <div class="qc-bottom">
+            <div class="qc-msg" id="qc-msg">0 quiz restants</div>
+            <div class="qc-btn" onclick="showPaywall()">Passer Premium →</div>
+          </div>
+        </div>
+        <div id="prem-card" class="prem-card" style="display:none">
+          <div class="pc-top">
+            <div class="pc-icon">⭐</div>
+            <div><div class="pc-title">Abonnement Premium actif</div><div class="pc-end" id="pc-end">Expire le —</div></div>
+          </div>
+          <div class="pc-progress"><div class="pc-prog-fill" id="pc-prog" style="width:50%"></div></div>
+        </div>
+      </div>
+      <div class="stats-row">
+        <div class="scard"><div class="sv b" id="st-sc">0</div><div class="sd2">Score total</div></div>
+        <div class="scard"><div class="sv g" id="st-ok">0</div><div class="sd2">Correctes</div></div>
+        <div class="scard"><div class="sv r" id="st-ko">0</div><div class="sd2">Incorrectes</div></div>
+      </div>
+      <div class="sec-t">Choisir un cycle</div>
+      <div class="cycles-grid">
+        <div class="cycle-card cycle-c" onclick="startCycle('cycle_c')">
+          <div class="cc-left">
+            <div class="cc-icon">🏫</div>
+            <div>
+              <div class="cc-title">Cycle C — Primaire</div>
+              <div class="cc-sub" style="color:rgba(0,168,84,.7)">CE1 → CM2 · Lecture, Calcul, Sciences, Histoire...</div>
+            </div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-badge free">✅ Gratuit</div>
+            <div class="cc-arrow">›</div>
+          </div>
+        </div>
+        <div class="cycle-card cycle-b" onclick="startCycle('cycle_b')">
+          <div class="cc-left">
+            <div class="cc-icon">📚</div>
+            <div>
+              <div class="cc-title">Cycle B — 1er Cycle</div>
+              <div class="cc-sub" style="color:rgba(26,115,232,.7)">6ème → 3ème · Maths, SVT, Histoire-Géo, Anglais...</div>
+            </div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-badge premium" id="cb-badge">⭐ Premium</div>
+            <div class="cc-arrow">›</div>
+          </div>
+        </div>
+        <div class="cycle-card cycle-a" onclick="startCycle('cycle_a')">
+          <div class="cc-left">
+            <div class="cc-icon">🎓</div>
+            <div>
+              <div class="cc-title">Cycle A — 2nd Cycle</div>
+              <div class="cc-sub" style="color:rgba(124,58,237,.7)">2nde → Terminale · Philo, Éco, Physique-Chimie...</div>
+            </div>
+          </div>
+          <div class="cc-right">
+            <div class="cc-badge premium" id="ca-badge">⭐ Premium</div>
+            <div class="cc-arrow">›</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVISION -->
+    <div class="sc" id="sc-revision">
+      <div class="pp">
+        <div class="ph">📖 Mes Révisions</div>
+        <div class="psub">Corrections sauvegardées — ces questions ne reviennent jamais.</div>
+        <div id="rev-list"><div style="color:var(--text3);text-align:center;padding:40px 0;font-size:.83rem">Chargement...</div></div>
+      </div>
+    </div>
+
+    <!-- LEADERBOARD -->
+    <div class="sc" id="sc-leaderboard">
+      <div class="pp">
+        <div class="ph">🏆 Classement</div>
+        <div class="lbp" id="lbp"></div>
+        <div id="lbl"></div>
+      </div>
+    </div>
+
+    <!-- ABONNEMENT -->
+    <div class="sc" id="sc-subscription">
+      <div class="pp">
+        <div class="ph">⭐ Mon Abonnement</div>
+        <div id="sub-content"><div style="color:var(--text2);text-align:center;padding:40px 0">Chargement...</div></div>
+      </div>
+    </div>
+
+    <!-- PROFIL -->
+    <div class="sc" id="sc-profile">
+      <div class="pp">
+        <div class="prhd">
+          <div class="prav" id="pr-av">BE</div>
+          <div><div class="prn" id="pr-n">—</div><div class="prp" id="pr-ph">—</div><div class="prl free" id="pr-l">🎓 Gratuit</div></div>
+        </div>
+        <div class="msec-t">Compte</div>
+        <div class="mrow" onclick="openModal('editPseudo')"><div class="ml"><div class="mi-ic">👤</div><div class="mi-t">Modifier le pseudo</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="openModal('changePwd')"><div class="ml"><div class="mi-ic">🔑</div><div class="mi-t">Changer le mot de passe</div></div><div class="marr">›</div></div>
+        <div class="msec-t">Apprentissage</div>
+        <div class="mrow" onclick="gsc('revision')"><div class="ml"><div class="mi-ic">📖</div><div class="mi-t">Mes révisions</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="gsc('leaderboard')"><div class="ml"><div class="mi-ic">🏆</div><div class="mi-t">Classement</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="gsc('subscription')"><div class="ml"><div class="mi-ic">⭐</div><div class="mi-t">Gérer l'abonnement</div></div><div class="marr">›</div></div>
+        <div class="msec-t">Aide</div>
+        <div class="mrow" onclick="openModal('rules')"><div class="ml"><div class="mi-ic">📋</div><div class="mi-t">Fonctionnement</div></div><div class="marr">›</div></div>
+        <div class="mrow" onclick="doLogout()"><div class="ml"><div class="mi-ic">🚪</div><div class="mi-t" style="color:var(--red)">Se déconnecter</div></div></div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+
+  <nav class="bnav">
+    <div class="ni on" id="ni-home"        onclick="gsc('home')">        <div class="ni-ic">🏠</div><div class="ni-lb">Accueil</div></div>
+    <div class="ni"    id="ni-revision"     onclick="gsc('revision')">    <div class="ni-ic">📖</div><div class="ni-lb">Révision</div></div>
+    <div class="ni"    id="ni-leaderboard"  onclick="gsc('leaderboard')"> <div class="ni-ic">🏆</div><div class="ni-lb">Classement</div></div>
+    <div class="ni"    id="ni-subscription" onclick="gsc('subscription')"><div class="ni-ic">⭐</div><div class="ni-lb">Premium</div></div>
+    <div class="ni"    id="ni-profile"      onclick="gsc('profile')">     <div class="ni-ic">👤</div><div class="ni-lb">Profil</div></div>
+  </nav>
+</div>/* ═══ REVISION ═══ */
 .ri{background:var(--bg3);border-radius:var(--r);padding:13px;margin-bottom:9px;border:1px solid var(--border2)}
 .ri-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
 .ri-dt{font-size:.7rem;color:var(--text3)}
@@ -380,14 +577,6 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
         <div class="pw-op" onclick="selOp('telecel',this)"><div class="ico">🔴</div><div class="lb">Telecel</div></div>
       </div>
 
-      <!-- Formulaire preuve --><div class="fl" style="margin-bottom:9px">2. Opérateur utilisé pour le dépôt</div>
-      <div class="pw-op-grid" style="margin-bottom:16px">
-        <div class="pw-op" onclick="selOp('orange',this)"><div class="ico">🟠</div><div class="lb">Orange</div></div>
-        <div class="pw-op" onclick="selOp('moov',this)"><div class="ico">🔵</div><div class="lb">Moov</div></div>
-        <div class="pw-op" onclick="selOp('wave',this)"><div class="ico">🟢</div><div class="lb">Wave</div></div>
-        <div class="pw-op" onclick="selOp('telecel',this)"><div class="ico">🔴</div><div class="lb">Telecel</div></div>
-      </div>
-
       <!-- Formulaire preuve -->
       <div class="fl" style="margin-bottom:9px">3. Remplir les informations du paiement</div>
       <div class="proof-section">
@@ -434,204 +623,6 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
   <div class="sp-tag">Apprends · Progresse · Réussis</div>
   <div class="sp-bar"><div class="sp-fill"></div></div>
 </div>
-
-<!-- ═══════════ AUTH ═══════════ -->
-<div class="view" id="auth-v" style="background:var(--bg);padding:20px">
-  <div class="auth-box">
-    <div class="a-logo">Bobdo<span>Educ</span></div>
-    <div class="a-sub">La plateforme de quiz éducatif au Burkina Faso 🇧🇫<br>Quiz Cycle C, B et A — 20 gratuits, illimité en Premium</div>
-    <div class="tabs">
-      <div class="tab on" onclick="stab('login')">Connexion</div>
-      <div class="tab" onclick="stab('register')">Créer un compte</div>
-    </div>
-    <div class="f on" id="f-login">
-      <div style="display:flex;gap:8px;margin-bottom:4px">
-        <button id="btn-login-phone" class="btn btn-blue" style="flex:1;font-size:.78rem" onclick="switchLoginContact('phone')">📱 Téléphone</button>
-        <button id="btn-login-email" class="btn btn-ghost" style="flex:1;font-size:.78rem" onclick="switchLoginContact('email')">📧 Email</button>
-      </div>
-      <div id="login-phone-wrap">
-        <div class="fg"><div class="fl">Numéro de téléphone</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="lp" type="tel" placeholder="XX XX XX XX" maxlength="10" inputmode="numeric"></div></div>
-      </div>
-      <div id="login-email-wrap" style="display:none">
-        <div class="fg"><div class="fl">Email</div><input class="fi" id="le" type="email" placeholder="exemple@gmail.com"></div>
-      </div>
-      <div class="fg"><div class="fl">Mot de passe</div><div class="fw"><input class="fi" id="lpw" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('lpw',this)">👁</span></div></div>
-      <button class="btn btn-blue btn-w" onclick="doLogin()">Se connecter →</button>
-      <div style="text-align:center;font-size:.76rem;color:var(--text3)">Mot de passe oublié ? <span onclick="openModal('forgot')" style="color:var(--blue);cursor:pointer;font-weight:600">Récupérer</span></div>
-    </div>
-    <div class="f" id="f-reg">
-      <div class="sdots"><div class="sd curr" id="rd0"></div><div class="sd" id="rd1"></div><div class="sd" id="rd2"></div></div>
-      <div class="fs on" id="rs1">
-        <div style="display:flex;gap:8px;margin-bottom:10px">
-          <button id="btn-use-email" class="btn btn-ghost" style="flex:1;font-size:.78rem" onclick="switchContact('email')">📧 Email</button>
-          <button id="btn-use-phone" class="btn btn-blue" style="flex:1;font-size:.78rem" onclick="switchContact('phone')">📱 Téléphone</button>
-        </div>
-        <div id="input-phone-wrap">
-          <div class="fg"><div class="fl">Votre numéro</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="rp" type="tel" placeholder="XX XX XX XX" maxlength="10" inputmode="numeric"></div></div>
-          <p style="font-size:.74rem;color:var(--text3)">📱 Un code OTP sera envoyé par SMS.</p>
-        </div>
-        <div id="input-email-wrap" style="display:none">
-          <div class="fg"><div class="fl">Votre email</div><input class="fi" id="re" type="email" placeholder="exemple@gmail.com"></div>
-          <p style="font-size:.74rem;color:var(--text3)">📧 Un code OTP sera envoyé par email.</p>
-        </div>
-        <button class="btn btn-blue btn-w" onclick="sendOtp()">Envoyer le code OTP →</button>
-      </div>
-      <div class="fs" id="rs2">
-        <div class="fg"><div class="fl">Code OTP reçu</div><div class="otp-row" id="otp-row"></div><div class="otp-hint">Expire dans <span id="otp-t">02:00</span> · <span onclick="sendOtp()">Renvoyer</span></div></div>
-        <button class="btn btn-blue btn-w" onclick="verifyOtp()">Vérifier →</button>
-      </div>
-      <div class="fs" id="rs3">
-        <div class="fg"><div class="fl">Pseudo (2 à 30 caractères)</div><input class="fi" id="rps" type="text" placeholder="Ex: Koné_BF"></div>
-        <div class="fg"><div class="fl">Mot de passe (8 min.)</div><div class="fw"><input class="fi" id="rpw" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('rpw',this)">👁</span></div></div>
-        <div class="fg"><div class="fl">Confirmer</div><div class="fw"><input class="fi" id="rpw2" type="password" placeholder="••••••••"><span class="fi-eye" onclick="tpw('rpw2',this)">👁</span></div></div>
-        <button class="btn btn-blue btn-w" onclick="doRegister()">Créer mon compte 🎉</button>
-      </div>
-    </div>
-  </div>
-</div><!-- ═══════════ APP ═══════════ -->
-<div id="app">
-  <div class="topbar">
-    <div class="tb-logo">Bobdo<span>Educ</span></div>
-    <div class="tb-r">
-      <div class="prem-badge" id="prem-badge" style="display:none">⭐ PREMIUM</div>
-      <div class="nb" onclick="openNotif ? openNotif() : null">🔔<div class="ndot" id="ndot"></div></div>
-      <div class="av" id="topav" onclick="gsc('profile')">BE</div>
-    </div>
-  </div>
-
-  <div class="main">
-
-    <!-- HOME -->
-    <div class="sc on" id="sc-home">
-      <div class="h-hero">
-        <div class="h-greet">Bon retour 👋</div>
-        <div class="h-name" id="h-name">Apprenant</div>
-        <!-- Quota gratuit ou statut premium -->
-        <div id="quota-card" class="quota-card">
-          <div class="qc-top">
-            <div class="qc-label">Quiz gratuits utilisés</div>
-            <div class="qc-count" id="qc-count">0 / 20</div>
-          </div>
-          <div class="qbar-bg"><div class="qbar-fill" id="qbar" style="width:0%"></div></div>
-          <div class="qc-bottom">
-            <div class="qc-msg" id="qc-msg">0 quiz restants</div>
-            <div class="qc-btn" onclick="showPaywall()">Passer Premium →</div>
-          </div>
-        </div>
-        <div id="prem-card" class="prem-card" style="display:none">
-          <div class="pc-top">
-            <div class="pc-icon">⭐</div>
-            <div><div class="pc-title">Abonnement Premium actif</div><div class="pc-end" id="pc-end">Expire le —</div></div>
-          </div>
-          <div class="pc-progress"><div class="pc-prog-fill" id="pc-prog" style="width:50%"></div></div>
-        </div>
-      </div>
-      <div class="stats-row">
-        <div class="scard"><div class="sv b" id="st-sc">0</div><div class="sd2">Score total</div></div>
-        <div class="scard"><div class="sv g" id="st-ok">0</div><div class="sd2">Correctes</div></div>
-        <div class="scard"><div class="sv r" id="st-ko">0</div><div class="sd2">Incorrectes</div></div>
-      </div>
-      <div class="sec-t">Choisir un cycle</div>
-      <div class="cycles-grid">
-        <div class="cycle-card cycle-c" onclick="startCycle('cycle_c')">
-          <div class="cc-left">
-            <div class="cc-icon">🏫</div>
-            <div>
-              <div class="cc-title">Cycle C — Primaire</div>
-              <div class="cc-sub" style="color:rgba(0,168,84,.7)">CE1 → CM2 · Lecture, Calcul, Sciences, Histoire...</div>
-            </div>
-          </div>
-          <div class="cc-right">
-            <div class="cc-badge free">✅ Gratuit</div>
-            <div class="cc-arrow">›</div>
-          </div>
-        </div>
-        <div class="cycle-card cycle-b" onclick="startCycle('cycle_b')">
-          <div class="cc-left">
-            <div class="cc-icon">📚</div>
-            <div>
-              <div class="cc-title">Cycle B — 1er Cycle</div>
-              <div class="cc-sub" style="color:rgba(26,115,232,.7)">6ème → 3ème · Maths, SVT, Histoire-Géo, Anglais...</div>
-            </div>
-          </div>
-          <div class="cc-right">
-            <div class="cc-badge premium" id="cb-badge">⭐ Premium</div>
-            <div class="cc-arrow">›</div>
-          </div>
-        </div>
-        <div class="cycle-card cycle-a" onclick="startCycle('cycle_a')">
-          <div class="cc-left">
-            <div class="cc-icon">🎓</div>
-            <div>
-              <div class="cc-title">Cycle A — 2nd Cycle</div>
-              <div class="cc-sub" style="color:rgba(124,58,237,.7)">2nde → Terminale · Philo, Éco, Physique-Chimie...</div>
-            </div>
-          </div>
-          <div class="cc-right">
-            <div class="cc-badge premium" id="ca-badge">⭐ Premium</div>
-            <div class="cc-arrow">›</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- REVISION -->
-    <div class="sc" id="sc-revision">
-      <div class="pp">
-        <div class="ph">📖 Mes Révisions</div>
-        <div class="psub">Corrections sauvegardées — ces questions ne reviennent jamais.</div>
-        <div id="rev-list"><div style="color:var(--text3);text-align:center;padding:40px 0;font-size:.83rem">Chargement...</div></div>
-      </div>
-    </div>
-
-    <!-- LEADERBOARD -->
-    <div class="sc" id="sc-leaderboard">
-      <div class="pp">
-        <div class="ph">🏆 Classement</div>
-        <div class="lbp" id="lbp"></div>
-        <div id="lbl"></div>
-      </div>
-    </div>
-
-    <!-- ABONNEMENT -->
-    <div class="sc" id="sc-subscription">
-      <div class="pp">
-        <div class="ph">⭐ Mon Abonnement</div>
-        <div id="sub-content"><div style="color:var(--text2);text-align:center;padding:40px 0">Chargement...</div></div>
-      </div>
-    </div>
-    <!-- PROFIL -->
-    <div class="sc" id="sc-profile">
-      <div class="pp">
-        <div class="prhd">
-          <div class="prav" id="pr-av">BE</div>
-          <div><div class="prn" id="pr-n">—</div><div class="prp" id="pr-ph">—</div><div class="prl free" id="pr-l">🎓 Gratuit</div></div>
-        </div>
-        <div class="msec-t">Compte</div>
-        <div class="mrow" onclick="openModal('editPseudo')"><div class="ml"><div class="mi-ic">👤</div><div class="mi-t">Modifier le pseudo</div></div><div class="marr">›</div></div>
-        <div class="mrow" onclick="openModal('changePwd')"><div class="ml"><div class="mi-ic">🔑</div><div class="mi-t">Changer le mot de passe</div></div><div class="marr">›</div></div>
-        <div class="msec-t">Apprentissage</div>
-        <div class="mrow" onclick="gsc('revision')"><div class="ml"><div class="mi-ic">📖</div><div class="mi-t">Mes révisions</div></div><div class="marr">›</div></div>
-        <div class="mrow" onclick="gsc('leaderboard')"><div class="ml"><div class="mi-ic">🏆</div><div class="mi-t">Classement</div></div><div class="marr">›</div></div>
-        <div class="mrow" onclick="gsc('subscription')"><div class="ml"><div class="mi-ic">⭐</div><div class="mi-t">Gérer l'abonnement</div></div><div class="marr">›</div></div>
-        <div class="msec-t">Aide</div>
-        <div class="mrow" onclick="openModal('rules')"><div class="ml"><div class="mi-ic">📋</div><div class="mi-t">Fonctionnement</div></div><div class="marr">›</div></div>
-        <div class="mrow" onclick="openAdmin()" style="display:none" id="btn-admin-menu"><div class="ml"><div class="mi-ic">🔐</div><div class="mi-t" style="color:var(--gold)">Panel Admin</div></div><div class="marr">›</div></div>
-        <div class="mrow" onclick="doLogout()"><div class="ml"><div class="mi-ic">🚪</div><div class="mi-t" style="color:var(--red)">Se déconnecter</div></div></div>
-      </div>
-    </div>
-
-  </div><!-- /main -->
-
-  <nav class="bnav">
-    <div class="ni on" id="ni-home"        onclick="gsc('home')">        <div class="ni-ic">🏠</div><div class="ni-lb">Accueil</div></div>
-    <div class="ni"    id="ni-revision"     onclick="gsc('revision')">    <div class="ni-ic">📖</div><div class="ni-lb">Révision</div></div>
-    <div class="ni"    id="ni-leaderboard"  onclick="gsc('leaderboard')"> <div class="ni-ic">🏆</div><div class="ni-lb">Classement</div></div>
-    <div class="ni"    id="ni-subscription" onclick="gsc('subscription')"><div class="ni-ic">⭐</div><div class="ni-lb">Premium</div></div>
-    <div class="ni"    id="ni-profile"      onclick="gsc('profile')">     <div class="ni-ic">👤</div><div class="ni-lb">Profil</div></div>
-  </nav>
-</div>
-
 <!-- QUIZ OVERLAY -->
 <div class="qov" id="qov">
   <div class="qhead">
@@ -673,10 +664,11 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 "use strict";
 // ──────────────────────────────────────────────────────────────
 // CONFIG — Modifier avant déploiement
-// ────────const CFG = {
-  API:   'https://bobdoeduc-backend.onrender.com',d
+// ──────────────────────────────────────────────────────────────
+const CFG = {
+  API:   'https://TON-BACKEND.onrender.com',  // ⚠️ REMPLACER par votre URL backend
   FREE:  20,                        // Doit correspondre à FREE_QUIZ_LIMIT dans .env
-  DEBUG: true 
+  DEBUG: false
 };
 
 // ── API LAYER ─────────────────────────────────────────────────
@@ -728,30 +720,7 @@ function gsc(name){document.querySelectorAll('.sc').forEach(s=>s.classList.remov
 // ── INIT ──────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded',()=>{
   const row=document.getElementById('otp-row');
-  for(let i=0;i<6;i++){
-    const inp=document.createElement('input');
-    inp.className='oi';inp.maxLength=1;inp.type='tel';
-    inp.inputMode='numeric';inp.pattern='[0-9]*';inp.id='oi'+i;
-    inp.addEventListener('input',e=>{
-      inp.value=inp.value.replace(/[^0-9]/g,'');
-      if(inp.value&&i<5)document.getElementById('oi'+(i+1)).focus();
-    });
-    inp.addEventListener('keydown',e=>{
-      if(e.key==='Backspace'&&!inp.value&&i>0)document.getElementById('oi'+(i-1)).focus();
-    });
-    inp.addEventListener('paste',e=>{
-      e.preventDefault();
-      const paste=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'');
-      for(let j=0;j<6&&j<paste.length;j++){
-        const el=document.getElementById('oi'+j);
-        if(el)el.value=paste[j];
-      }
-      const last=Math.min(paste.length,5);
-      const el=document.getElementById('oi'+last);
-      if(el)el.focus();
-    });
-    row.appendChild(inp);
-  }row.appendChild(inp);}
+  for(let i=0;i<6;i++){const inp=document.createElement('input');inp.className='oi';inp.maxLength=1;inp.inputMode='numeric';inp.id='oi'+i;inp.addEventListener('input',()=>{if(inp.value&&i<5)document.getElementById('oi'+(i+1)).focus();});row.appendChild(inp);}
   loadT();
   setTimeout(async()=>{
     const sp=document.getElementById('splash');sp.style.transition='opacity .5s';sp.style.opacity='0';
@@ -804,7 +773,8 @@ async function sendOtp(){
     const phone='+226'+document.getElementById('rp').value.trim();
     if(phone.length<12){toast('Numéro invalide','err');return;}
     otpBody.phone=phone; S._contact=phone;
-  }ld('Envoi OTP...');const res=await API.post('/api/auth/send-otp',otpBody).catch(()=>null);uld();
+  }
+  ld('Envoi OTP...');const res=await API.post('/api/auth/send-otp',otpBody).catch(()=>null);uld();
   if(!res||res.error){toast(res?.error||'Erreur','err');return;}
   // OTP envoyé - pas d'affichage en production
   document.getElementById('rs1').classList.remove('on');
@@ -844,8 +814,7 @@ async function doRegister(){
   S.user=res.user;saveT(res.access_token,res.refresh_token);toast('🎉 Compte créé !','ok');enterApp();
 }
 async function doLogout(){ld('...');await API.post('/api/auth/logout',{refresh_token:S.rt},S.at).catch(()=>{});uld();clearT();S.user=null;sv('auth');}
-
-// ── UI UPDATE ─────────────────────────────────────────────────
+  // ── UI UPDATE ─────────────────────────────────────────────────
 function updateUI(){
   if(!S.user)return;
   const u=S.user;
@@ -861,9 +830,6 @@ function updateUI(){
   const rem=Math.max(0,CFG.FREE-used);
   const pct=Math.min(100,(used/CFG.FREE)*100);
   document.getElementById('qc-count').textContent=`${used} / ${CFG.FREE}`;
-  // Afficher bouton admin si clé admin stockée
-  const adminBtn = document.getElementById('btn-admin-menu');
-  if (adminBtn && sessionStorage.getItem('be_admin_key')) adminBtn.style.display='flex';
   document.getElementById('qbar').style.width=pct+'%';
   document.getElementById('qc-msg').textContent=rem>0?`${rem} quiz gratuit${rem>1?'s':''} restant${rem>1?'s':''}`:'Quota gratuit épuisé';
   document.getElementById('quota-card').style.display=isPrem?'none':'block';
@@ -894,7 +860,8 @@ function renderProfile(){
   else{lEl.textContent='🎓 Gratuit ('+Math.max(0,CFG.FREE-(u.quiz_free_used||0))+' restants)';lEl.className='prl free';}
 }
 async function refreshUser(){const res=await API.get('/api/users/me',S.at).catch(()=>null);if(res?.user){S.user=res.user;updateUI();}}
-  // ── CYCLE / QUIZ START ────────────────────────────────────────
+
+// ── CYCLE / QUIZ START ────────────────────────────────────────
 const cycleLabels={cycle_c:'Cycle C — Primaire',cycle_b:'Cycle B — 1er Cycle',cycle_a:'Cycle A — 2nd Cycle'};
 const diffLabels=['','Facile','Moyen','Difficile'];
 const diffClass=['','d1','d2','d3'];
@@ -1033,9 +1000,7 @@ async function submitPaymentProof() {
   if (!res || res.error) {
     toast(res?.error || 'Erreur envoi de la demande', 'err');
     return;
-  }
-
-  // Afficher la confirmation
+  }// Afficher la confirmation
   document.getElementById('pw-form-state').style.display = 'none';
   document.getElementById('pw-sent-state').style.display  = 'block';
   const planLabel = _selPlan === 'premium_yearly' ? 'Annuel (15 000 FCFA/an)' : 'Mensuel (3 000 FCFA/mois)';
@@ -1047,8 +1012,9 @@ async function submitPaymentProof() {
 
   toast('📬 Demande envoyée ! Activation dans les 24h.', 'ok');
   addNotif('📬 Demande abonnement envoyée — en attente de validation admin');
-  }
-  async function loadSub(){
+}
+
+async function loadSub(){
   const res=await API.get('/api/subscription/status',S.at).catch(()=>null);
   const el=document.getElementById('sub-content');
   if(!res){el.innerHTML='<div style="color:var(--red);text-align:center;padding:20px">Erreur chargement</div>';return;}
@@ -1156,9 +1122,7 @@ async function sendForgot(){
       <div style="color:var(--red);font-size:.82rem;margin-top:10px;min-height:20px" id="admin-login-err"></div>
       <div style="margin-top:16px"><span onclick="sv('auth')" style="color:var(--text3);font-size:.78rem;cursor:pointer">← Retour à l'app</span></div>
     </div>
-  </div>
-
-  <!-- ADMIN DASHBOARD -->
+  </div>  <!-- ADMIN DASHBOARD -->
   <div id="admin-dash" style="display:none;flex-direction:column;min-height:100vh">
     <!-- Header -->
     <div style="background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100">
@@ -1184,7 +1148,8 @@ async function sendForgot(){
         <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center"><div style="font-size:1.7rem;font-weight:800" id="as-users">—</div><div style="font-size:.7rem;color:var(--text3);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">Utilisateurs</div></div>
       </div>
 
-      <!-- Tabs --><div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+      <!-- Tabs -->
+      <div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
         <button class="admin-tab on" onclick="adminLoadRequests('pending',this)">⏳ En attente</button>
         <button class="admin-tab" onclick="adminLoadRequests('approved',this)">✅ Approuvées</button>
         <button class="admin-tab" onclick="adminLoadRequests('rejected',this)">❌ Rejetées</button>
@@ -1267,7 +1232,9 @@ function adminFetch(path, method='GET', body=null) {
     headers: { 'Content-Type':'application/json', 'X-Admin-Key': _adminKey },
     ...(body ? { body: JSON.stringify(body) } : {})
   }).then(r => r.json()).catch(e => ({ error: e.message }));
-}async function adminLoadStats() {
+}
+
+async function adminLoadStats() {
   const res = await adminFetch('/api/admin/stats');
   if (res.error) return;
   document.getElementById('as-pending').textContent  = res.pending  ?? '—';
@@ -1349,7 +1316,6 @@ async function adminShowDetail(id) {
     </div>
     <textarea id="admin-reject-reason" style="width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--rs);padding:10px 14px;color:var(--text);font-size:.85rem;resize:vertical;min-height:70px;margin-top:10px;display:none;box-sizing:border-box" placeholder="Raison du rejet (facultatif)..."></textarea>
     `:''}`;
-
   document.getElementById('admin-modal-actions').innerHTML = req.status==='pending' ? `
     <button onclick="adminCloseModal()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:8px 16px;border-radius:8px;font-size:.82rem;cursor:pointer">Fermer</button>
     <button onclick="document.getElementById('admin-reject-reason').style.display='block'" style="background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.3);color:var(--red);padding:8px 16px;border-radius:8px;font-size:.82rem;cursor:pointer">+ Raison</button>
@@ -1411,10 +1377,6 @@ async function adminQuickReject(id) {
     adminLoadRequests('pending');
   }
 })();
-
-function openAdmin(){
-  sv('admin');
-}
 </script>
 
 </body>
