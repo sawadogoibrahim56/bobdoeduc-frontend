@@ -31,7 +31,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 #app{display:none;flex-direction:column;min-height:100vh;max-width:480px;margin:0 auto;box-shadow:0 0 80px rgba(0,0,0,.8)}
 #app.on{display:flex}
 
-/* ═══ SPLASH ═══ */#splash{background:var(--bg);position:fixed;inset:0;z-index:1000;flex-direction:column;gap:14px}
+/* ═══ SPLASH ═══ */
+#splash{background:var(--bg);position:fixed;inset:0;z-index:1000;flex-direction:column;gap:14px}
 .sp-logo{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,9vw,4.5rem);font-weight:800;letter-spacing:-2px}
 .sp-logo span{color:var(--blue)}
 .sp-tag{color:var(--text3);font-size:.8rem;letter-spacing:3px;text-transform:uppercase}
@@ -82,7 +83,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .btn-w{width:100%}
 .btn-sm{padding:7px 12px;font-size:.76rem}
 
-/* ═══ STEPS ═══ */.sdots{display:flex;gap:6px;margin-bottom:14px}
+/* ═══ STEPS ═══ */
+.sdots{display:flex;gap:6px;margin-bottom:14px}
 .sd{flex:1;height:4px;background:var(--bg4);border-radius:2px;transition:var(--ease)}
 .sd.done{background:var(--blue)}.sd.curr{background:var(--blue-l)}
 .fs{display:none;flex-direction:column;gap:13px}
@@ -164,7 +166,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .cycle-a{background:linear-gradient(135deg,#14082A,#0D0519);border-color:rgba(124,58,237,.25)}
 .cycle-a .cc-icon{background:rgba(124,58,237,.15)}
 
-/* ═══ QUIZ OVERLAY ═══ */.qov{display:none;position:fixed;inset:0;z-index:500;background:var(--bg);flex-direction:column;max-width:480px;margin:0 auto}
+/* ═══ QUIZ OVERLAY ═══ */
+.qov{display:none;position:fixed;inset:0;z-index:500;background:var(--bg);flex-direction:column;max-width:480px;margin:0 auto}
 .qov.on{display:flex}
 .qhead{padding:13px 16px;border-bottom:1px solid var(--border2);background:var(--bg2);display:flex;align-items:center;justify-content:space-between;gap:8px}
 .qi .qn{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem}
@@ -194,8 +197,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 
 /* ═══ RESULT FLASH ═══ */
 .rf{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.5);background:var(--bg2);border-radius:var(--r);padding:24px 28px;text-align:center;z-index:700;border:2px solid var(--border2);opacity:0;transition:all .28s cubic-bezier(.175,.885,.32,1.275);pointer-events:none;min-width:170px}
-.rf.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.rf.ok{border-color:var(--green)}.rf.ko{border-color:var(--red)}
+.rf.on{opacity:1;transform:translate(-50%,-50%) scale(1)}.rf.ok{border-color:var(--green)}.rf.ko{border-color:var(--red)}
 .rf-ic{font-size:2.2rem;margin-bottom:5px}
 .rf-tx{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem}
 .rf-pt{font-size:.8rem;color:var(--text2);margin-top:2px}
@@ -282,7 +284,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .lbrn{flex:1;font-weight:500;font-size:.86rem}
 .lbrp{font-family:'Syne',sans-serif;font-weight:800;color:var(--blue);font-size:.86rem}
 
-/* ═══ PROFILE ═══ */.prhd{display:flex;align-items:center;gap:13px;background:var(--bg3);border-radius:var(--r);padding:16px;margin-bottom:16px;border:1px solid var(--border2)}
+/* ═══ PROFILE ═══ */
+.prhd{display:flex;align-items:center;gap:13px;background:var(--bg3);border-radius:var(--r);padding:16px;margin-bottom:16px;border:1px solid var(--border2)}
 .prav{width:58px;height:58px;background:linear-gradient(135deg,var(--blue-d),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;flex-shrink:0}
 .prn{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem}
 .prp{font-size:.78rem;color:var(--text2);margin-top:2px}
@@ -320,7 +323,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 @media(min-width:600px){
   #app{border-left:1px solid var(--border2);border-right:1px solid var(--border2)}
   .qov,.qsum,.paywall .pw-box{max-width:480px}
-  }</style>
+}
+</style>
 </head>
 <body>
 <!-- LOADING -->
@@ -392,8 +396,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
           <input class="fi" id="pw-notes" type="text" placeholder="Ex: ref 12345, nom expéditeur..." maxlength="200">
         </div>
       </div>
-
-      <button class="btn btn-purple btn-w" style="margin-bottom:10px" onclick="submitPaymentProof()">
+    <button class="btn btn-purple btn-w" style="margin-bottom:10px" onclick="submitPaymentProof()">
         📤 Soumettre la preuve de paiement →
       </button>
       <button class="btn btn-ghost btn-w btn-sm" onclick="closePaywall()">Fermer</button>
@@ -416,7 +419,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
   </div>
 </div>
 
-<!-- ═══════════ SPLASH ═══════════ --><div class="view on" id="splash">
+<!-- ═══════════ SPLASH ═══════════ -->
+<div class="view on" id="splash">
   <div class="sp-logo">Bobdo<span>Educ</span></div>
   <div class="sp-tag">Apprends · Progresse · Réussis</div>
   <div class="sp-bar"><div class="sp-fill"></div></div>
@@ -477,7 +481,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
   </div>
 </div>
 
-<!-- ═══════════ APP ═══════════ --><div id="app">
+<!-- ═══════════ APP ═══════════ -->
+<div id="app">
   <div class="topbar">
     <div class="tb-logo">Bobdo<span>Educ</span></div>
     <div class="tb-r">
@@ -563,7 +568,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
       </div>
     </div>
 
-    <!-- REVISION --><div class="sc" id="sc-revision">
+    <!-- REVISION -->
+    <div class="sc" id="sc-revision">
       <div class="pp">
         <div class="ph">📖 Mes Révisions</div>
         <div class="psub">Corrections sauvegardées — ces questions ne reviennent jamais.</div>
@@ -589,8 +595,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
     </div>
 
     <!-- PROFIL -->
-    <div class="sc" id="sc-profile">
-      <div class="pp">
+    <div class="sc" id="sc-profile"><div class="pp">
         <div class="prhd">
           <div class="prav" id="pr-av">BE</div>
           <div><div class="prn" id="pr-n">—</div><div class="prp" id="pr-ph">—</div><div class="prl free" id="pr-l">🎓 Gratuit</div></div>
@@ -663,7 +668,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 // ──────────────────────────────────────────────────────────────
 // CONFIG — Modifier avant déploiement
 // ──────────────────────────────────────────────────────────────
-const CFG = {API:   'https://bobdoeduc-backend.onrender.com',
+const CFG = {
+  API:   'https://bobdoeduc-backend.onrender.com',
   FREE:  20,                        // Doit correspondre à FREE_QUIZ_LIMIT dans .env
   DEBUG: false
 };
@@ -732,7 +738,8 @@ window.addEventListener('DOMContentLoaded',()=>{
 });
 function enterApp(){sv('app');updateUI();addNotif('✅ Connexion réussie');}
 
-// ── AUTH ─────────────────function stab(t){document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',(i===0&&t==='login')||(i===1&&t==='register')));document.getElementById('f-login').classList.toggle('on',t==='login');document.getElementById('f-reg').classList.toggle('on',t==='register');}
+// ── AUTH ──────────────────────────────────────────────────────
+function stab(t){document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',(i===0&&t==='login')||(i===1&&t==='register')));document.getElementById('f-login').classList.toggle('on',t==='login');document.getElementById('f-reg').classList.toggle('on',t==='register');}
 function tpw(id,btn){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password';btn.textContent=i.type==='text'?'🙈':'👁';}
 async function doLogin(){
   const password=document.getElementById('lpw').value;
@@ -787,8 +794,7 @@ async function sendOtp(){
   startOtpTimer();
   toast(useEmail?'📧 Code OTP envoyé par email !':'📱 Code OTP envoyé par SMS !','ok');
 }
-let _os=120;function startOtpTimer(){_os=120;clearInterval(S._otpItv);S._otpItv=setInterval(()=>{_os--;document.getElementById('otp-t').textContent=`${String(Math.floor(_os/60)).padStart(2,'0')}:${String(_os%60).padStart(2,'0')}`;if(_os<=0)clearInterval(S._otpItv);},1000);}
-async function verifyOtp(){
+let _os=120;function startOtpTimer(){_os=120;clearInterval(S._otpItv);S._otpItv=setInterval(()=>{_os--;document.getElementById('otp-t').textContent=`${String(Math.floor(_os/60)).padStart(2,'0')}:${String(_os%60).padStart(2,'0')}`;if(_os<=0)clearInterval(S._otpItv);},1000);}async function verifyOtp(){
   const otp=[0,1,2,3,4,5].map(i=>document.getElementById('oi'+i).value).join('');
   if(otp.length<6){toast('6 chiffres requis','err');return;}
   const useEmail=S._contactType==='email';
@@ -819,7 +825,8 @@ async function doRegister(){
 async function doLogout(){ld('...');await API.post('/api/auth/logout',{refresh_token:S.rt},S.at).catch(()=>{});uld();clearT();S.user=null;sv('auth');}
 
 // ── UI UPDATE ─────────────────────────────────────────────────
-function updateUI(){if(!S.user)return;
+function updateUI(){
+  if(!S.user)return;
   const u=S.user;
   const isPrem=u.is_premium||false;
   const init=(u.pseudo||'BE').substring(0,2).toUpperCase();
@@ -959,7 +966,8 @@ function closeSummary(){document.getElementById('qsum').classList.remove('on');g
 let _selPlan='premium_monthly', _selOp=null;
 
 // Numéro de dépôt admin (configurable — à changer ici avec votre vrai numéro)
-const DEPOSIT_CONFIG = {number: '+226 56 85 32 47', // ⚠️ REMPLACER
+const DEPOSIT_CONFIG = {
+  number: '+226 56 85 32 47', // ⚠️ REMPLACER
   label:  'Orange Money / Moov Money / Wave / Telecel'
 };
 
@@ -986,7 +994,6 @@ async function submitPaymentProof() {
   if (!_selOp)   { toast('Choisissez l\'opérateur utilisé','warn'); return; }
   if (!payphone || payphone.replace(/\D/g,'').length < 8) { toast('Numéro Mobile Money invalide','err'); return; }
   if (!amount || amount < 1) { toast('Entrez le montant déposé','err'); return; }
-
   const minAmount = _selPlan === 'premium_yearly' ? 15000 : 3000;
   if (amount < minAmount) { toast(`Montant minimum pour ce plan: ${minAmount} FCFA`,'warn'); return; }
 
@@ -1051,7 +1058,9 @@ async function loadSub(){
     <button class="btn btn-purple btn-w" onclick="showPaywall()">📤 Soumettre une preuve de paiement →</button>
     ` : `<button class="btn btn-ghost btn-w btn-sm" onclick="cancelSub()">Annuler le renouvellement</button>`}
     ${res.history?.length?`<div style="font-family:Syne,sans-serif;font-weight:700;margin:18px 0 10px;font-size:.9rem">Historique</div>${res.history.map(h=>`<div class="tx-item" style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border2)"><div><div style="font-size:.86rem;font-weight:500">${h.plan}</div><div style="font-size:.72rem;color:var(--text3)">${h.expires_at?new Date(h.expires_at).toLocaleDateString('fr-FR'):''}</div></div><div style="font-family:Syne,sans-serif;font-weight:700;font-size:.86rem;color:var(--blue)">${h.amount} F — ${h.status}</div></div>`).join('')}`:''}`;
-  }async function cancelSub(){
+}
+
+async function cancelSub(){
   if(!confirm('Annuler le renouvellement ? Vous garderez l\'accès jusqu\'à la fin de la période.'))return;
   ld('Annulation...');const res=await API.post('/api/subscription/cancel',{reason:'user_request'},S.at).catch(()=>null);uld();
   if(!res||res.error){toast(res?.error||'Erreur','err');return;}
@@ -1104,7 +1113,10 @@ async function sendForgot(){
   ld('...');const res=await API.post('/api/auth/forgot-password',body).catch(()=>null);uld();closeModal();
   toast(res?.message||'Code envoyé si le contact existe.','warn');
 }
-</script><!-- ═══════════════════════════════════════════════════════════
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════════════
      ADMIN PANEL — intégré dans l'app principale
      Accessible via: bouton "Admin" dans le profil (si ADMIN_SECRET_KEY ok)
      ═══════════════════════════════════════════════════════════ -->
@@ -1174,14 +1186,7 @@ async function sendForgot(){
 
 <!-- ADMIN DETAIL MODAL -->
 <div id="admin-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)">
-  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:24px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto">
-    <h3 style="margin-bottom:14px;font-size:1rem" id="admin-modal-title">Détail</h3>
-    <div id="admin-modal-body"></div>
-    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end" id="admin-modal-actions"></div>
-  </div>
-</div>
-
-<style>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:24px;width:100%;max-width:480px;max-height:90vh;overfl<style>
 .admin-tab{padding:7px 16px;border-radius:8px;font-size:.82rem;font-weight:600;background:var(--bg3);color:var(--text2);border:1px solid var(--border);cursor:pointer;transition:var(--ease)}
 .admin-tab:hover,.admin-tab.on{background:var(--blue);color:white;border-color:var(--blue)}
 .admin-badge-st{display:inline-block;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase}
@@ -1235,7 +1240,8 @@ function adminFetch(path, method='GET', body=null) {
     ...(body ? { body: JSON.stringify(body) } : {})
   }).then(r => r.json()).catch(e => ({ error: e.message }));
 }
-  async function adminLoadStats() {
+
+async function adminLoadStats() {
   const res = await adminFetch('/api/admin/stats');
   if (res.error) return;
   document.getElementById('as-pending').textContent  = res.pending  ?? '—';
@@ -1293,8 +1299,8 @@ async function adminLoadRequests(filter='pending', tabBtn=null) {
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
-  }
-  
+}
+
 async function adminShowDetail(id) {
   _adminReqId = id;
   const res = await adminFetch(`/api/admin/requests?status=all`);
@@ -1357,7 +1363,9 @@ async function adminQuickApprove(id) {
   if (res.error) { toast(res.error,'err'); return; }
   toast('✅ Abonnement activé !','ok');
   adminLoadStats(); adminLoadRequests(_adminFilter);
-  }async function adminQuickReject(id) {
+}
+
+async function adminQuickReject(id) {
   const reason = prompt('Raison du rejet (facultatif) :') || '';
   const res = await adminFetch(`/api/admin/requests/${id}/reject`, 'POST', { reason });
   if (res.error) { toast(res.error,'err'); return; }
@@ -1381,6 +1389,3 @@ async function adminQuickApprove(id) {
 
 </body>
 </html>
-  
-  
-  
