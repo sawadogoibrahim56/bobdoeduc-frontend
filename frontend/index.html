@@ -29,9 +29,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .view{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center}
 .view.on{display:flex}
 #app{display:none;flex-direction:column;min-height:100vh;max-width:480px;margin:0 auto;box-shadow:0 0 80px rgba(0,0,0,.8)}
-#app.on{display:flex}
-
-/* ═══ SPLASH ═══ */
+#app.on{display:flex}/* ═══ SPLASH ═══ */
 #splash{background:var(--bg);position:fixed;inset:0;z-index:1000;flex-direction:column;gap:14px}
 .sp-logo{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,9vw,4.5rem);font-weight:800;letter-spacing:-2px}
 .sp-logo span{color:var(--blue)}
@@ -83,8 +81,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .btn-w{width:100%}
 .btn-sm{padding:7px 12px;font-size:.76rem}
 
-/* ═══ STEPS ═══ */
-.sdots{display:flex;gap:6px;margin-bottom:14px}
+/* ═══ STEPS ═══ */.sdots{display:flex;gap:6px;margin-bottom:14px}
 .sd{flex:1;height:4px;background:var(--bg4);border-radius:2px;transition:var(--ease)}
 .sd.done{background:var(--blue)}.sd.curr{background:var(--blue-l)}
 .fs{display:none;flex-direction:column;gap:13px}
@@ -166,8 +163,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .cycle-a{background:linear-gradient(135deg,#14082A,#0D0519);border-color:rgba(124,58,237,.25)}
 .cycle-a .cc-icon{background:rgba(124,58,237,.15)}
 
-/* ═══ QUIZ OVERLAY ═══ */
-.qov{display:none;position:fixed;inset:0;z-index:500;background:var(--bg);flex-direction:column;max-width:480px;margin:0 auto}
+/* ═══ QUIZ OVERLAY ═══ */.qov{display:none;position:fixed;inset:0;z-index:500;background:var(--bg);flex-direction:column;max-width:480px;margin:0 auto}
 .qov.on{display:flex}
 .qhead{padding:13px 16px;border-bottom:1px solid var(--border2);background:var(--bg2);display:flex;align-items:center;justify-content:space-between;gap:8px}
 .qi .qn{font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem}
@@ -197,7 +193,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 
 /* ═══ RESULT FLASH ═══ */
 .rf{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.5);background:var(--bg2);border-radius:var(--r);padding:24px 28px;text-align:center;z-index:700;border:2px solid var(--border2);opacity:0;transition:all .28s cubic-bezier(.175,.885,.32,1.275);pointer-events:none;min-width:170px}
-.rf.on{opacity:1;transform:translate(-50%,-50%) scale(1)}.rf.ok{border-color:var(--green)}.rf.ko{border-color:var(--red)}
+.rf.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.rf.ok{border-color:var(--green)}.rf.ko{border-color:var(--red)}
 .rf-ic{font-size:2.2rem;margin-bottom:5px}
 .rf-tx{font-family:'Syne',sans-serif;font-weight:800;font-size:.95rem}
 .rf-pt{font-size:.8rem;color:var(--text2);margin-top:2px}
@@ -260,8 +257,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 .pw-pending h4{font-family:'Syne',sans-serif;font-weight:700;margin-bottom:4px}
 .pw-pending p{font-size:.82rem;color:var(--text2)}
 
-/* ═══ REVISION ═══ */
-.ri{background:var(--bg3);border-radius:var(--r);padding:13px;margin-bottom:9px;border:1px solid var(--border2)}
+/* ═══ REVISION ═══ */.ri{background:var(--bg3);border-radius:var(--r);padding:13px;margin-bottom:9px;border:1px solid var(--border2)}
 .ri-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
 .ri-dt{font-size:.7rem;color:var(--text3)}
 .ri-st{font-size:.66rem;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase}
@@ -323,8 +319,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
 @media(min-width:600px){
   #app{border-left:1px solid var(--border2);border-right:1px solid var(--border2)}
   .qov,.qsum,.paywall .pw-box{max-width:480px}
-}
-</style>
+  }</style>
 </head>
 <body>
 <!-- LOADING -->
@@ -396,7 +391,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
           <input class="fi" id="pw-notes" type="text" placeholder="Ex: ref 12345, nom expéditeur..." maxlength="200">
         </div>
       </div>
-    <button class="btn btn-purple btn-w" style="margin-bottom:10px" onclick="submitPaymentProof()">
+
+      <button class="btn btn-purple btn-w" style="margin-bottom:10px" onclick="submitPaymentProof()">
         📤 Soumettre la preuve de paiement →
       </button>
       <button class="btn btn-ghost btn-w btn-sm" onclick="closePaywall()">Fermer</button>
@@ -426,8 +422,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
   <div class="sp-bar"><div class="sp-fill"></div></div>
 </div>
 
-<!-- ═══════════ AUTH ═══════════ -->
-<div class="view" id="auth-v" style="background:var(--bg);padding:20px">
+<!-- ═══════════ AUTH ═══════════ --><div class="view" id="auth-v" style="background:var(--bg);padding:20px">
   <div class="auth-box">
     <div class="a-logo">Bobdo<span>Educ</span></div>
     <div class="a-sub">La plateforme de quiz éducatif au Burkina Faso 🇧🇫<br>Quiz Cycle C, B et A — 20 gratuits, illimité en Premium</div>
@@ -481,8 +476,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
   </div>
 </div>
 
-<!-- ═══════════ APP ═══════════ -->
-<div id="app">
+<!-- ═══════════ APP ═══════════ --><div id="app">
   <div class="topbar">
     <div class="tb-logo">Bobdo<span>Educ</span></div>
     <div class="tb-r">
@@ -568,8 +562,7 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
       </div>
     </div>
 
-    <!-- REVISION -->
-    <div class="sc" id="sc-revision">
+    <!-- REVISION -->    <div class="sc" id="sc-revision">
       <div class="pp">
         <div class="ph">📖 Mes Révisions</div>
         <div class="psub">Corrections sauvegardées — ces questions ne reviennent jamais.</div>
@@ -595,7 +588,8 @@ input,select,textarea{font-family:inherit;outline:none;border:none;background:no
     </div>
 
     <!-- PROFIL -->
-    <div class="sc" id="sc-profile"><div class="pp">
+    <div class="sc" id="sc-profile">
+      <div class="pp">
         <div class="prhd">
           <div class="prav" id="pr-av">BE</div>
           <div><div class="prn" id="pr-n">—</div><div class="prp" id="pr-ph">—</div><div class="prl free" id="pr-l">🎓 Gratuit</div></div>
@@ -674,8 +668,7 @@ const CFG = {
   DEBUG: false
 };
 
-// ── API LAYER ─────────────────────────────────────────────────
-const API = {
+// ── API LAYERconst API = {
   async call(method, path, body, token) {
     try {
       const r = await fetch(CFG.API+path, {
@@ -753,8 +746,7 @@ async function doLogin(){
     const phone='+226'+document.getElementById('lp').value.trim();
     if(phone.length<12||!password){toast('Remplissez tous les champs','err');return;}
     loginBody.phone=phone;
-  }
-  ld('Connexion...');const res=await API.post('/api/auth/login',loginBody).catch(()=>null);uld();
+  }ld('Connexion...');const res=await API.post('/api/auth/login',loginBody).catch(()=>null);uld();
   if(!res){toast('Erreur réseau — vérifiez votre connexion','err');return;}
   if(res.error){toast(res.error,'err');return;}
   S.user=res.user;saveT(res.access_token,res.refresh_token);toast('Bienvenue '+res.user.pseudo+' !','ok');enterApp();
@@ -794,7 +786,8 @@ async function sendOtp(){
   startOtpTimer();
   toast(useEmail?'📧 Code OTP envoyé par email !':'📱 Code OTP envoyé par SMS !','ok');
 }
-let _os=120;function startOtpTimer(){_os=120;clearInterval(S._otpItv);S._otpItv=setInterval(()=>{_os--;document.getElementById('otp-t').textContent=`${String(Math.floor(_os/60)).padStart(2,'0')}:${String(_os%60).padStart(2,'0')}`;if(_os<=0)clearInterval(S._otpItv);},1000);}async function verifyOtp(){
+let _os=120;function startOtpTimer(){_os=120;clearInterval(S._otpItv);S._otpItv=setInterval(()=>{_os--;document.getElementById('otp-t').textContent=`${String(Math.floor(_os/60)).padStart(2,'0')}:${String(_os%60).padStart(2,'0')}`;if(_os<=0)clearInterval(S._otpItv);},1000);}
+async function verifyOtp(){
   const otp=[0,1,2,3,4,5].map(i=>document.getElementById('oi'+i).value).join('');
   if(otp.length<6){toast('6 chiffres requis','err');return;}
   const useEmail=S._contactType==='email';
@@ -875,7 +868,6 @@ async function refreshUser(){const res=await API.get('/api/users/me',S.at).catch
 const cycleLabels={cycle_c:'Cycle C — Primaire',cycle_b:'Cycle B — 1er Cycle',cycle_a:'Cycle A — 2nd Cycle'};
 const diffLabels=['','Facile','Moyen','Difficile'];
 const diffClass=['','d1','d2','d3'];
-
 function startCycle(cycle){
   const u=S.user||{};
   const isPrem=u.is_premium||false;
@@ -980,8 +972,7 @@ function showPaywall(msg) {
   document.getElementById('pw-form-state').style.display='block';
   document.getElementById('pw-sent-state').style.display='none';
   document.getElementById('paywall').classList.add('on');
-}
-function closePaywall() { document.getElementById('paywall').classList.remove('on'); }
+}function closePaywall() { document.getElementById('paywall').classList.remove('on'); }
 function selPlan(p,el) { _selPlan=p; document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('sel')); el.classList.add('sel'); }
 function selOp(op,el)  { _selOp=op;  document.querySelectorAll('.pw-op').forEach(o=>o.classList.remove('on'));   el.classList.add('on'); }
 
@@ -994,6 +985,7 @@ async function submitPaymentProof() {
   if (!_selOp)   { toast('Choisissez l\'opérateur utilisé','warn'); return; }
   if (!payphone || payphone.replace(/\D/g,'').length < 8) { toast('Numéro Mobile Money invalide','err'); return; }
   if (!amount || amount < 1) { toast('Entrez le montant déposé','err'); return; }
+
   const minAmount = _selPlan === 'premium_yearly' ? 15000 : 3000;
   if (amount < minAmount) { toast(`Montant minimum pour ce plan: ${minAmount} FCFA`,'warn'); return; }
 
@@ -1067,51 +1059,53 @@ async function cancelSub(){
   toast(res.message,'warn');loadSub();
 }
 
-// ── REVISION + LEADERBOARD ────────────────────────────────────
-async function loadRev(){
-  document.getElementById('rev-list').innerHTML='<div style="color:var(--text2);text-align:center;padding:20px;font-size:.82rem">Chargement...</div>';
-  const res=await API.get('/api/quiz/revisions?limit=40',S.at).catch(()=>null);
-  const el=document.getElementById('rev-list');
-  if(!res?.revisions?.length){el.innerHTML='<div style="color:var(--text3);text-align:center;padding:40px 0;font-size:.82rem">Aucune révision.<br>Faites un quiz d\'abord !</div>';return;}
-  el.innerHTML='';
-  res.revisions.forEach(r=>{el.innerHTML+=`<div class="ri"><div class="ri-hd"><div class="ri-dt">${r.category||''} · ${new Date(r.saved_at).toLocaleDateString('fr-FR')}</div><div class="ri-st ${r.was_correct?'c':'w'}">${r.was_correct?'✅ Correct':'❌ Incorrect'}</div></div><div class="ri-q">${r.question}</div><div class="ri-a">✓ ${r.correct_answer}</div>${r.explanation?`<div style="font-size:.75rem;color:var(--text3);margin-top:3px">💡 ${r.explanation}</div>`:''}</div>`;});
+// ── REVISION + LEADERBOARD    if(!em){toast('Email requis','err');return;}
+    body.email=em; _fgContact=em; _fgContactType='email';
+  } else {
+    const ph='+226'+(document.getElementById('fp-ph')?.value.trim()||'');
+    if(ph.length<12){toast('Numéro invalide','err');return;}
+    body.phone=ph; _fgContact=ph; _fgContactType='phone';
+  }
+  ld('Envoi du code...');
+  const res=await API.post('/api/auth/send-otp',body).catch(()=>null);
+  uld();
+  if(!res||res.error){toast(res?.error||'Erreur envoi','err');return;}
+  // Passer à l'étape 2
+  const s1=document.getElementById('fg-step1');
+  const s2=document.getElementById('fg-step2');
+  if(s1&&s2){s1.style.display='none';s2.style.display='flex';}
+  toast('Code envoyé ! Vérifiez vos messages.','ok');
 }
 
-async function loadLb(){
-  const res=await API.get('/api/quiz/leaderboard',S.at).catch(()=>null);
-  if(!res?.leaderboard)return;
-  const lb=res.leaderboard;const top3=lb.slice(0,3),rest=lb.slice(3);
-  const cols=['#9E9E9E','#E8B923','#CD7F32'],hs=[60,80,50],avS=[44,52,40];
-  const pod=[top3[1],top3[0],top3[2]];
-  document.getElementById('lbp').innerHTML=pod.map((p,i)=>p?`<div class="lbpi"><div class="lbav" style="width:${avS[i]}px;height:${avS[i]}px;background:${cols[i]};font-size:${avS[i]*.32}px">${(p.pseudo||'?').substring(0,2).toUpperCase()}</div><div class="lbpn">${p.pseudo}</div><div class="lbpp">${p.points} pts</div><div class="lbb" style="background:${cols[i]};height:${hs[i]}px">${i===1?'🥇':i===0?'🥈':'🥉'}</div></div>`:''  ).join('');
-  document.getElementById('lbl').innerHTML=rest.map((p,i)=>`<div class="lb-row ${p.id===S.user?.id?'me':''} ${p.is_premium?'prem':''}"><div class="lbr">${i+4}</div><div class="lbra" ${p.id===S.user?.id?'style="background:rgba(26,115,232,.15);color:var(--blue)"':''}>${(p.pseudo||'?').substring(0,2).toUpperCase()}</div><div class="lbrn">${p.pseudo}${p.is_premium?' <span style="font-size:.65rem;color:var(--gold)">⭐</span>':''}${p.id===S.user?.id?' <span style="color:var(--blue);font-size:.7rem">(Moi)</span>':''}</div><div class="lbrp">${p.points} pts</div></div>`).join('');
-}
+async function resetPassword(){
+  const otp=[0,1,2,3,4,5].map(i=>{const el=document.getElementById('fgoi'+i);return el?el.value:'';}).join('');
+  if(otp.length<6){toast('Entrez le code à 6 chiffres','err');return;}
+  const newpwd=document.getElementById('fg-newpwd')?.value||'';
+  const newpwd2=document.getElementById('fg-newpwd2')?.value||'';
+  if(newpwd.length<8){toast('Mot de passe minimum 8 caractères','err');return;}
+  if(newpwd!==newpwd2){toast('Les mots de passe ne correspondent pas','err');return;}
 
-// ── MODALS ────────────────────────────────────────────────────
-function openModal(type){
-  const body=document.getElementById('mbody');
-  if(type==='rules'){body.innerHTML=`<div class="mt">📋 Fonctionnement</div><div style="display:flex;flex-direction:column;gap:9px;font-size:.82rem;color:var(--text2)">${[['🎓 Quiz gratuits',`${CFG.FREE} quiz offerts à la création du compte. Valables pour tous les cycles.`],['⭐ Premium',`3 000 FCFA/mois ou 15 000 FCFA/an. Accès illimité à tous les cycles.`],['🔄 Questions uniques','Chaque question ne revient jamais pour vous. Les corrections sont sauvegardées.'],['⏱ Temps','20 secondes par question. Temps dépassé = mauvaise réponse.'],['✅ Score','Bonne réponse = +1 pt. Mauvaise = −1 pt. Mérite de progression.'],['🏆 Cycles','Cycle C (Primaire), B (1er Cycle), A (2nd Cycle). Gratuit dans le quota.']].map(([t,d])=>`<div style="background:var(--bg3);border-radius:var(--rs);padding:10px 12px"><b style="color:var(--blue)">${t}</b><br>${d}</div>`).join('')}<button class="btn btn-blue btn-w" onclick="closeModal()" style="margin-top:4px">Compris ✓</button></div>`;}
-  else if(type==='editPseudo'){body.innerHTML=`<div class="mt">👤 Modifier le pseudo</div><div style="display:flex;flex-direction:column;gap:12px"><div class="fg"><div class="fl">Nouveau pseudo</div><input class="fi" id="ep-ps" type="text" value="${S.user?.pseudo||''}" placeholder="2 à 30 caractères"></div><button class="btn btn-blue btn-w" onclick="savePseudo()">Sauvegarder ✓</button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
-  else if(type==='changePwd'){body.innerHTML=`<div class="mt">🔑 Changer le mot de passe</div><div style="display:flex;flex-direction:column;gap:12px"><div class="fg"><div class="fl">Ancien mot de passe</div><input class="fi" id="op-pw" type="password" placeholder="••••••••"></div><div class="fg"><div class="fl">Nouveau (8 min.)</div><input class="fi" id="np-pw" type="password" placeholder="••••••••"></div><button class="btn btn-blue btn-w" onclick="changePwd()">Changer ✓</button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
-  else if(type==='forgot'){body.innerHTML=`<div class="mt">🔑 Réinitialiser le mot de passe</div><div style="display:flex;flex-direction:column;gap:12px"><div style="display:flex;gap:8px"><button id="fg-btn-phone" class="btn btn-blue" style="flex:1;font-size:.78rem" onclick="switchForgot('phone')">📱 Téléphone</button><button id="fg-btn-email" class="btn btn-ghost" style="flex:1;font-size:.78rem" onclick="switchForgot('email')">📧 Email</button></div><div id="fg-phone-wrap"><div class="fg"><div class="fl">Numéro</div><div class="fw"><span class="pfx-l">+226</span><input class="fi pfx" id="fp-ph" type="tel" placeholder="XX XX XX XX" inputmode="numeric"></div></div></div><div id="fg-email-wrap" style="display:none"><div class="fg"><div class="fl">Email</div><input class="fi" id="fp-em" type="email" placeholder="exemple@gmail.com"></div></div><button class="btn btn-blue btn-w" onclick="sendForgot()">Recevoir le code →</button><button class="btn btn-ghost btn-w" onclick="closeModal()">Annuler</button></div>`;}
-  document.getElementById('mbg').classList.add('on');
-}
-function closeModal(){document.getElementById('mbg').classList.remove('on');}
-async function savePseudo(){const pseudo=document.getElementById('ep-ps').value.trim();if(!pseudo||pseudo.length<2){toast('Pseudo invalide','err');return;}ld('...');const res=await API.patch('/api/users/pseudo',{pseudo},S.at).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}if(S.user)S.user.pseudo=pseudo;updateUI();closeModal();toast('✅ Pseudo mis à jour','ok');}
-async function changePwd(){const op=document.getElementById('op-pw').value;const np=document.getElementById('np-pw').value;if(np.length<8){toast('Minimum 8 caractères','err');return;}ld('...');const res=await API.patch('/api/users/password',{old_password:op,new_password:np},S.at).catch(()=>null);uld();if(!res||res.error){toast(res?.error||'Erreur','err');return;}closeModal();toast('✅ Mot de passe modifié. Reconnectez-vous.','ok');setTimeout(doLogout,1500);}
-function switchForgot(type){
-  document.getElementById('fg-phone-wrap').style.display=type==='phone'?'block':'none';
-  document.getElementById('fg-email-wrap').style.display=type==='email'?'block':'none';
-  document.getElementById('fg-btn-phone').className='btn '+(type==='phone'?'btn-blue':'btn-ghost');
-  document.getElementById('fg-btn-email').className='btn '+(type==='email'?'btn-blue':'btn-ghost');
-}
-async function sendForgot(){
-  const useEmail=document.getElementById('fg-email-wrap')&&document.getElementById('fg-email-wrap').style.display!=='none';
-  const body={};
-  if(useEmail){const em=document.getElementById('fp-em')?.value.trim();if(!em){toast('Email requis','err');return;}body.email=em;}
-  else{const ph='+226'+(document.getElementById('fp-ph')?.value.trim()||'');if(ph.length<12){toast('Numéro invalide','err');return;}body.phone=ph;}
-  ld('...');const res=await API.post('/api/auth/forgot-password',body).catch(()=>null);uld();closeModal();
-  toast(res?.message||'Code envoyé si le contact existe.','warn');
+  // Vérifier l'OTP d'abord
+  const vbody={otp,purpose:'reset_password'};
+  if(_fgContactType==='email') vbody.email=_fgContact;
+  else vbody.phone=_fgContact;
+
+  ld('Vérification...');
+  const vres=await API.post('/api/auth/verify-otp',vbody).catch(()=>null);
+  uld();
+  if(!vres||vres.error){toast(vres?.error||'Code incorrect','err');return;}
+
+  // Changer le mot de passe
+  const rbody={new_password:newpwd};
+  if(_fgContactType==='email') rbody.email=_fgContact;
+  else rbody.phone=_fgContact;
+
+  ld('Mise à jour...');
+  const res=await API.post('/api/auth/reset-password',rbody,vres.verify_token).catch(()=>null);
+  uld();
+  if(!res||res.error){toast(res?.error||'Erreur réinitialisation','err');return;}
+  closeModal();
+  toast('✅ Mot de passe modifié ! Connectez-vous.','ok');
 }
 </script>
 
@@ -1121,8 +1115,7 @@ async function sendForgot(){
      Accessible via: bouton "Admin" dans le profil (si ADMIN_SECRET_KEY ok)
      ═══════════════════════════════════════════════════════════ -->
 
-<!-- ADMIN VIEW -->
-<div class="view" id="admin-v" style="align-items:stretch;justify-content:flex-start;padding:0">
+<!-- ADMIN VIEW --><div class="view" id="admin-v" style="align-items:stretch;justify-content:flex-start;padding:0">
   <!-- ADMIN LOGIN -->
   <div id="admin-login" style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px">
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:32px;width:100%;max-width:380px;text-align:center">
@@ -1170,8 +1163,7 @@ async function sendForgot(){
         <button class="admin-tab" onclick="adminLoadRequests('all',this)">📋 Toutes</button>
       </div>
 
-      <!-- Table -->
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+      <!-- Table --><div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden">
         <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
           <span style="font-size:.92rem;font-weight:700" id="admin-table-title">Demandes en attente</span>
           <span style="font-size:.75rem;color:var(--text3)" id="admin-table-count">—</span>
@@ -1186,7 +1178,14 @@ async function sendForgot(){
 
 <!-- ADMIN DETAIL MODAL -->
 <div id="admin-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)">
-  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:24px;width:100%;max-width:480px;max-height:90vh;overfl<style>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:24px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto">
+    <h3 style="margin-bottom:14px;font-size:1rem" id="admin-modal-title">Détail</h3>
+    <div id="admin-modal-body"></div>
+    <div style="display:flex;gap:8px;margin-top:14px;justify-content:flex-end" id="admin-modal-actions"></div>
+  </div>
+</div>
+
+<style>
 .admin-tab{padding:7px 16px;border-radius:8px;font-size:.82rem;font-weight:600;background:var(--bg3);color:var(--text2);border:1px solid var(--border);cursor:pointer;transition:var(--ease)}
 .admin-tab:hover,.admin-tab.on{background:var(--blue);color:white;border-color:var(--blue)}
 .admin-badge-st{display:inline-block;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase}
@@ -1299,9 +1298,7 @@ async function adminLoadRequests(filter='pending', tabBtn=null) {
       </tr></thead>
       <tbody>${rows}</tbody>
     </table>`;
-}
-
-async function adminShowDetail(id) {
+}async function adminShowDetail(id) {
   _adminReqId = id;
   const res = await adminFetch(`/api/admin/requests?status=all`);
   const req = res.requests?.find(r => r.id === id);
@@ -1345,9 +1342,7 @@ async function adminApproveRequest() {
   if (res.error) { toast(res.error,'err'); return; }
   toast('✅ Abonnement activé !','ok');
   adminLoadStats(); adminLoadRequests(_adminFilter);
-}
-
-async function adminRejectRequest() {
+}async function adminRejectRequest() {
   if (!_adminReqId) return;
   const reason = document.getElementById('admin-reject-reason')?.value || '';
   adminCloseModal();
@@ -1389,3 +1384,5 @@ async function adminQuickReject(id) {
 
 </body>
 </html>
+
+  
